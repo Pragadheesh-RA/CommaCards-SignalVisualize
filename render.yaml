@@ -14,12 +14,11 @@ services:
         value: production
 
   # ======================
-  # Frontend (Vite + React)
+  # Frontend (Vite + React - Static Site)
   # ======================
   - type: web
     name: signal-visualize-frontend
     env: static
     rootDir: Visualize
-    plan: free
     buildCommand: npm install && npm run build
     staticPublishPath: dist
