@@ -4,7 +4,7 @@ services:
     name: commacards-signalvisualize-api
     env: node
     plan: free
-    root: Signal-Visualize/server
+    rootDir: Signal-Visualize/server
     buildCommand: npm install
     startCommand: npm start
     envVars:
@@ -16,7 +16,7 @@ services:
     name: commacards-signalvisualize
     env: static
     plan: free
-    root: Signal-Visualize/Visualize
+    rootDir: Signal-Visualize/Visualize
     buildCommand: npm install && npm run build
     staticPublishPath: dist
     envVars:
