@@ -2,7 +2,7 @@ services:
   # Backend Service
   - type: web
     name: commacards-signalvisualize-api
-    runtime: node
+    env: node
     plan: free
     root: Signal-Visualize/server
     buildCommand: npm install
@@ -12,13 +12,13 @@ services:
         value: 10000
 
   # Frontend Service
-  - type: static
+  - type: web
     name: commacards-signalvisualize
-    runtime: static
+    env: static
     plan: free
     root: Signal-Visualize/Visualize
     buildCommand: npm install && npm run build
-    publishDir: dist
+    staticPublishPath: dist
     envVars:
       - key: VITE_API_URL
         fromService:
