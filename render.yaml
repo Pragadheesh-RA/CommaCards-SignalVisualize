@@ -1,0 +1,31 @@
+services:
+  # Backend Service
+  - type: web
+    name: commacards-signalvisualize-api
+    runtime: node
+    plan: free
+    root: Signal-Visualize/server
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: PORT
+        value: 10000
+
+  # Frontend Service
+  - type: static
+    name: commacards-signalvisualize
+    runtime: static
+    plan: free
+    root: Signal-Visualize/Visualize
+    buildCommand: npm install && npm run build
+    publishDir: dist
+    envVars:
+      - key: VITE_API_URL
+        fromService:
+          type: web
+          name: commacards-signalvisualize-api
+          property: url
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html

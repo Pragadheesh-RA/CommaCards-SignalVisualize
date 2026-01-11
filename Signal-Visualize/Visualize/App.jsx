@@ -11,7 +11,8 @@ import {
 
 // --- Configuration ---
 const AUTHORIZED_IDS = ['Water2026', 'Earth1919', 'Fire1123'];
-const API_BASE_URL = 'http://localhost:3000/api';
+const ENV_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000/api';
+const API_BASE_URL = ENV_URL.endsWith('/api') ? ENV_URL : `${ENV_URL}/api`;
 
 // --- Helpers ---
 

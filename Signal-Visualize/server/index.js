@@ -5,7 +5,7 @@ const authRoutes = require('./routes/auth');
 const assessmentRoutes = require('./routes/assessments');
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 app.use(cors());
 app.use(bodyParser.json({ limit: '50mb' })); // Increase limit for large JSON uploads
