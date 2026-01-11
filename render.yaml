@@ -12,19 +12,15 @@ services:
         value: 10000
 
   # Frontend Service
-  - type: web
+  - type: static_site
     name: commacards-signalvisualize
-    env: static
     plan: free
     rootDir: Signal-Visualize/Visualize
     buildCommand: npm install && npm run build
-    staticPublishPath: dist
+    publishDir: dist
     envVars:
       - key: VITE_API_URL
-        fromService:
-          type: web
-          name: commacards-signalvisualize-api
-          property: url
+        value: https://commacards-signalvisualize-api.onrender.com/api
     routes:
       - type: rewrite
         source: /*
