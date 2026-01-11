@@ -1,28 +1,25 @@
-version: "1"
 services:
-  # Backend Service
+  # ======================
+  # Backend API (Node)
+  # ======================
   - type: web
-    name: commacards-signalvisualize-api
+    name: signal-visualize-backend
     env: node
+    rootDir: server
     plan: free
-    rootDir: Signal-Visualize/server
     buildCommand: npm install
-    startCommand: npm start
+    startCommand: node index.js
     envVars:
-      - key: PORT
-        value: 10000
+      - key: NODE_ENV
+        value: production
 
-  # Frontend Service
-  - type: static_site
-    name: commacards-signalvisualize
+  # ======================
+  # Frontend (Vite + React)
+  # ======================
+  - type: web
+    name: signal-visualize-frontend
+    env: static
+    rootDir: Visualize
     plan: free
-    rootDir: Signal-Visualize/Visualize
     buildCommand: npm install && npm run build
-    publishDir: dist
-    envVars:
-      - key: VITE_API_URL
-        value: https://commacards-signalvisualize-api.onrender.com/api
-    routes:
-      - type: rewrite
-        source: /*
-        destination: /index.html
+    staticPublishPath: dist
