@@ -9,9 +9,9 @@ import {
     Flag, MessageSquare, Tag, Save, LogIn, Download, Trash2
 } from 'lucide-react';
 
+// --- Configuration ---
 const AUTHORIZED_IDS = ['Water2026', 'Earth1919', 'Fire1123'];
-const ENV_VAR = import.meta.env.VITE_API_URL;
-const ENV_URL = ENV_VAR ? (ENV_VAR.startsWith('http') ? ENV_VAR : `https://${ENV_VAR}`) : 'http://localhost:3000/api';
+const ENV_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000/api';
 const API_BASE_URL = ENV_URL.endsWith('/api') ? ENV_URL : `${ENV_URL}/api`;
 
 // --- Helpers ---
