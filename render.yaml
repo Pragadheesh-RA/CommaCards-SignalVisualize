@@ -1,6 +1,6 @@
 services:
   # ======================
-  # Backend API (Node)
+  # Backend API (Node / Express)
   # ======================
   - type: web
     name: signal-visualize-backend
