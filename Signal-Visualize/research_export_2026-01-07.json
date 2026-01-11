@@ -1,0 +1,3679 @@
+[
+  {
+    "id": "EtEkwfahgCmlxPb0Y4tL",
+    "data": {
+      "userId": "CR3R4qtQ1bQTn36GCe9zjDHfIcc2",
+      "email": "bsandyofficial@gmail.com",
+      "timestamp": {
+        "_seconds": 1767532744,
+        "_nanoseconds": 93000000
+      },
+      "bestRoles": [
+        "Trust & Safety",
+        "Legal/Compliance",
+        "Evaluator"
+      ],
+      "answers": [
+        {
+          "qId": "STR_03",
+          "selectedIdx": 1,
+          "score": 2
+        },
+        {
+          "qId": "EX_04",
+          "selectedIdx": 1,
+          "score": 2
+        },
+        {
+          "qId": "EX_03",
+          "selectedIdx": 2,
+          "score": 1
+        },
+        {
+          "qId": "MOT_03",
+          "selectedIdx": 1,
+          "score": 0
+        },
+        {
+          "qId": "INF_01",
+          "selectedIdx": 2,
+          "score": 2
+        },
+        {
+          "qId": "MOT_04",
+          "selectedIdx": 1,
+          "score": 2
+        },
+        {
+          "qId": "MOT_01",
+          "selectedIdx": 2,
+          "score": 1
+        },
+        {
+          "qId": "VAL_02",
+          "selectedIdx": 1,
+          "score": 1
+        },
+        {
+          "qId": "STR_04",
+          "selectedIdx": 1,
+          "score": 0
+        },
+        {
+          "qId": "STR_05",
+          "selectedIdx": 1,
+          "score": 2
+        },
+        {
+          "qId": "EX_05",
+          "selectedIdx": 2,
+          "score": 1
+        },
+        {
+          "qId": "INF_02",
+          "selectedIdx": 1,
+          "score": 2
+        },
+        {
+          "qId": "INF_05",
+          "selectedIdx": 2,
+          "score": 1
+        },
+        {
+          "qId": "INF_03",
+          "selectedIdx": 1,
+          "score": 2
+        },
+        {
+          "qId": "VAL_01",
+          "selectedIdx": 2,
+          "score": 2
+        },
+        {
+          "qId": "EGO_03",
+          "selectedIdx": 1,
+          "score": 0
+        },
+        {
+          "qId": "EGO_02",
+          "selectedIdx": 2,
+          "score": 1
+        },
+        {
+          "qId": "MOT_02",
+          "selectedIdx": 1,
+          "score": 1
+        },
+        {
+          "qId": "MOT_05",
+          "selectedIdx": 1,
+          "score": 2
+        },
+        {
+          "qId": "VAL_03",
+          "selectedIdx": 2,
+          "score": 2
+        },
+        {
+          "qId": "VAL_05",
+          "selectedIdx": 1,
+          "score": 1
+        },
+        {
+          "qId": "INF_04",
+          "selectedIdx": 2,
+          "score": 0
+        },
+        {
+          "qId": "EGO_04",
+          "selectedIdx": 1,
+          "score": 1
+        },
+        {
+          "qId": "STR_01",
+          "selectedIdx": 1,
+          "score": 2
+        },
+        {
+          "qId": "EGO_01",
+          "selectedIdx": 2,
+          "score": 2
+        },
+        {
+          "qId": "EX_01",
+          "selectedIdx": 1,
+          "score": 2
+        },
+        {
+          "qId": "EX_02",
+          "selectedIdx": 2,
+          "score": 1
+        },
+        {
+          "qId": "STR_02",
+          "selectedIdx": 1,
+          "score": 0
+        },
+        {
+          "qId": "VAL_04",
+          "selectedIdx": 2,
+          "score": 2
+        },
+        {
+          "qId": "EGO_05",
+          "selectedIdx": 1,
+          "score": 1
+        }
+      ],
+      "workerStatus": "success",
+      "currentArchetype": {
+        "title": "Steady Operator",
+        "desc": "Functional but needs structure and guidance.",
+        "gradient": [
+          "#fbbf24",
+          "#fb923c",
+          "#facc15"
+        ]
+      },
+      "archetype": "Steady Operator",
+      "derivedSignals": {
+        "integrityScore": 0.4,
+        "estimatedPercentile": 40,
+        "subscores": {
+          "Execution & Adaptability": {
+            "score": 7,
+            "max": 12
+          },
+          "Ownership & Accountability": {
+            "score": 7,
+            "max": 12
+          },
+          "Learning & Growth Orientation": {
+            "score": 2,
+            "max": 12
+          },
+          "Collaboration & Leadership": {
+            "score": 7,
+            "max": 12
+          },
+          "Ethics & Integrity": {
+            "score": 8,
+            "max": 12
+          }
+        }
+      },
+      "strengths": [
+        "Uncompromising Standards",
+        "Bias for Action & Delivery"
+      ],
+      "timeTakenTotalSec": 20,
+      "next7Days": [
+        "Dedicate 2h/week to new skills",
+        "Seek 'negative' feedback actively"
+      ],
+      "rawScore": 31,
+      "telemetry": {
+        "sessionStartAt": 1767532718091,
+        "totalBackCount": 0,
+        "totalAnswerChanges": 0,
+        "blurCount": 0,
+        "blurMs": 0,
+        "idleMs": 0,
+        "lastActivityAt": 1767532744273,
+        "lastInputMode": "mouse",
+        "perQ": {
+          "STR_03": {
+            "firstSeenAt": 1767532718092,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 3866,
+            "firstAnswerAt": 1767532721958,
+            "firstDecisionMs": 3866,
+            "finalDecisionMs": 3866,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767532718092
+          },
+          "EX_04": {
+            "firstSeenAt": 1767532722359,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 289,
+            "firstAnswerAt": 1767532722648,
+            "firstDecisionMs": 289,
+            "finalDecisionMs": 289,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767532722359
+          },
+          "EX_03": {
+            "firstSeenAt": 1767532723055,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 91,
+            "firstAnswerAt": 1767532723146,
+            "firstDecisionMs": 91,
+            "finalDecisionMs": 91,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767532723055
+          },
+          "MOT_03": {
+            "firstSeenAt": 1767532723550,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 395,
+            "firstAnswerAt": 1767532723945,
+            "firstDecisionMs": 395,
+            "finalDecisionMs": 395,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767532723550
+          },
+          "INF_01": {
+            "firstSeenAt": 1767532724353,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 233,
+            "firstAnswerAt": 1767532724586,
+            "firstDecisionMs": 233,
+            "finalDecisionMs": 233,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767532724353
+          },
+          "MOT_04": {
+            "firstSeenAt": 1767532724986,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 161,
+            "firstAnswerAt": 1767532725147,
+            "firstDecisionMs": 161,
+            "finalDecisionMs": 161,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767532724986
+          },
+          "MOT_01": {
+            "firstSeenAt": 1767532725556,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 251,
+            "firstAnswerAt": 1767532725807,
+            "firstDecisionMs": 251,
+            "finalDecisionMs": 251,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767532725556
+          },
+          "VAL_02": {
+            "firstSeenAt": 1767532726207,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 92,
+            "firstAnswerAt": 1767532726299,
+            "firstDecisionMs": 92,
+            "finalDecisionMs": 92,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767532726207
+          },
+          "STR_04": {
+            "firstSeenAt": 1767532726707,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 97,
+            "firstAnswerAt": 1767532726804,
+            "firstDecisionMs": 97,
+            "finalDecisionMs": 97,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767532726707
+          },
+          "STR_05": {
+            "firstSeenAt": 1767532727215,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 113,
+            "firstAnswerAt": 1767532727328,
+            "firstDecisionMs": 113,
+            "finalDecisionMs": 113,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767532727215
+          },
+          "EX_05": {
+            "firstSeenAt": 1767532727732,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 91,
+            "firstAnswerAt": 1767532727823,
+            "firstDecisionMs": 91,
+            "finalDecisionMs": 91,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767532727732
+          },
+          "INF_02": {
+            "firstSeenAt": 1767532728224,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 101,
+            "firstAnswerAt": 1767532728325,
+            "firstDecisionMs": 101,
+            "finalDecisionMs": 101,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767532728224
+          },
+          "INF_05": {
+            "firstSeenAt": 1767532728726,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 130,
+            "firstAnswerAt": 1767532728856,
+            "firstDecisionMs": 130,
+            "finalDecisionMs": 130,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767532728726
+          },
+          "INF_03": {
+            "firstSeenAt": 1767532729258,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 87,
+            "firstAnswerAt": 1767532729345,
+            "firstDecisionMs": 87,
+            "finalDecisionMs": 87,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767532729258
+          },
+          "VAL_01": {
+            "firstSeenAt": 1767532729754,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 40,
+            "firstAnswerAt": 1767532729794,
+            "firstDecisionMs": 40,
+            "finalDecisionMs": 40,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767532729754
+          },
+          "EGO_03": {
+            "firstSeenAt": 1767532730199,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 53,
+            "firstAnswerAt": 1767532730252,
+            "firstDecisionMs": 53,
+            "finalDecisionMs": 53,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767532730199
+          },
+          "EGO_02": {
+            "firstSeenAt": 1767532730657,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 512,
+            "firstAnswerAt": 1767532731169,
+            "firstDecisionMs": 512,
+            "finalDecisionMs": 512,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767532730657
+          },
+          "MOT_02": {
+            "firstSeenAt": 1767532731582,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 655,
+            "firstAnswerAt": 1767532732237,
+            "firstDecisionMs": 655,
+            "finalDecisionMs": 655,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767532731582
+          },
+          "MOT_05": {
+            "firstSeenAt": 1767532732650,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 18,
+            "firstAnswerAt": 1767532732668,
+            "firstDecisionMs": 18,
+            "finalDecisionMs": 18,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767532732650
+          },
+          "VAL_03": {
+            "firstSeenAt": 1767532733084,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 88,
+            "firstAnswerAt": 1767532733172,
+            "firstDecisionMs": 88,
+            "finalDecisionMs": 88,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767532733084
+          },
+          "VAL_05": {
+            "firstSeenAt": 1767532733576,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 59,
+            "firstAnswerAt": 1767532733635,
+            "firstDecisionMs": 59,
+            "finalDecisionMs": 59,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767532733576
+          },
+          "INF_04": {
+            "firstSeenAt": 1767532734038,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 83,
+            "firstAnswerAt": 1767532734121,
+            "firstDecisionMs": 83,
+            "finalDecisionMs": 83,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767532734038
+          },
+          "EGO_04": {
+            "firstSeenAt": 1767532734523,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 51,
+            "firstAnswerAt": 1767532734574,
+            "firstDecisionMs": 51,
+            "finalDecisionMs": 51,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767532734523
+          },
+          "STR_01": {
+            "firstSeenAt": 1767532734976,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 134,
+            "firstAnswerAt": 1767532735110,
+            "firstDecisionMs": 134,
+            "finalDecisionMs": 134,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767532734976
+          },
+          "EGO_01": {
+            "firstSeenAt": 1767532735519,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 89,
+            "firstAnswerAt": 1767532735608,
+            "firstDecisionMs": 89,
+            "finalDecisionMs": 89,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767532735519
+          },
+          "EX_01": {
+            "firstSeenAt": 1767532736016,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 66,
+            "firstAnswerAt": 1767532736082,
+            "firstDecisionMs": 66,
+            "finalDecisionMs": 66,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767532736016
+          },
+          "EX_02": {
+            "firstSeenAt": 1767532736483,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 119,
+            "firstAnswerAt": 1767532736602,
+            "firstDecisionMs": 119,
+            "finalDecisionMs": 119,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767532736483
+          },
+          "STR_02": {
+            "firstSeenAt": 1767532737006,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 36,
+            "firstAnswerAt": 1767532737042,
+            "firstDecisionMs": 36,
+            "finalDecisionMs": 36,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767532737006
+          },
+          "VAL_04": {
+            "firstSeenAt": 1767532737454,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 206,
+            "firstAnswerAt": 1767532737660,
+            "firstDecisionMs": 206,
+            "finalDecisionMs": 206,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767532737454
+          },
+          "EGO_05": {
+            "firstSeenAt": 1767532738065,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 48,
+            "firstAnswerAt": 1767532738113,
+            "firstDecisionMs": 48,
+            "finalDecisionMs": 48,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767532738065
+          }
+        }
+      },
+      "signalScore100": 52,
+      "status": "complete"
+    }
+  },
+  {
+    "id": "YN8z3MkXwWPDLY0Me6UW",
+    "data": {
+      "userId": "CR3R4qtQ1bQTn36GCe9zjDHfIcc2",
+      "email": "vrwv@gmail.com",
+      "timestamp": {
+        "_seconds": 1767532615,
+        "_nanoseconds": 982000000
+      },
+      "bestRoles": [
+        "Early Stage Reviewer",
+        "Delivery Lead",
+        "Founder's Office"
+      ],
+      "answers": [
+        {
+          "qId": "VAL_03",
+          "selectedIdx": 1,
+          "score": 1
+        },
+        {
+          "qId": "VAL_01",
+          "selectedIdx": 0,
+          "score": 0
+        },
+        {
+          "qId": "MOT_02",
+          "selectedIdx": 2,
+          "score": 2
+        },
+        {
+          "qId": "EX_01",
+          "selectedIdx": 1,
+          "score": 2
+        },
+        {
+          "qId": "INF_02",
+          "selectedIdx": 0,
+          "score": 1
+        },
+        {
+          "qId": "STR_01",
+          "selectedIdx": 1,
+          "score": 2
+        },
+        {
+          "qId": "EGO_01",
+          "selectedIdx": 2,
+          "score": 2
+        },
+        {
+          "qId": "VAL_02",
+          "selectedIdx": 1,
+          "score": 1
+        },
+        {
+          "qId": "EX_04",
+          "selectedIdx": 0,
+          "score": 1
+        },
+        {
+          "qId": "STR_02",
+          "selectedIdx": 1,
+          "score": 0
+        },
+        {
+          "qId": "INF_03",
+          "selectedIdx": 2,
+          "score": 1
+        },
+        {
+          "qId": "VAL_04",
+          "selectedIdx": 1,
+          "score": 1
+        },
+        {
+          "qId": "INF_04",
+          "selectedIdx": 0,
+          "score": 1
+        },
+        {
+          "qId": "MOT_05",
+          "selectedIdx": 1,
+          "score": 2
+        },
+        {
+          "qId": "EGO_05",
+          "selectedIdx": 1,
+          "score": 1
+        },
+        {
+          "qId": "EGO_04",
+          "selectedIdx": 1,
+          "score": 1
+        },
+        {
+          "qId": "EX_03",
+          "selectedIdx": 1,
+          "score": 2
+        },
+        {
+          "qId": "INF_05",
+          "selectedIdx": 1,
+          "score": 2
+        },
+        {
+          "qId": "STR_04",
+          "selectedIdx": 1,
+          "score": 0
+        },
+        {
+          "qId": "MOT_04",
+          "selectedIdx": 1,
+          "score": 2
+        },
+        {
+          "qId": "INF_01",
+          "selectedIdx": 1,
+          "score": 0
+        },
+        {
+          "qId": "EX_05",
+          "selectedIdx": 1,
+          "score": 2
+        },
+        {
+          "qId": "EGO_03",
+          "selectedIdx": 1,
+          "score": 0
+        },
+        {
+          "qId": "VAL_05",
+          "selectedIdx": 1,
+          "score": 1
+        },
+        {
+          "qId": "MOT_03",
+          "selectedIdx": 1,
+          "score": 0
+        },
+        {
+          "qId": "STR_03",
+          "selectedIdx": 1,
+          "score": 2
+        },
+        {
+          "qId": "EGO_02",
+          "selectedIdx": 1,
+          "score": 0
+        },
+        {
+          "qId": "MOT_01",
+          "selectedIdx": 1,
+          "score": 2
+        },
+        {
+          "qId": "EX_02",
+          "selectedIdx": 1,
+          "score": 2
+        },
+        {
+          "qId": "STR_05",
+          "selectedIdx": 1,
+          "score": 2
+        }
+      ],
+      "workerStatus": "success",
+      "currentArchetype": {
+        "title": "Steady Operator",
+        "desc": "Functional but needs structure and guidance.",
+        "gradient": [
+          "#fbbf24",
+          "#fb923c",
+          "#facc15"
+        ]
+      },
+      "archetype": "Steady Operator",
+      "derivedSignals": {
+        "integrityScore": 0.4,
+        "estimatedPercentile": 40,
+        "subscores": {
+          "Execution & Adaptability": {
+            "score": 9,
+            "max": 12
+          },
+          "Ownership & Accountability": {
+            "score": 6,
+            "max": 12
+          },
+          "Learning & Growth Orientation": {
+            "score": 4,
+            "max": 12
+          },
+          "Collaboration & Leadership": {
+            "score": 6,
+            "max": 12
+          },
+          "Ethics & Integrity": {
+            "score": 5,
+            "max": 12
+          }
+        }
+      },
+      "strengths": [
+        "Bias for Action & Delivery",
+        "Extreme Ownership & Reliability"
+      ],
+      "timeTakenTotalSec": 22,
+      "next7Days": [
+        "Dedicate 2h/week to new skills",
+        "Seek 'negative' feedback actively"
+      ],
+      "rawScore": 30,
+      "telemetry": {
+        "sessionStartAt": 1767532583847,
+        "totalBackCount": 0,
+        "totalAnswerChanges": 0,
+        "blurCount": 0,
+        "blurMs": 0,
+        "idleMs": 0,
+        "lastActivityAt": 1767532616137,
+        "lastInputMode": "mouse",
+        "perQ": {
+          "VAL_03": {
+            "firstSeenAt": 1767532583847,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 1197,
+            "firstAnswerAt": 1767532585044,
+            "firstDecisionMs": 1197,
+            "finalDecisionMs": 1197,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767532583847
+          },
+          "VAL_01": {
+            "firstSeenAt": 1767532585457,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 833,
+            "firstAnswerAt": 1767532586290,
+            "firstDecisionMs": 833,
+            "finalDecisionMs": 833,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767532585457
+          },
+          "MOT_02": {
+            "firstSeenAt": 1767532586699,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 427,
+            "firstAnswerAt": 1767532587126,
+            "firstDecisionMs": 427,
+            "finalDecisionMs": 427,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767532586699
+          },
+          "EX_01": {
+            "firstSeenAt": 1767532587532,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 569,
+            "firstAnswerAt": 1767532588101,
+            "firstDecisionMs": 569,
+            "finalDecisionMs": 569,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767532587532
+          },
+          "INF_02": {
+            "firstSeenAt": 1767532588509,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 703,
+            "firstAnswerAt": 1767532589212,
+            "firstDecisionMs": 703,
+            "finalDecisionMs": 703,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767532588509
+          },
+          "STR_01": {
+            "firstSeenAt": 1767532589620,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 624,
+            "firstAnswerAt": 1767532590244,
+            "firstDecisionMs": 624,
+            "finalDecisionMs": 624,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767532589620
+          },
+          "EGO_01": {
+            "firstSeenAt": 1767532590655,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 359,
+            "firstAnswerAt": 1767532591014,
+            "firstDecisionMs": 359,
+            "finalDecisionMs": 359,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767532590655
+          },
+          "VAL_02": {
+            "firstSeenAt": 1767532591416,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 352,
+            "firstAnswerAt": 1767532591768,
+            "firstDecisionMs": 352,
+            "finalDecisionMs": 352,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767532591416
+          },
+          "EX_04": {
+            "firstSeenAt": 1767532592175,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 418,
+            "firstAnswerAt": 1767532592593,
+            "firstDecisionMs": 418,
+            "finalDecisionMs": 418,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767532592175
+          },
+          "STR_02": {
+            "firstSeenAt": 1767532592998,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 452,
+            "firstAnswerAt": 1767532593450,
+            "firstDecisionMs": 452,
+            "finalDecisionMs": 452,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767532592998
+          },
+          "INF_03": {
+            "firstSeenAt": 1767532593853,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 336,
+            "firstAnswerAt": 1767532594189,
+            "firstDecisionMs": 336,
+            "finalDecisionMs": 336,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767532593853
+          },
+          "VAL_04": {
+            "firstSeenAt": 1767532594598,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 389,
+            "firstAnswerAt": 1767532594987,
+            "firstDecisionMs": 389,
+            "finalDecisionMs": 389,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767532594598
+          },
+          "INF_04": {
+            "firstSeenAt": 1767532595397,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 344,
+            "firstAnswerAt": 1767532595741,
+            "firstDecisionMs": 344,
+            "finalDecisionMs": 344,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767532595397
+          },
+          "MOT_05": {
+            "firstSeenAt": 1767532596147,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 345,
+            "firstAnswerAt": 1767532596492,
+            "firstDecisionMs": 345,
+            "finalDecisionMs": 345,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767532596147
+          },
+          "EGO_05": {
+            "firstSeenAt": 1767532596897,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 400,
+            "firstAnswerAt": 1767532597297,
+            "firstDecisionMs": 400,
+            "finalDecisionMs": 400,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767532596897
+          },
+          "EGO_04": {
+            "firstSeenAt": 1767532597698,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 615,
+            "firstAnswerAt": 1767532598313,
+            "firstDecisionMs": 615,
+            "finalDecisionMs": 615,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767532597698
+          },
+          "EX_03": {
+            "firstSeenAt": 1767532598718,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 351,
+            "firstAnswerAt": 1767532599069,
+            "firstDecisionMs": 351,
+            "finalDecisionMs": 351,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767532598718
+          },
+          "INF_05": {
+            "firstSeenAt": 1767532599472,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 330,
+            "firstAnswerAt": 1767532599802,
+            "firstDecisionMs": 330,
+            "finalDecisionMs": 330,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767532599472
+          },
+          "STR_04": {
+            "firstSeenAt": 1767532600205,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 338,
+            "firstAnswerAt": 1767532600543,
+            "firstDecisionMs": 338,
+            "finalDecisionMs": 338,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767532600205
+          },
+          "MOT_04": {
+            "firstSeenAt": 1767532600956,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 133,
+            "firstAnswerAt": 1767532601089,
+            "firstDecisionMs": 133,
+            "finalDecisionMs": 133,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767532600956
+          },
+          "INF_01": {
+            "firstSeenAt": 1767532601498,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 41,
+            "firstAnswerAt": 1767532601539,
+            "firstDecisionMs": 41,
+            "finalDecisionMs": 41,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767532601498
+          },
+          "EX_05": {
+            "firstSeenAt": 1767532601964,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 81,
+            "firstAnswerAt": 1767532602045,
+            "firstDecisionMs": 81,
+            "finalDecisionMs": 81,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767532601964
+          },
+          "EGO_03": {
+            "firstSeenAt": 1767532602464,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 49,
+            "firstAnswerAt": 1767532602513,
+            "firstDecisionMs": 49,
+            "finalDecisionMs": 49,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767532602464
+          },
+          "VAL_05": {
+            "firstSeenAt": 1767532602923,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 59,
+            "firstAnswerAt": 1767532602982,
+            "firstDecisionMs": 59,
+            "finalDecisionMs": 59,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767532602923
+          },
+          "MOT_03": {
+            "firstSeenAt": 1767532603397,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 84,
+            "firstAnswerAt": 1767532603481,
+            "firstDecisionMs": 84,
+            "finalDecisionMs": 84,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767532603397
+          },
+          "STR_03": {
+            "firstSeenAt": 1767532603891,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 95,
+            "firstAnswerAt": 1767532603986,
+            "firstDecisionMs": 95,
+            "finalDecisionMs": 95,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767532603891
+          },
+          "EGO_02": {
+            "firstSeenAt": 1767532604398,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 97,
+            "firstAnswerAt": 1767532604495,
+            "firstDecisionMs": 97,
+            "finalDecisionMs": 97,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767532604398
+          },
+          "MOT_01": {
+            "firstSeenAt": 1767532604898,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 94,
+            "firstAnswerAt": 1767532604992,
+            "firstDecisionMs": 94,
+            "finalDecisionMs": 94,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767532604898
+          },
+          "EX_02": {
+            "firstSeenAt": 1767532605397,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 103,
+            "firstAnswerAt": 1767532605500,
+            "firstDecisionMs": 103,
+            "finalDecisionMs": 103,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767532605397
+          },
+          "STR_05": {
+            "firstSeenAt": 1767532605903,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 80,
+            "firstAnswerAt": 1767532605983,
+            "firstDecisionMs": 80,
+            "finalDecisionMs": 80,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767532605903
+          }
+        }
+      },
+      "signalScore100": 50,
+      "status": "complete"
+    }
+  },
+  {
+    "id": "YdfxPT0ZcCpGhQXeVNIq",
+    "data": {
+      "userId": "toIJjdBNh9PO1QpTYGnqE14U56v1",
+      "email": "arunjagan05@gmail.com",
+      "timestamp": {
+        "_seconds": 1767764606,
+        "_nanoseconds": 913000000
+      },
+      "bestRoles": [
+        "Trust & Safety",
+        "Legal/Compliance",
+        "Evaluator"
+      ],
+      "answers": [
+        {
+          "qId": "STR_04",
+          "selectedIdx": 2,
+          "score": 2
+        },
+        {
+          "qId": "STR_03",
+          "selectedIdx": 1,
+          "score": 2
+        },
+        {
+          "qId": "INF_01",
+          "selectedIdx": 2,
+          "score": 2
+        },
+        {
+          "qId": "INF_03",
+          "selectedIdx": 1,
+          "score": 2
+        },
+        {
+          "qId": "MOT_04",
+          "selectedIdx": 1,
+          "score": 2
+        },
+        {
+          "qId": "EGO_03",
+          "selectedIdx": 0,
+          "score": 2
+        },
+        {
+          "qId": "EGO_02",
+          "selectedIdx": 1,
+          "score": 0
+        },
+        {
+          "qId": "MOT_05",
+          "selectedIdx": 1,
+          "score": 2
+        },
+        {
+          "qId": "MOT_02",
+          "selectedIdx": 2,
+          "score": 2
+        },
+        {
+          "qId": "EX_04",
+          "selectedIdx": 1,
+          "score": 2
+        },
+        {
+          "qId": "EGO_01",
+          "selectedIdx": 2,
+          "score": 2
+        },
+        {
+          "qId": "INF_02",
+          "selectedIdx": 1,
+          "score": 2
+        },
+        {
+          "qId": "VAL_05",
+          "selectedIdx": 2,
+          "score": 2
+        },
+        {
+          "qId": "VAL_02",
+          "selectedIdx": 2,
+          "score": 2
+        },
+        {
+          "qId": "MOT_03",
+          "selectedIdx": 2,
+          "score": 2
+        },
+        {
+          "qId": "INF_04",
+          "selectedIdx": 2,
+          "score": 0
+        },
+        {
+          "qId": "EX_05",
+          "selectedIdx": 1,
+          "score": 2
+        },
+        {
+          "qId": "EGO_05",
+          "selectedIdx": 2,
+          "score": 2
+        },
+        {
+          "qId": "MOT_01",
+          "selectedIdx": 1,
+          "score": 2
+        },
+        {
+          "qId": "EX_01",
+          "selectedIdx": 2,
+          "score": 1
+        },
+        {
+          "qId": "VAL_03",
+          "selectedIdx": 2,
+          "score": 2
+        },
+        {
+          "qId": "EX_02",
+          "selectedIdx": 0,
+          "score": 0
+        },
+        {
+          "qId": "INF_05",
+          "selectedIdx": 1,
+          "score": 2
+        },
+        {
+          "qId": "EX_03",
+          "selectedIdx": 2,
+          "score": 1
+        },
+        {
+          "qId": "EGO_04",
+          "selectedIdx": 2,
+          "score": 2
+        },
+        {
+          "qId": "STR_01",
+          "selectedIdx": 1,
+          "score": 2
+        },
+        {
+          "qId": "VAL_01",
+          "selectedIdx": 0,
+          "score": 0
+        },
+        {
+          "qId": "VAL_04",
+          "selectedIdx": 1,
+          "score": 1
+        },
+        {
+          "qId": "STR_05",
+          "selectedIdx": 1,
+          "score": 2
+        },
+        {
+          "qId": "STR_02",
+          "selectedIdx": 2,
+          "score": 2
+        }
+      ],
+      "workerStatus": "success",
+      "currentArchetype": {
+        "title": "Steady Operator",
+        "desc": "Functional but needs structure and guidance.",
+        "gradient": [
+          "#fbbf24",
+          "#fb923c",
+          "#facc15"
+        ]
+      },
+      "archetype": "Steady Operator",
+      "derivedSignals": {
+        "integrityScore": 0.95,
+        "estimatedPercentile": 40,
+        "subscores": {
+          "Execution & Adaptability": {
+            "score": 6,
+            "max": 12
+          },
+          "Ownership & Accountability": {
+            "score": 8,
+            "max": 12
+          },
+          "Learning & Growth Orientation": {
+            "score": 8,
+            "max": 12
+          },
+          "Collaboration & Leadership": {
+            "score": 8,
+            "max": 12
+          },
+          "Ethics & Integrity": {
+            "score": 9,
+            "max": 12
+          }
+        }
+      },
+      "strengths": [
+        "Uncompromising Standards",
+        "Extreme Ownership & Reliability"
+      ],
+      "timeTakenTotalSec": 505,
+      "next7Days": [
+        "Practice 'Day 1' shipping mentality",
+        "Force faster decision loops"
+      ],
+      "rawScore": 39,
+      "telemetry": {
+        "sessionStartAt": 1767764085942,
+        "totalBackCount": 0,
+        "totalAnswerChanges": 0,
+        "blurCount": 0,
+        "blurMs": 0,
+        "idleMs": 19000,
+        "lastActivityAt": 1767764606752,
+        "lastInputMode": "mouse",
+        "perQ": {
+          "STR_04": {
+            "firstSeenAt": 1767764085942,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 40170,
+            "firstAnswerAt": 1767764126112,
+            "firstDecisionMs": 40170,
+            "finalDecisionMs": 40170,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767764085942
+          },
+          "STR_03": {
+            "firstSeenAt": 1767764126515,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 17729,
+            "firstAnswerAt": 1767764144244,
+            "firstDecisionMs": 17729,
+            "finalDecisionMs": 17729,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767764126515
+          },
+          "INF_01": {
+            "firstSeenAt": 1767764144655,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 31372,
+            "firstAnswerAt": 1767764176027,
+            "firstDecisionMs": 31372,
+            "finalDecisionMs": 31372,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767764144655
+          },
+          "INF_03": {
+            "firstSeenAt": 1767764176431,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 23514,
+            "firstAnswerAt": 1767764199945,
+            "firstDecisionMs": 23514,
+            "finalDecisionMs": 23514,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767764176431
+          },
+          "MOT_04": {
+            "firstSeenAt": 1767764200347,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 7350,
+            "firstAnswerAt": 1767764207697,
+            "firstDecisionMs": 7350,
+            "finalDecisionMs": 7350,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767764200347
+          },
+          "EGO_03": {
+            "firstSeenAt": 1767764208107,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 19070,
+            "firstAnswerAt": 1767764227177,
+            "firstDecisionMs": 19070,
+            "finalDecisionMs": 19070,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767764208107
+          },
+          "EGO_02": {
+            "firstSeenAt": 1767764227589,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 12703,
+            "firstAnswerAt": 1767764240292,
+            "firstDecisionMs": 12703,
+            "finalDecisionMs": 12703,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767764227589
+          },
+          "MOT_05": {
+            "firstSeenAt": 1767764240704,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 17652,
+            "firstAnswerAt": 1767764258356,
+            "firstDecisionMs": 17652,
+            "finalDecisionMs": 17652,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767764240704
+          },
+          "MOT_02": {
+            "firstSeenAt": 1767764258757,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 10299,
+            "firstAnswerAt": 1767764269056,
+            "firstDecisionMs": 10299,
+            "finalDecisionMs": 10299,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767764258757
+          },
+          "EX_04": {
+            "firstSeenAt": 1767764269466,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 14075,
+            "firstAnswerAt": 1767764283540,
+            "firstDecisionMs": 14075,
+            "finalDecisionMs": 14075,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767764269466
+          },
+          "EGO_01": {
+            "firstSeenAt": 1767764283940,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 27747,
+            "firstAnswerAt": 1767764311687,
+            "firstDecisionMs": 27747,
+            "finalDecisionMs": 27747,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767764283940
+          },
+          "INF_02": {
+            "firstSeenAt": 1767764312089,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 10807,
+            "firstAnswerAt": 1767764322896,
+            "firstDecisionMs": 10807,
+            "finalDecisionMs": 10807,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767764312089
+          },
+          "VAL_05": {
+            "firstSeenAt": 1767764323298,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 10031,
+            "firstAnswerAt": 1767764333329,
+            "firstDecisionMs": 10031,
+            "finalDecisionMs": 10031,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767764323298
+          },
+          "VAL_02": {
+            "firstSeenAt": 1767764333739,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 14993,
+            "firstAnswerAt": 1767764348732,
+            "firstDecisionMs": 14993,
+            "finalDecisionMs": 14993,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767764333739
+          },
+          "MOT_03": {
+            "firstSeenAt": 1767764349137,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 8005,
+            "firstAnswerAt": 1767764357142,
+            "firstDecisionMs": 8005,
+            "finalDecisionMs": 8005,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767764349137
+          },
+          "INF_04": {
+            "firstSeenAt": 1767764357549,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 13569,
+            "firstAnswerAt": 1767764371118,
+            "firstDecisionMs": 13569,
+            "finalDecisionMs": 13569,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767764357549
+          },
+          "EX_05": {
+            "firstSeenAt": 1767764371527,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 10144,
+            "firstAnswerAt": 1767764381671,
+            "firstDecisionMs": 10144,
+            "finalDecisionMs": 10144,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767764371527
+          },
+          "EGO_05": {
+            "firstSeenAt": 1767764382077,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 21891,
+            "firstAnswerAt": 1767764403968,
+            "firstDecisionMs": 21891,
+            "finalDecisionMs": 21891,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767764382077
+          },
+          "MOT_01": {
+            "firstSeenAt": 1767764404370,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 9677,
+            "firstAnswerAt": 1767764414047,
+            "firstDecisionMs": 9677,
+            "finalDecisionMs": 9677,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767764404370
+          },
+          "EX_01": {
+            "firstSeenAt": 1767764414462,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 21770,
+            "firstAnswerAt": 1767764436232,
+            "firstDecisionMs": 21770,
+            "finalDecisionMs": 21770,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767764414462
+          },
+          "VAL_03": {
+            "firstSeenAt": 1767764436643,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 17790,
+            "firstAnswerAt": 1767764454433,
+            "firstDecisionMs": 17790,
+            "finalDecisionMs": 17790,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767764436643
+          },
+          "EX_02": {
+            "firstSeenAt": 1767764454842,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 12231,
+            "firstAnswerAt": 1767764467073,
+            "firstDecisionMs": 12231,
+            "finalDecisionMs": 12231,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767764454842
+          },
+          "INF_05": {
+            "firstSeenAt": 1767764467476,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 16746,
+            "firstAnswerAt": 1767764484222,
+            "firstDecisionMs": 16746,
+            "finalDecisionMs": 16746,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767764467476
+          },
+          "EX_03": {
+            "firstSeenAt": 1767764484630,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 14787,
+            "firstAnswerAt": 1767764499417,
+            "firstDecisionMs": 14787,
+            "finalDecisionMs": 14787,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767764484630
+          },
+          "EGO_04": {
+            "firstSeenAt": 1767764499823,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 7923,
+            "firstAnswerAt": 1767764507746,
+            "firstDecisionMs": 7923,
+            "finalDecisionMs": 7923,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767764499823
+          },
+          "STR_01": {
+            "firstSeenAt": 1767764508163,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 29646,
+            "firstAnswerAt": 1767764537809,
+            "firstDecisionMs": 29646,
+            "finalDecisionMs": 29646,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767764508163
+          },
+          "VAL_01": {
+            "firstSeenAt": 1767764538219,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 15161,
+            "firstAnswerAt": 1767764553380,
+            "firstDecisionMs": 15161,
+            "finalDecisionMs": 15161,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767764538219
+          },
+          "VAL_04": {
+            "firstSeenAt": 1767764553781,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 11259,
+            "firstAnswerAt": 1767764565040,
+            "firstDecisionMs": 11259,
+            "finalDecisionMs": 11259,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767764553781
+          },
+          "STR_05": {
+            "firstSeenAt": 1767764565442,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 9242,
+            "firstAnswerAt": 1767764574684,
+            "firstDecisionMs": 9242,
+            "finalDecisionMs": 9242,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767764565442
+          },
+          "STR_02": {
+            "firstSeenAt": 1767764575087,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 16238,
+            "firstAnswerAt": 1767764591325,
+            "firstDecisionMs": 16238,
+            "finalDecisionMs": 16238,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767764575087
+          }
+        }
+      },
+      "signalScore100": 65,
+      "status": "complete"
+    },
+    "annotations": {
+      "label": "Reviewed",
+      "lastUpdatedBy": "EARTH1919"
+    }
+  },
+  {
+    "id": "a2Fdw6WQixOPwdH7gTdZ",
+    "data": {
+      "userId": "CR3R4qtQ1bQTn36GCe9zjDHfIcc2",
+      "email": "fzzbdb@gmail.com",
+      "answers": [
+        {
+          "qId": "VAL_01",
+          "selectedIdx": 1,
+          "score": 1
+        },
+        {
+          "qId": "INF_04",
+          "selectedIdx": 2,
+          "score": 0
+        },
+        {
+          "qId": "EX_01",
+          "selectedIdx": 1,
+          "score": 2
+        },
+        {
+          "qId": "EX_05",
+          "selectedIdx": 1,
+          "score": 2
+        },
+        {
+          "qId": "INF_03",
+          "selectedIdx": 1,
+          "score": 2
+        },
+        {
+          "qId": "INF_02",
+          "selectedIdx": 1,
+          "score": 2
+        },
+        {
+          "qId": "STR_01",
+          "selectedIdx": 1,
+          "score": 2
+        },
+        {
+          "qId": "VAL_02",
+          "selectedIdx": 2,
+          "score": 2
+        },
+        {
+          "qId": "VAL_05",
+          "selectedIdx": 1,
+          "score": 1
+        },
+        {
+          "qId": "EGO_05",
+          "selectedIdx": 2,
+          "score": 2
+        },
+        {
+          "qId": "STR_04",
+          "selectedIdx": 2,
+          "score": 2
+        },
+        {
+          "qId": "VAL_03",
+          "selectedIdx": 2,
+          "score": 2
+        },
+        {
+          "qId": "MOT_04",
+          "selectedIdx": 1,
+          "score": 2
+        },
+        {
+          "qId": "EGO_04",
+          "selectedIdx": 0,
+          "score": 0
+        },
+        {
+          "qId": "INF_01",
+          "selectedIdx": 1,
+          "score": 0
+        },
+        {
+          "qId": "STR_03",
+          "selectedIdx": 1,
+          "score": 2
+        },
+        {
+          "qId": "VAL_04",
+          "selectedIdx": 1,
+          "score": 1
+        },
+        {
+          "qId": "MOT_01",
+          "selectedIdx": 1,
+          "score": 2
+        },
+        {
+          "qId": "MOT_03",
+          "selectedIdx": 2,
+          "score": 2
+        },
+        {
+          "qId": "EX_02",
+          "selectedIdx": 1,
+          "score": 2
+        },
+        {
+          "qId": "MOT_05",
+          "selectedIdx": 1,
+          "score": 2
+        },
+        {
+          "qId": "INF_05",
+          "selectedIdx": 1,
+          "score": 2
+        },
+        {
+          "qId": "MOT_02",
+          "selectedIdx": 2,
+          "score": 2
+        },
+        {
+          "qId": "STR_05",
+          "selectedIdx": 1,
+          "score": 2
+        },
+        {
+          "qId": "EX_03",
+          "selectedIdx": 1,
+          "score": 2
+        },
+        {
+          "qId": "EGO_03",
+          "selectedIdx": 2,
+          "score": 1
+        },
+        {
+          "qId": "EGO_02",
+          "selectedIdx": 1,
+          "score": 0
+        },
+        {
+          "qId": "EGO_01",
+          "selectedIdx": 2,
+          "score": 2
+        },
+        {
+          "qId": "STR_02",
+          "selectedIdx": 1,
+          "score": 0
+        },
+        {
+          "qId": "EX_04",
+          "selectedIdx": 1,
+          "score": 2
+        }
+      ],
+      "rawScore": 46,
+      "archetype": "Strong Adaptive Fit",
+      "currentArchetype": {
+        "title": "Strong Adaptive Fit",
+        "desc": "High execution, learning, and ownership.",
+        "gradient": [
+          "#60a5fa",
+          "#22d3ee",
+          "#2dd4bf"
+        ]
+      },
+      "telemetry": {
+        "sessionStartAt": 1767531261649,
+        "totalBackCount": 0,
+        "totalAnswerChanges": 0,
+        "blurCount": 0,
+        "blurMs": 0,
+        "idleMs": 0,
+        "lastActivityAt": 1767531352243,
+        "lastInputMode": "mouse",
+        "perQ": {
+          "VAL_01": {
+            "firstSeenAt": 1767531261649,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 1897,
+            "firstAnswerAt": 1767531263546,
+            "firstDecisionMs": 1897,
+            "finalDecisionMs": 1897,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767531261649
+          },
+          "INF_04": {
+            "firstSeenAt": 1767531263953,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 2700,
+            "firstAnswerAt": 1767531266653,
+            "firstDecisionMs": 2700,
+            "finalDecisionMs": 2700,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767531263953
+          },
+          "EX_01": {
+            "firstSeenAt": 1767531267061,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 9704,
+            "firstAnswerAt": 1767531276765,
+            "firstDecisionMs": 9704,
+            "finalDecisionMs": 9704,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767531267061
+          },
+          "EX_05": {
+            "firstSeenAt": 1767531277174,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 6555,
+            "firstAnswerAt": 1767531283729,
+            "firstDecisionMs": 6555,
+            "finalDecisionMs": 6555,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767531277174
+          },
+          "INF_03": {
+            "firstSeenAt": 1767531284132,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 2624,
+            "firstAnswerAt": 1767531286756,
+            "firstDecisionMs": 2624,
+            "finalDecisionMs": 2624,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767531284132
+          },
+          "INF_02": {
+            "firstSeenAt": 1767531287158,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 2517,
+            "firstAnswerAt": 1767531289675,
+            "firstDecisionMs": 2517,
+            "finalDecisionMs": 2517,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767531287158
+          },
+          "STR_01": {
+            "firstSeenAt": 1767531290087,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 3757,
+            "firstAnswerAt": 1767531293844,
+            "firstDecisionMs": 3757,
+            "finalDecisionMs": 3757,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767531290087
+          },
+          "VAL_02": {
+            "firstSeenAt": 1767531294245,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 4445,
+            "firstAnswerAt": 1767531298690,
+            "firstDecisionMs": 4445,
+            "finalDecisionMs": 4445,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767531294245
+          },
+          "VAL_05": {
+            "firstSeenAt": 1767531299100,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 7569,
+            "firstAnswerAt": 1767531306669,
+            "firstDecisionMs": 7569,
+            "finalDecisionMs": 7569,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767531299100
+          },
+          "EGO_05": {
+            "firstSeenAt": 1767531307076,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 3589,
+            "firstAnswerAt": 1767531310665,
+            "firstDecisionMs": 3589,
+            "finalDecisionMs": 3589,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767531307076
+          },
+          "STR_04": {
+            "firstSeenAt": 1767531311072,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 1818,
+            "firstAnswerAt": 1767531312890,
+            "firstDecisionMs": 1818,
+            "finalDecisionMs": 1818,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767531311072
+          },
+          "VAL_03": {
+            "firstSeenAt": 1767531313296,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 4126,
+            "firstAnswerAt": 1767531317422,
+            "firstDecisionMs": 4126,
+            "finalDecisionMs": 4126,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767531313296
+          },
+          "MOT_04": {
+            "firstSeenAt": 1767531317827,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 643,
+            "firstAnswerAt": 1767531318470,
+            "firstDecisionMs": 643,
+            "finalDecisionMs": 643,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767531317827
+          },
+          "EGO_04": {
+            "firstSeenAt": 1767531318877,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 424,
+            "firstAnswerAt": 1767531319301,
+            "firstDecisionMs": 424,
+            "finalDecisionMs": 424,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767531318877
+          },
+          "INF_01": {
+            "firstSeenAt": 1767531319709,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 1097,
+            "firstAnswerAt": 1767531320806,
+            "firstDecisionMs": 1097,
+            "finalDecisionMs": 1097,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767531319709
+          },
+          "STR_03": {
+            "firstSeenAt": 1767531321209,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 3733,
+            "firstAnswerAt": 1767531324942,
+            "firstDecisionMs": 3733,
+            "finalDecisionMs": 3733,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767531321209
+          },
+          "VAL_04": {
+            "firstSeenAt": 1767531325348,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 1696,
+            "firstAnswerAt": 1767531327044,
+            "firstDecisionMs": 1696,
+            "finalDecisionMs": 1696,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767531325348
+          },
+          "MOT_01": {
+            "firstSeenAt": 1767531327450,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 3766,
+            "firstAnswerAt": 1767531331216,
+            "firstDecisionMs": 3766,
+            "finalDecisionMs": 3766,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767531327450
+          },
+          "MOT_03": {
+            "firstSeenAt": 1767531331622,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 2452,
+            "firstAnswerAt": 1767531334074,
+            "firstDecisionMs": 2452,
+            "finalDecisionMs": 2452,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767531331622
+          },
+          "EX_02": {
+            "firstSeenAt": 1767531334487,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 1075,
+            "firstAnswerAt": 1767531335562,
+            "firstDecisionMs": 1075,
+            "finalDecisionMs": 1075,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767531334487
+          },
+          "MOT_05": {
+            "firstSeenAt": 1767531335970,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 1443,
+            "firstAnswerAt": 1767531337413,
+            "firstDecisionMs": 1443,
+            "finalDecisionMs": 1443,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767531335970
+          },
+          "INF_05": {
+            "firstSeenAt": 1767531337815,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 807,
+            "firstAnswerAt": 1767531338622,
+            "firstDecisionMs": 807,
+            "finalDecisionMs": 807,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767531337815
+          },
+          "MOT_02": {
+            "firstSeenAt": 1767531339023,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 321,
+            "firstAnswerAt": 1767531339344,
+            "firstDecisionMs": 321,
+            "finalDecisionMs": 321,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767531339023
+          },
+          "STR_05": {
+            "firstSeenAt": 1767531339748,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 243,
+            "firstAnswerAt": 1767531339991,
+            "firstDecisionMs": 243,
+            "finalDecisionMs": 243,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767531339748
+          },
+          "EX_03": {
+            "firstSeenAt": 1767531340395,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 86,
+            "firstAnswerAt": 1767531340481,
+            "firstDecisionMs": 86,
+            "finalDecisionMs": 86,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767531340395
+          },
+          "EGO_03": {
+            "firstSeenAt": 1767531340885,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 41,
+            "firstAnswerAt": 1767531340926,
+            "firstDecisionMs": 41,
+            "finalDecisionMs": 41,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767531340885
+          },
+          "EGO_02": {
+            "firstSeenAt": 1767531341336,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 71,
+            "firstAnswerAt": 1767531341407,
+            "firstDecisionMs": 71,
+            "finalDecisionMs": 71,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767531341336
+          },
+          "EGO_01": {
+            "firstSeenAt": 1767531341812,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 153,
+            "firstAnswerAt": 1767531341965,
+            "firstDecisionMs": 153,
+            "finalDecisionMs": 153,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767531341812
+          },
+          "STR_02": {
+            "firstSeenAt": 1767531342369,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 20,
+            "firstAnswerAt": 1767531342389,
+            "firstDecisionMs": 20,
+            "finalDecisionMs": 20,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767531342369
+          },
+          "EX_04": {
+            "firstSeenAt": 1767531342801,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 144,
+            "firstAnswerAt": 1767531342945,
+            "firstDecisionMs": 144,
+            "finalDecisionMs": 144,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767531342801
+          }
+        }
+      },
+      "timeTakenTotalSec": 81,
+      "strengths": [
+        "Reliable delivery",
+        "Adaptable under change"
+      ],
+      "bestRoles": [
+        "Scale-up IC",
+        "Ops Lead",
+        "Delivery Manager"
+      ],
+      "next7Days": [
+        "Practice scoped ownership",
+        "Reduce escalation reflex"
+      ],
+      "derivedSignals": {
+        "integrityScore": 0.7,
+        "estimatedPercentile": 15,
+        "subscores": {
+          "Integrity & Values": 7,
+          "Influence-Based Leadership": 6,
+          "Execution Orientation": 10,
+          "Stress Regulation": 8,
+          "Rational Ego State": 5,
+          "Intrinsic Motivation": 10
+        }
+      },
+      "timestamp": {
+        "_seconds": 1767531352,
+        "_nanoseconds": 63000000
+      }
+    }
+  },
+  {
+    "id": "jVeUGo0u6idf6QCWNIpV",
+    "data": {
+      "userId": "CR3R4qtQ1bQTn36GCe9zjDHfIcc2",
+      "email": "fzzbdb@gmail.com",
+      "answers": [
+        {
+          "qId": "VAL_03",
+          "selectedIdx": 1,
+          "score": 1
+        },
+        {
+          "qId": "EX_02",
+          "selectedIdx": 0,
+          "score": 0
+        },
+        {
+          "qId": "MOT_03",
+          "selectedIdx": 1,
+          "score": 0
+        },
+        {
+          "qId": "INF_01",
+          "selectedIdx": 2,
+          "score": 2
+        },
+        {
+          "qId": "EGO_01",
+          "selectedIdx": 1,
+          "score": 1
+        },
+        {
+          "qId": "MOT_05",
+          "selectedIdx": 0,
+          "score": 1
+        },
+        {
+          "qId": "STR_01",
+          "selectedIdx": 1,
+          "score": 2
+        },
+        {
+          "qId": "INF_05",
+          "selectedIdx": 2,
+          "score": 1
+        },
+        {
+          "qId": "MOT_04",
+          "selectedIdx": 1,
+          "score": 2
+        },
+        {
+          "qId": "EGO_04",
+          "selectedIdx": 0,
+          "score": 0
+        },
+        {
+          "qId": "VAL_04",
+          "selectedIdx": 1,
+          "score": 1
+        },
+        {
+          "qId": "MOT_01",
+          "selectedIdx": 2,
+          "score": 1
+        },
+        {
+          "qId": "VAL_02",
+          "selectedIdx": 1,
+          "score": 1
+        },
+        {
+          "qId": "STR_05",
+          "selectedIdx": 0,
+          "score": 1
+        },
+        {
+          "qId": "INF_04",
+          "selectedIdx": 1,
+          "score": 2
+        },
+        {
+          "qId": "MOT_02",
+          "selectedIdx": 2,
+          "score": 2
+        },
+        {
+          "qId": "EGO_03",
+          "selectedIdx": 0,
+          "score": 2
+        },
+        {
+          "qId": "VAL_05",
+          "selectedIdx": 1,
+          "score": 1
+        },
+        {
+          "qId": "EX_04",
+          "selectedIdx": 2,
+          "score": 0
+        },
+        {
+          "qId": "EX_05",
+          "selectedIdx": 1,
+          "score": 2
+        },
+        {
+          "qId": "EX_03",
+          "selectedIdx": 0,
+          "score": 0
+        },
+        {
+          "qId": "INF_03",
+          "selectedIdx": 1,
+          "score": 2
+        },
+        {
+          "qId": "INF_02",
+          "selectedIdx": 2,
+          "score": 0
+        },
+        {
+          "qId": "EGO_05",
+          "selectedIdx": 1,
+          "score": 1
+        },
+        {
+          "qId": "STR_04",
+          "selectedIdx": 0,
+          "score": 1
+        },
+        {
+          "qId": "EX_01",
+          "selectedIdx": 1,
+          "score": 2
+        },
+        {
+          "qId": "STR_03",
+          "selectedIdx": 2,
+          "score": 1
+        },
+        {
+          "qId": "EGO_02",
+          "selectedIdx": 1,
+          "score": 0
+        },
+        {
+          "qId": "VAL_01",
+          "selectedIdx": 0,
+          "score": 0
+        },
+        {
+          "qId": "STR_02",
+          "selectedIdx": 1,
+          "score": 0
+        }
+      ],
+      "rawScore": 30,
+      "archetype": "Moderate Fit",
+      "currentArchetype": {
+        "title": "Moderate Fit",
+        "desc": "Functional but needs structure and guidance.",
+        "gradient": [
+          "#fbbf24",
+          "#fb923c",
+          "#facc15"
+        ]
+      },
+      "telemetry": {
+        "sessionStartAt": 1767529492726,
+        "totalBackCount": 0,
+        "totalAnswerChanges": 0,
+        "blurCount": 0,
+        "blurMs": 0,
+        "idleMs": 0,
+        "lastActivityAt": 1767529517945,
+        "lastInputMode": "mouse",
+        "perQ": {
+          "VAL_03": {
+            "firstSeenAt": 1767529492726,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 1695,
+            "firstAnswerAt": 1767529494421,
+            "firstDecisionMs": 1695,
+            "finalDecisionMs": 1695,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767529492726
+          },
+          "EX_02": {
+            "firstSeenAt": 1767529494828,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 522,
+            "firstAnswerAt": 1767529495350,
+            "firstDecisionMs": 522,
+            "finalDecisionMs": 522,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767529494828
+          },
+          "MOT_03": {
+            "firstSeenAt": 1767529495753,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 181,
+            "firstAnswerAt": 1767529495934,
+            "firstDecisionMs": 181,
+            "finalDecisionMs": 181,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767529495753
+          },
+          "INF_01": {
+            "firstSeenAt": 1767529496342,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 145,
+            "firstAnswerAt": 1767529496487,
+            "firstDecisionMs": 145,
+            "finalDecisionMs": 145,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767529496342
+          },
+          "EGO_01": {
+            "firstSeenAt": 1767529496896,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 174,
+            "firstAnswerAt": 1767529497070,
+            "firstDecisionMs": 174,
+            "finalDecisionMs": 174,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767529496896
+          },
+          "MOT_05": {
+            "firstSeenAt": 1767529497481,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 162,
+            "firstAnswerAt": 1767529497643,
+            "firstDecisionMs": 162,
+            "finalDecisionMs": 162,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767529497481
+          },
+          "STR_01": {
+            "firstSeenAt": 1767529498048,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 194,
+            "firstAnswerAt": 1767529498242,
+            "firstDecisionMs": 194,
+            "finalDecisionMs": 194,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767529498048
+          },
+          "INF_05": {
+            "firstSeenAt": 1767529498647,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 156,
+            "firstAnswerAt": 1767529498803,
+            "firstDecisionMs": 156,
+            "finalDecisionMs": 156,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767529498647
+          },
+          "MOT_04": {
+            "firstSeenAt": 1767529499214,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 172,
+            "firstAnswerAt": 1767529499386,
+            "firstDecisionMs": 172,
+            "finalDecisionMs": 172,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767529499214
+          },
+          "EGO_04": {
+            "firstSeenAt": 1767529499797,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 160,
+            "firstAnswerAt": 1767529499957,
+            "firstDecisionMs": 160,
+            "finalDecisionMs": 160,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767529499797
+          },
+          "VAL_04": {
+            "firstSeenAt": 1767529500364,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 170,
+            "firstAnswerAt": 1767529500534,
+            "firstDecisionMs": 170,
+            "finalDecisionMs": 170,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767529500364
+          },
+          "MOT_01": {
+            "firstSeenAt": 1767529500937,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 150,
+            "firstAnswerAt": 1767529501087,
+            "firstDecisionMs": 150,
+            "finalDecisionMs": 150,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767529500937
+          },
+          "VAL_02": {
+            "firstSeenAt": 1767529501493,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 130,
+            "firstAnswerAt": 1767529501623,
+            "firstDecisionMs": 130,
+            "finalDecisionMs": 130,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767529501493
+          },
+          "STR_05": {
+            "firstSeenAt": 1767529502030,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 127,
+            "firstAnswerAt": 1767529502157,
+            "firstDecisionMs": 127,
+            "finalDecisionMs": 127,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767529502030
+          },
+          "INF_04": {
+            "firstSeenAt": 1767529502563,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 184,
+            "firstAnswerAt": 1767529502747,
+            "firstDecisionMs": 184,
+            "finalDecisionMs": 184,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767529502563
+          },
+          "MOT_02": {
+            "firstSeenAt": 1767529503155,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 153,
+            "firstAnswerAt": 1767529503308,
+            "firstDecisionMs": 153,
+            "finalDecisionMs": 153,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767529503155
+          },
+          "EGO_03": {
+            "firstSeenAt": 1767529503712,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 162,
+            "firstAnswerAt": 1767529503874,
+            "firstDecisionMs": 162,
+            "finalDecisionMs": 162,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767529503712
+          },
+          "VAL_05": {
+            "firstSeenAt": 1767529504279,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 145,
+            "firstAnswerAt": 1767529504424,
+            "firstDecisionMs": 145,
+            "finalDecisionMs": 145,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767529504279
+          },
+          "EX_04": {
+            "firstSeenAt": 1767529504829,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 123,
+            "firstAnswerAt": 1767529504952,
+            "firstDecisionMs": 123,
+            "finalDecisionMs": 123,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767529504829
+          },
+          "EX_05": {
+            "firstSeenAt": 1767529505360,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 148,
+            "firstAnswerAt": 1767529505508,
+            "firstDecisionMs": 148,
+            "finalDecisionMs": 148,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767529505360
+          },
+          "EX_03": {
+            "firstSeenAt": 1767529505911,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 151,
+            "firstAnswerAt": 1767529506062,
+            "firstDecisionMs": 151,
+            "finalDecisionMs": 151,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767529505911
+          },
+          "INF_03": {
+            "firstSeenAt": 1767529506470,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 138,
+            "firstAnswerAt": 1767529506607,
+            "firstDecisionMs": 138,
+            "finalDecisionMs": 138,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767529506470
+          },
+          "INF_02": {
+            "firstSeenAt": 1767529507011,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 125,
+            "firstAnswerAt": 1767529507136,
+            "firstDecisionMs": 125,
+            "finalDecisionMs": 125,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767529507011
+          },
+          "EGO_05": {
+            "firstSeenAt": 1767529507540,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 177,
+            "firstAnswerAt": 1767529507717,
+            "firstDecisionMs": 177,
+            "finalDecisionMs": 177,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767529507540
+          },
+          "STR_04": {
+            "firstSeenAt": 1767529508127,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 135,
+            "firstAnswerAt": 1767529508262,
+            "firstDecisionMs": 135,
+            "finalDecisionMs": 135,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767529508127
+          },
+          "EX_01": {
+            "firstSeenAt": 1767529508675,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 105,
+            "firstAnswerAt": 1767529508780,
+            "firstDecisionMs": 105,
+            "finalDecisionMs": 105,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767529508675
+          },
+          "STR_03": {
+            "firstSeenAt": 1767529509185,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 111,
+            "firstAnswerAt": 1767529509296,
+            "firstDecisionMs": 111,
+            "finalDecisionMs": 111,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767529509185
+          },
+          "EGO_02": {
+            "firstSeenAt": 1767529509714,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 131,
+            "firstAnswerAt": 1767529509845,
+            "firstDecisionMs": 131,
+            "finalDecisionMs": 131,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767529509714
+          },
+          "VAL_01": {
+            "firstSeenAt": 1767529510250,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 161,
+            "firstAnswerAt": 1767529510411,
+            "firstDecisionMs": 161,
+            "finalDecisionMs": 161,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767529510250
+          },
+          "STR_02": {
+            "firstSeenAt": 1767529510822,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 67,
+            "firstAnswerAt": 1767529510889,
+            "firstDecisionMs": 67,
+            "finalDecisionMs": 67,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767529510822
+          }
+        }
+      },
+      "timeTakenTotalSec": 18,
+      "strengths": [
+        "Process consistency",
+        "Predictable output"
+      ],
+      "bestRoles": [
+        "Enterprise IC",
+        "QA",
+        "Process roles"
+      ],
+      "next7Days": [
+        "Increase exposure to ambiguity",
+        "Shorten decision loops"
+      ],
+      "derivedSignals": {
+        "integrityScore": 0.4,
+        "estimatedPercentile": 40,
+        "subscores": {
+          "Integrity & Values": 4,
+          "Execution Orientation": 4,
+          "Intrinsic Motivation": 6,
+          "Influence-Based Leadership": 7,
+          "Rational Ego State": 4,
+          "Stress Regulation": 5
+        }
+      },
+      "timestamp": {
+        "_seconds": 1767529517,
+        "_nanoseconds": 802000000
+      }
+    }
+  },
+  {
+    "id": "kNBeJ3et6jmQeIxx4V2B",
+    "data": {
+      "userId": "oDVLDqOmT7geBmWBnvCyzNNrt6h2",
+      "email": "pragadheesharumugam@gmail.com",
+      "timestamp": {
+        "_seconds": 1767764534,
+        "_nanoseconds": 980000000
+      },
+      "bestRoles": [
+        "Early Stage Reviewer",
+        "Delivery Lead",
+        "Founder's Office"
+      ],
+      "answers": [
+        {
+          "qId": "EGO_03",
+          "selectedIdx": 0,
+          "score": 2
+        },
+        {
+          "qId": "VAL_03",
+          "selectedIdx": 1,
+          "score": 1
+        },
+        {
+          "qId": "INF_01",
+          "selectedIdx": 1,
+          "score": 0
+        },
+        {
+          "qId": "INF_05",
+          "selectedIdx": 1,
+          "score": 2
+        },
+        {
+          "qId": "EX_05",
+          "selectedIdx": 1,
+          "score": 2
+        },
+        {
+          "qId": "EGO_05",
+          "selectedIdx": 2,
+          "score": 2
+        },
+        {
+          "qId": "STR_01",
+          "selectedIdx": 1,
+          "score": 2
+        },
+        {
+          "qId": "MOT_04",
+          "selectedIdx": 1,
+          "score": 2
+        },
+        {
+          "qId": "STR_02",
+          "selectedIdx": 0,
+          "score": 1
+        },
+        {
+          "qId": "MOT_02",
+          "selectedIdx": 0,
+          "score": 0
+        },
+        {
+          "qId": "EGO_04",
+          "selectedIdx": 2,
+          "score": 2
+        },
+        {
+          "qId": "MOT_05",
+          "selectedIdx": 2,
+          "score": 0
+        },
+        {
+          "qId": "EGO_02",
+          "selectedIdx": 0,
+          "score": 2
+        },
+        {
+          "qId": "EX_03",
+          "selectedIdx": 1,
+          "score": 2
+        },
+        {
+          "qId": "EX_04",
+          "selectedIdx": 1,
+          "score": 2
+        },
+        {
+          "qId": "VAL_05",
+          "selectedIdx": 2,
+          "score": 2
+        },
+        {
+          "qId": "STR_04",
+          "selectedIdx": 2,
+          "score": 2
+        },
+        {
+          "qId": "MOT_01",
+          "selectedIdx": 1,
+          "score": 2
+        },
+        {
+          "qId": "MOT_03",
+          "selectedIdx": 2,
+          "score": 2
+        },
+        {
+          "qId": "STR_05",
+          "selectedIdx": 1,
+          "score": 2
+        },
+        {
+          "qId": "VAL_04",
+          "selectedIdx": 2,
+          "score": 2
+        },
+        {
+          "qId": "EX_02",
+          "selectedIdx": 1,
+          "score": 2
+        },
+        {
+          "qId": "EGO_01",
+          "selectedIdx": 0,
+          "score": 0
+        },
+        {
+          "qId": "INF_03",
+          "selectedIdx": 1,
+          "score": 2
+        },
+        {
+          "qId": "STR_03",
+          "selectedIdx": 1,
+          "score": 2
+        },
+        {
+          "qId": "INF_02",
+          "selectedIdx": 1,
+          "score": 2
+        },
+        {
+          "qId": "EX_01",
+          "selectedIdx": 1,
+          "score": 2
+        },
+        {
+          "qId": "VAL_01",
+          "selectedIdx": 1,
+          "score": 1
+        },
+        {
+          "qId": "INF_04",
+          "selectedIdx": 1,
+          "score": 2
+        },
+        {
+          "qId": "VAL_02",
+          "selectedIdx": 1,
+          "score": 1
+        }
+      ],
+      "workerStatus": "success",
+      "currentArchetype": {
+        "title": "Dynamic Catalyst",
+        "desc": "High execution, learning, and ownership.",
+        "gradient": [
+          "#60a5fa",
+          "#22d3ee",
+          "#2dd4bf"
+        ]
+      },
+      "archetype": "Dynamic Catalyst",
+      "derivedSignals": {
+        "integrityScore": 0.95,
+        "estimatedPercentile": 25,
+        "subscores": {
+          "Execution & Adaptability": {
+            "score": 12,
+            "max": 12
+          },
+          "Ownership & Accountability": {
+            "score": 8,
+            "max": 12
+          },
+          "Learning & Growth Orientation": {
+            "score": 6,
+            "max": 12
+          },
+          "Collaboration & Leadership": {
+            "score": 9,
+            "max": 12
+          },
+          "Ethics & Integrity": {
+            "score": 9,
+            "max": 12
+          }
+        }
+      },
+      "strengths": [
+        "Bias for Action & Delivery",
+        "Team Multiplier & Empathy",
+        "Strong Operational Fit"
+      ],
+      "timeTakenTotalSec": 391,
+      "next7Days": [
+        "Dedicate 2h/week to new skills",
+        "Seek 'negative' feedback actively"
+      ],
+      "rawScore": 44,
+      "telemetry": {
+        "sessionStartAt": 1767764079446,
+        "totalBackCount": 0,
+        "totalAnswerChanges": 0,
+        "blurCount": 0,
+        "blurMs": 0,
+        "idleMs": 63000,
+        "lastActivityAt": 1767764535154,
+        "lastInputMode": "mouse",
+        "perQ": {
+          "EGO_03": {
+            "firstSeenAt": 1767764079446,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 37642,
+            "firstAnswerAt": 1767764117088,
+            "firstDecisionMs": 37642,
+            "finalDecisionMs": 37642,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767764079446
+          },
+          "VAL_03": {
+            "firstSeenAt": 1767764117498,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 25686,
+            "firstAnswerAt": 1767764143184,
+            "firstDecisionMs": 25686,
+            "finalDecisionMs": 25686,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767764117498
+          },
+          "INF_01": {
+            "firstSeenAt": 1767764143599,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 13474,
+            "firstAnswerAt": 1767764157072,
+            "firstDecisionMs": 13474,
+            "finalDecisionMs": 13474,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767764143599
+          },
+          "INF_05": {
+            "firstSeenAt": 1767764157475,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 9127,
+            "firstAnswerAt": 1767764166602,
+            "firstDecisionMs": 9127,
+            "finalDecisionMs": 9127,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767764157475
+          },
+          "EX_05": {
+            "firstSeenAt": 1767764167006,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 8388,
+            "firstAnswerAt": 1767764175394,
+            "firstDecisionMs": 8388,
+            "finalDecisionMs": 8388,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767764167006
+          },
+          "EGO_05": {
+            "firstSeenAt": 1767764175799,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 9296,
+            "firstAnswerAt": 1767764185095,
+            "firstDecisionMs": 9296,
+            "finalDecisionMs": 9296,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767764175799
+          },
+          "STR_01": {
+            "firstSeenAt": 1767764185496,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 8375,
+            "firstAnswerAt": 1767764193871,
+            "firstDecisionMs": 8375,
+            "finalDecisionMs": 8375,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767764185496
+          },
+          "MOT_04": {
+            "firstSeenAt": 1767764194272,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 7801,
+            "firstAnswerAt": 1767764202073,
+            "firstDecisionMs": 7801,
+            "finalDecisionMs": 7801,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767764194272
+          },
+          "STR_02": {
+            "firstSeenAt": 1767764202474,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 10485,
+            "firstAnswerAt": 1767764212959,
+            "firstDecisionMs": 10485,
+            "finalDecisionMs": 10485,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767764202474
+          },
+          "MOT_02": {
+            "firstSeenAt": 1767764213365,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 11722,
+            "firstAnswerAt": 1767764225087,
+            "firstDecisionMs": 11722,
+            "finalDecisionMs": 11722,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767764213365
+          },
+          "EGO_04": {
+            "firstSeenAt": 1767764225489,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 14529,
+            "firstAnswerAt": 1767764240018,
+            "firstDecisionMs": 14529,
+            "finalDecisionMs": 14529,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767764225489
+          },
+          "MOT_05": {
+            "firstSeenAt": 1767764240422,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 9098,
+            "firstAnswerAt": 1767764249520,
+            "firstDecisionMs": 9098,
+            "finalDecisionMs": 9098,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767764240422
+          },
+          "EGO_02": {
+            "firstSeenAt": 1767764249920,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 15218,
+            "firstAnswerAt": 1767764265138,
+            "firstDecisionMs": 15218,
+            "finalDecisionMs": 15218,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767764249920
+          },
+          "EX_03": {
+            "firstSeenAt": 1767764265552,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 9584,
+            "firstAnswerAt": 1767764275136,
+            "firstDecisionMs": 9584,
+            "finalDecisionMs": 9584,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767764265552
+          },
+          "EX_04": {
+            "firstSeenAt": 1767764275540,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 5198,
+            "firstAnswerAt": 1767764280738,
+            "firstDecisionMs": 5198,
+            "finalDecisionMs": 5198,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767764275540
+          },
+          "VAL_05": {
+            "firstSeenAt": 1767764281143,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 8812,
+            "firstAnswerAt": 1767764289955,
+            "firstDecisionMs": 8812,
+            "finalDecisionMs": 8812,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767764281143
+          },
+          "STR_04": {
+            "firstSeenAt": 1767764290358,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 10005,
+            "firstAnswerAt": 1767764300363,
+            "firstDecisionMs": 10005,
+            "finalDecisionMs": 10005,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767764290358
+          },
+          "MOT_01": {
+            "firstSeenAt": 1767764300768,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 16985,
+            "firstAnswerAt": 1767764317753,
+            "firstDecisionMs": 16985,
+            "finalDecisionMs": 16985,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767764300768
+          },
+          "MOT_03": {
+            "firstSeenAt": 1767764318159,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 7877,
+            "firstAnswerAt": 1767764326036,
+            "firstDecisionMs": 7877,
+            "finalDecisionMs": 7877,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767764318159
+          },
+          "STR_05": {
+            "firstSeenAt": 1767764326439,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 17644,
+            "firstAnswerAt": 1767764344083,
+            "firstDecisionMs": 17644,
+            "finalDecisionMs": 17644,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767764326439
+          },
+          "VAL_04": {
+            "firstSeenAt": 1767764344485,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 12603,
+            "firstAnswerAt": 1767764357088,
+            "firstDecisionMs": 12603,
+            "finalDecisionMs": 12603,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767764344485
+          },
+          "EX_02": {
+            "firstSeenAt": 1767764357490,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 8631,
+            "firstAnswerAt": 1767764366121,
+            "firstDecisionMs": 8631,
+            "finalDecisionMs": 8631,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767764357490
+          },
+          "EGO_01": {
+            "firstSeenAt": 1767764366523,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 14326,
+            "firstAnswerAt": 1767764380849,
+            "firstDecisionMs": 14326,
+            "finalDecisionMs": 14326,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767764366523
+          },
+          "INF_03": {
+            "firstSeenAt": 1767764381255,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 7518,
+            "firstAnswerAt": 1767764388773,
+            "firstDecisionMs": 7518,
+            "finalDecisionMs": 7518,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767764381255
+          },
+          "STR_03": {
+            "firstSeenAt": 1767764389176,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 7749,
+            "firstAnswerAt": 1767764396925,
+            "firstDecisionMs": 7749,
+            "finalDecisionMs": 7749,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767764389176
+          },
+          "INF_02": {
+            "firstSeenAt": 1767764397326,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 8983,
+            "firstAnswerAt": 1767764406309,
+            "firstDecisionMs": 8983,
+            "finalDecisionMs": 8983,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767764397326
+          },
+          "EX_01": {
+            "firstSeenAt": 1767764406712,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 14211,
+            "firstAnswerAt": 1767764420923,
+            "firstDecisionMs": 14211,
+            "finalDecisionMs": 14211,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767764406712
+          },
+          "VAL_01": {
+            "firstSeenAt": 1767764421337,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 7952,
+            "firstAnswerAt": 1767764429289,
+            "firstDecisionMs": 7952,
+            "finalDecisionMs": 7952,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767764421337
+          },
+          "INF_04": {
+            "firstSeenAt": 1767764429692,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 11751,
+            "firstAnswerAt": 1767764441443,
+            "firstDecisionMs": 11751,
+            "finalDecisionMs": 11751,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767764429692
+          },
+          "VAL_02": {
+            "firstSeenAt": 1767764441846,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 29168,
+            "firstAnswerAt": 1767764471014,
+            "firstDecisionMs": 29168,
+            "finalDecisionMs": 29168,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767764441846
+          }
+        }
+      },
+      "signalScore100": 73,
+      "status": "complete"
+    },
+    "annotations": {
+      "label": "Reviewed",
+      "lastUpdatedBy": "EARTH1919"
+    }
+  },
+  {
+    "id": "xFAdJMpYuq7Q3ZDfltzc",
+    "data": {
+      "userId": "CR3R4qtQ1bQTn36GCe9zjDHfIcc2",
+      "email": "bsandyofficial@gmail.com",
+      "timestamp": {
+        "_seconds": 1767544768,
+        "_nanoseconds": 208000000
+      },
+      "bestRoles": [
+        "Structured Roles",
+        "Process-Defined Tasks"
+      ],
+      "answers": [
+        {
+          "qId": "INF_02",
+          "selectedIdx": 0,
+          "score": 1
+        },
+        {
+          "qId": "EGO_04",
+          "selectedIdx": 1,
+          "score": 1
+        },
+        {
+          "qId": "EX_03",
+          "selectedIdx": 2,
+          "score": 1
+        },
+        {
+          "qId": "EGO_02",
+          "selectedIdx": 1,
+          "score": 0
+        },
+        {
+          "qId": "VAL_01",
+          "selectedIdx": 1,
+          "score": 1
+        },
+        {
+          "qId": "STR_01",
+          "selectedIdx": 1,
+          "score": 2
+        },
+        {
+          "qId": "MOT_03",
+          "selectedIdx": 0,
+          "score": 1
+        },
+        {
+          "qId": "EGO_01",
+          "selectedIdx": 1,
+          "score": 1
+        },
+        {
+          "qId": "EX_05",
+          "selectedIdx": 2,
+          "score": 1
+        },
+        {
+          "qId": "MOT_02",
+          "selectedIdx": 1,
+          "score": 1
+        },
+        {
+          "qId": "EGO_05",
+          "selectedIdx": 2,
+          "score": 2
+        },
+        {
+          "qId": "INF_05",
+          "selectedIdx": 1,
+          "score": 2
+        },
+        {
+          "qId": "VAL_03",
+          "selectedIdx": 0,
+          "score": 0
+        },
+        {
+          "qId": "MOT_01",
+          "selectedIdx": 2,
+          "score": 1
+        },
+        {
+          "qId": "STR_03",
+          "selectedIdx": 1,
+          "score": 2
+        },
+        {
+          "qId": "INF_01",
+          "selectedIdx": 0,
+          "score": 1
+        },
+        {
+          "qId": "INF_03",
+          "selectedIdx": 1,
+          "score": 2
+        },
+        {
+          "qId": "VAL_04",
+          "selectedIdx": 0,
+          "score": 0
+        },
+        {
+          "qId": "STR_05",
+          "selectedIdx": 2,
+          "score": 0
+        },
+        {
+          "qId": "EX_01",
+          "selectedIdx": 0,
+          "score": 0
+        },
+        {
+          "qId": "VAL_02",
+          "selectedIdx": 2,
+          "score": 2
+        },
+        {
+          "qId": "STR_04",
+          "selectedIdx": 1,
+          "score": 0
+        },
+        {
+          "qId": "STR_02",
+          "selectedIdx": 0,
+          "score": 1
+        },
+        {
+          "qId": "INF_04",
+          "selectedIdx": 1,
+          "score": 2
+        },
+        {
+          "qId": "EGO_03",
+          "selectedIdx": 0,
+          "score": 2
+        },
+        {
+          "qId": "VAL_05",
+          "selectedIdx": 1,
+          "score": 1
+        },
+        {
+          "qId": "MOT_04",
+          "selectedIdx": 0,
+          "score": 0
+        },
+        {
+          "qId": "EX_04",
+          "selectedIdx": 2,
+          "score": 0
+        },
+        {
+          "qId": "EX_02",
+          "selectedIdx": 2,
+          "score": 1
+        },
+        {
+          "qId": "MOT_05",
+          "selectedIdx": 1,
+          "score": 2
+        }
+      ],
+      "workerStatus": "success",
+      "currentArchetype": {
+        "title": "Steady Operator",
+        "desc": "Functional but needs structure and guidance.",
+        "gradient": [
+          "#fbbf24",
+          "#fb923c",
+          "#facc15"
+        ]
+      },
+      "archetype": "Steady Operator",
+      "derivedSignals": {
+        "integrityScore": 0.4,
+        "estimatedPercentile": 60,
+        "subscores": {
+          "Execution & Adaptability": {
+            "score": 3,
+            "max": 12
+          },
+          "Ownership & Accountability": {
+            "score": 6,
+            "max": 12
+          },
+          "Learning & Growth Orientation": {
+            "score": 5,
+            "max": 12
+          },
+          "Collaboration & Leadership": {
+            "score": 10,
+            "max": 12
+          },
+          "Ethics & Integrity": {
+            "score": 5,
+            "max": 12
+          }
+        }
+      },
+      "strengths": [
+        "Team Multiplier & Empathy",
+        "Extreme Ownership & Reliability"
+      ],
+      "timeTakenTotalSec": 32,
+      "next7Days": [
+        "Practice 'Day 1' shipping mentality",
+        "Force faster decision loops"
+      ],
+      "rawScore": 29,
+      "telemetry": {
+        "sessionStartAt": 1767544729668,
+        "totalBackCount": 3,
+        "totalAnswerChanges": 3,
+        "blurCount": 0,
+        "blurMs": 0,
+        "idleMs": 0,
+        "lastActivityAt": 1767544766988,
+        "lastInputMode": "mouse",
+        "perQ": {
+          "INF_02": {
+            "firstSeenAt": 1767544729669,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 1106,
+            "firstAnswerAt": 1767544730775,
+            "firstDecisionMs": 1106,
+            "finalDecisionMs": 1106,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767544729669
+          },
+          "EGO_04": {
+            "firstSeenAt": 1767544731187,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 502,
+            "firstAnswerAt": 1767544731689,
+            "firstDecisionMs": 502,
+            "finalDecisionMs": 502,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767544731187
+          },
+          "EX_03": {
+            "firstSeenAt": 1767544732089,
+            "revisitsCount": 2,
+            "totalTimeOnQuestionMs": 4192,
+            "firstAnswerAt": 1767544732501,
+            "firstDecisionMs": 412,
+            "finalDecisionMs": 2737,
+            "answerChangesCount": 2,
+            "lastEnterAt": 1767544736315
+          },
+          "EGO_02": {
+            "firstSeenAt": 1767544732904,
+            "revisitsCount": 2,
+            "totalTimeOnQuestionMs": 2557,
+            "firstAnswerAt": 1767544740045,
+            "firstDecisionMs": 591,
+            "finalDecisionMs": 591,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767544739454
+          },
+          "VAL_01": {
+            "firstSeenAt": 1767544740447,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 350,
+            "firstAnswerAt": 1767544740797,
+            "firstDecisionMs": 350,
+            "finalDecisionMs": 350,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767544740447
+          },
+          "STR_01": {
+            "firstSeenAt": 1767544741200,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 271,
+            "firstAnswerAt": 1767544741471,
+            "firstDecisionMs": 271,
+            "finalDecisionMs": 271,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767544741200
+          },
+          "MOT_03": {
+            "firstSeenAt": 1767544741875,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 268,
+            "firstAnswerAt": 1767544742143,
+            "firstDecisionMs": 268,
+            "finalDecisionMs": 268,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767544741875
+          },
+          "EGO_01": {
+            "firstSeenAt": 1767544742544,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 923,
+            "firstAnswerAt": 1767544743467,
+            "firstDecisionMs": 923,
+            "finalDecisionMs": 923,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767544742544
+          },
+          "EX_05": {
+            "firstSeenAt": 1767544743874,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 215,
+            "firstAnswerAt": 1767544744089,
+            "firstDecisionMs": 215,
+            "finalDecisionMs": 215,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767544743874
+          },
+          "MOT_02": {
+            "firstSeenAt": 1767544744491,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 149,
+            "firstAnswerAt": 1767544744640,
+            "firstDecisionMs": 149,
+            "finalDecisionMs": 149,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767544744491
+          },
+          "EGO_05": {
+            "firstSeenAt": 1767544745042,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 177,
+            "firstAnswerAt": 1767544745219,
+            "firstDecisionMs": 177,
+            "finalDecisionMs": 177,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767544745042
+          },
+          "INF_05": {
+            "firstSeenAt": 1767544745632,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 52,
+            "firstAnswerAt": 1767544745684,
+            "firstDecisionMs": 52,
+            "finalDecisionMs": 52,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767544745632
+          },
+          "VAL_03": {
+            "firstSeenAt": 1767544746086,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 174,
+            "firstAnswerAt": 1767544746260,
+            "firstDecisionMs": 174,
+            "finalDecisionMs": 174,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767544746086
+          },
+          "MOT_01": {
+            "firstSeenAt": 1767544746665,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 795,
+            "firstAnswerAt": 1767544747460,
+            "firstDecisionMs": 795,
+            "finalDecisionMs": 795,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767544746665
+          },
+          "STR_03": {
+            "firstSeenAt": 1767544747865,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 126,
+            "firstAnswerAt": 1767544747991,
+            "firstDecisionMs": 126,
+            "finalDecisionMs": 126,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767544747865
+          },
+          "INF_01": {
+            "firstSeenAt": 1767544748399,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 112,
+            "firstAnswerAt": 1767544748511,
+            "firstDecisionMs": 112,
+            "finalDecisionMs": 112,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767544748399
+          },
+          "INF_03": {
+            "firstSeenAt": 1767544748915,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 149,
+            "firstAnswerAt": 1767544749064,
+            "firstDecisionMs": 149,
+            "finalDecisionMs": 149,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767544748915
+          },
+          "VAL_04": {
+            "firstSeenAt": 1767544749464,
+            "revisitsCount": 1,
+            "totalTimeOnQuestionMs": 1586,
+            "firstAnswerAt": 1767544750266,
+            "firstDecisionMs": 802,
+            "finalDecisionMs": 784,
+            "answerChangesCount": 1,
+            "lastEnterAt": 1767544751227
+          },
+          "STR_05": {
+            "firstSeenAt": 1767544750667,
+            "revisitsCount": 1,
+            "totalTimeOnQuestionMs": 1183,
+            "firstAnswerAt": 1767544753036,
+            "firstDecisionMs": 623,
+            "finalDecisionMs": 623,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767544752413
+          },
+          "EX_01": {
+            "firstSeenAt": 1767544753438,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 737,
+            "firstAnswerAt": 1767544754175,
+            "firstDecisionMs": 737,
+            "finalDecisionMs": 737,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767544753438
+          },
+          "VAL_02": {
+            "firstSeenAt": 1767544754580,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 251,
+            "firstAnswerAt": 1767544754831,
+            "firstDecisionMs": 251,
+            "finalDecisionMs": 251,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767544754580
+          },
+          "STR_04": {
+            "firstSeenAt": 1767544755236,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 94,
+            "firstAnswerAt": 1767544755330,
+            "firstDecisionMs": 94,
+            "finalDecisionMs": 94,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767544755236
+          },
+          "STR_02": {
+            "firstSeenAt": 1767544755733,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 276,
+            "firstAnswerAt": 1767544756009,
+            "firstDecisionMs": 276,
+            "finalDecisionMs": 276,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767544755733
+          },
+          "INF_04": {
+            "firstSeenAt": 1767544756412,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 86,
+            "firstAnswerAt": 1767544756498,
+            "firstDecisionMs": 86,
+            "finalDecisionMs": 86,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767544756412
+          },
+          "EGO_03": {
+            "firstSeenAt": 1767544756905,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 120,
+            "firstAnswerAt": 1767544757025,
+            "firstDecisionMs": 120,
+            "finalDecisionMs": 120,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767544756905
+          },
+          "VAL_05": {
+            "firstSeenAt": 1767544757428,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 134,
+            "firstAnswerAt": 1767544757562,
+            "firstDecisionMs": 134,
+            "finalDecisionMs": 134,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767544757428
+          },
+          "MOT_04": {
+            "firstSeenAt": 1767544757974,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 550,
+            "firstAnswerAt": 1767544758524,
+            "firstDecisionMs": 550,
+            "finalDecisionMs": 550,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767544757974
+          },
+          "EX_04": {
+            "firstSeenAt": 1767544758928,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 591,
+            "firstAnswerAt": 1767544759519,
+            "firstDecisionMs": 591,
+            "finalDecisionMs": 591,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767544758928
+          },
+          "EX_02": {
+            "firstSeenAt": 1767544759928,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 679,
+            "firstAnswerAt": 1767544760607,
+            "firstDecisionMs": 679,
+            "finalDecisionMs": 679,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767544759928
+          },
+          "MOT_05": {
+            "firstSeenAt": 1767544761011,
+            "revisitsCount": 0,
+            "totalTimeOnQuestionMs": 270,
+            "firstAnswerAt": 1767544761280,
+            "firstDecisionMs": 270,
+            "finalDecisionMs": 270,
+            "answerChangesCount": 0,
+            "lastEnterAt": 1767544761011
+          }
+        }
+      },
+      "signalScore100": 48,
+      "status": "complete"
+    }
+  }
+]

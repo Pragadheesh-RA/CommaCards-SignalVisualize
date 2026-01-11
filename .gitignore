@@ -1,0 +1,7 @@
+build/
+.env
+/Raw Data backups
+/Visualize/dist
+/Visualize/node_modules
+node_modules/
+dist/
