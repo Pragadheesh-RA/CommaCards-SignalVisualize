@@ -2,7 +2,12 @@ const fs = require('fs');
 const path = require('path');
 const mongoose = require('mongoose');
 
-const DB_PATH = path.join(__dirname, '../data/db.json');
+// On Vercel, the only writable directory is /tmp
+const IS_VERCEL = process.env.VERCEL || process.env.NODE_ENV === 'production';
+const DB_PATH = IS_VERCEL
+    ? path.join('/tmp', 'db.json')
+    : path.join(__dirname, '../data/db.json');
+
 const MONGODB_URI = process.env.MONGODB_URI;
 
 // --- Mongoose Schema ---
@@ -22,7 +27,9 @@ const connectDb = async () => {
     if (isConnected) return true;
 
     try {
-        await mongoose.connect(MONGODB_URI);
+        await mongoose.connect(MONGODB_URI, {
+            serverSelectionTimeoutMS: 5000,
+        });
         isConnected = true;
         console.log("Connected to MongoDB");
         return true;
@@ -34,7 +41,21 @@ const connectDb = async () => {
 
 // --- Local File DB Helpers ---
 const readLocalDb = () => {
-    if (!fs.existsSync(DB_PATH)) return [];
+    // If on Vercel and /tmp/db.json doesn't exist, try to read from the bundled etc/db.json if it exists
+    const BUNDLED_DB = path.join(__dirname, '../data/db.json');
+
+    if (!fs.existsSync(DB_PATH)) {
+        if (fs.existsSync(BUNDLED_DB)) {
+            try {
+                const data = fs.readFileSync(BUNDLED_DB, 'utf-8');
+                // Optional: copy to /tmp for initial state
+                if (IS_VERCEL) fs.writeFileSync(DB_PATH, data);
+                return JSON.parse(data);
+            } catch (e) { return []; }
+        }
+        return [];
+    }
+
     try {
         const data = fs.readFileSync(DB_PATH, 'utf-8');
         return JSON.parse(data);
@@ -45,9 +66,14 @@ const readLocalDb = () => {
 };
 
 const writeLocalDb = (data) => {
-    const dir = path.dirname(DB_PATH);
-    if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
-    fs.writeFileSync(DB_PATH, JSON.stringify(data, null, 2));
+    try {
+        const dir = path.dirname(DB_PATH);
+        if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
+        fs.writeFileSync(DB_PATH, JSON.stringify(data, null, 2));
+    } catch (e) {
+        console.error("CRITICAL: Failed to write to local DB. This is expected on Vercel without MongoDB.", e);
+        throw new Error("Persistence error: Cannot write to filesystem. Please connect MongoDB for Vercel deployments.");
+    }
 };
 
 // --- Unified API ---
@@ -79,7 +105,6 @@ const writeDb = async (data) => {
 const appendToDb = async (newData) => {
     if (await connectDb()) {
         if (Array.isArray(newData)) {
-            // Filter out existing IDs to prevent duplicates
             const existingIds = (await AssessmentModel.find({}, 'id')).map(d => d.id);
             const toInsert = newData.filter(item => !existingIds.includes(item.id));
             if (toInsert.length > 0) {
@@ -134,5 +159,6 @@ module.exports = {
     appendToDb,
     updateItemInDb,
     deleteItemFromDb,
-    clearDb
+    clearDb,
+    connectDb
 };
