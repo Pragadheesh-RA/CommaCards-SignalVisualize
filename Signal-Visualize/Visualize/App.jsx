@@ -550,34 +550,47 @@ const LoginScreen = ({ onLogin }) => {
 const FileUpload = ({ onDataLoaded }) => {
     const [dragActive, setDragActive] = useState(false);
     const [error, setError] = useState(null);
+    const [pendingFile, setPendingFile] = useState(null);
+    const [showChoiceModal, setShowChoiceModal] = useState(false);
+    const [loading, setLoading] = useState(false);
 
-    const handleFile = (file) => {
+    const handleFileSelect = (file) => {
         if (file && file.type === "application/json") {
-            const reader = new FileReader();
-            reader.onload = async (e) => {
-                try {
-                    const json = JSON.parse(e.target.result);
-                    // Upload to server
-                    const res = await fetch(`${API_BASE_URL}/assessments/upload`, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(json)
-                    });
-                    const data = await res.json();
-
-                    if (res.ok) {
-                        onDataLoaded(); // Refresh data from server
-                    } else {
-                        setError(data.error || "Upload failed");
-                    }
-                } catch (err) {
-                    setError("Invalid JSON format or Server Error.");
-                }
-            };
-            reader.readAsText(file);
+            setPendingFile(file);
+            setShowChoiceModal(true);
+            setError(null);
         } else {
             setError("Please upload a valid JSON file");
         }
+    };
+
+    const processUpload = async (mode) => {
+        setLoading(true);
+        setShowChoiceModal(false);
+        const reader = new FileReader();
+        reader.onload = async (e) => {
+            try {
+                const json = JSON.parse(e.target.result);
+                const res = await fetch(`${API_BASE_URL}/assessments/upload?mode=${mode}`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(json)
+                });
+                const data = await res.json();
+
+                if (res.ok) {
+                    onDataLoaded();
+                } else {
+                    setError(data.error || "Upload failed");
+                }
+            } catch (err) {
+                setError("Invalid JSON format or Server Error.");
+            } finally {
+                setLoading(false);
+                setPendingFile(null);
+            }
+        };
+        reader.readAsText(pendingFile);
     };
 
     const handleDrop = (e) => {
@@ -585,7 +598,7 @@ const FileUpload = ({ onDataLoaded }) => {
         e.stopPropagation();
         setDragActive(false);
         if (e.dataTransfer.files && e.dataTransfer.files[0]) {
-            handleFile(e.dataTransfer.files[0]);
+            handleFileSelect(e.dataTransfer.files[0]);
         }
     };
 
@@ -595,6 +608,7 @@ const FileUpload = ({ onDataLoaded }) => {
                 className={`relative border-2 border-dashed rounded-xl p-16 text-center transition-all duration-300 ease-in-out cursor-pointer group
           ${dragActive ? 'border-indigo-500 bg-indigo-50 scale-102' : 'border-slate-300 hover:border-indigo-400 bg-white hover:bg-slate-50'}
           ${error ? 'border-red-300 bg-red-50' : ''}
+          ${loading ? 'opacity-50 pointer-events-none' : ''}
         `}
                 onDragEnter={(e) => { e.preventDefault(); e.stopPropagation(); setDragActive(true); }}
                 onDragLeave={(e) => { e.preventDefault(); e.stopPropagation(); setDragActive(false); }}
@@ -602,20 +616,63 @@ const FileUpload = ({ onDataLoaded }) => {
                 onDrop={handleDrop}
                 onClick={() => document.getElementById('file-upload').click()}
             >
-                <input id="file-upload" type="file" accept=".json" className="hidden" onChange={(e) => handleFile(e.target.files[0])} />
+                <input id="file-upload" type="file" accept=".json" className="hidden" onChange={(e) => handleFileSelect(e.target.files[0])} />
                 <div className="flex flex-col items-center justify-center space-y-4">
                     <div className={`p-5 rounded-full shadow-sm transition-colors ${error ? 'bg-red-100 text-red-500' : 'bg-indigo-100 text-indigo-600 group-hover:bg-indigo-200'}`}>
-                        {error ? <AlertTriangle size={40} /> : <Upload size={40} />}
+                        {loading ? <RefreshCw size={40} className="animate-spin" /> : (error ? <AlertTriangle size={40} /> : <Upload size={40} />)}
                     </div>
                     <div>
-                        <p className="text-xl font-bold text-slate-800">{error ? 'Upload Failed' : 'Upload Research Data'}</p>
+                        <p className="text-xl font-bold text-slate-800">{loading ? 'Processing...' : (error ? 'Upload Failed' : 'Upload Research Data')}</p>
                         <p className="text-slate-500 mt-2">{error ? error : 'Drag & drop your JSON export here to begin analysis'}</p>
                     </div>
-                    {!error && (
+                    {!error && !loading && (
                         <span className="text-xs text-indigo-500 font-medium bg-indigo-50 px-3 py-1 rounded-full border border-indigo-100">Supports .json format</span>
                     )}
                 </div>
             </div>
+
+            {/* Choice Modal */}
+            {showChoiceModal && (
+                <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-[60] flex items-center justify-center p-4">
+                    <div className="bg-white rounded-2xl shadow-xl w-full max-w-md overflow-hidden">
+                        <div className="p-6">
+                            <h3 className="text-lg font-bold text-slate-900 mb-2">Import Options</h3>
+                            <p className="text-sm text-slate-500 mb-6">How would you like to handle the existing research data?</p>
+
+                            <div className="space-y-3">
+                                <button
+                                    onClick={() => processUpload('replace')}
+                                    className="w-full flex items-center justify-between p-4 rounded-xl border border-red-100 bg-red-50 hover:bg-red-100 transition-colors group"
+                                >
+                                    <div className="text-left">
+                                        <p className="font-bold text-red-700">Overwrite Existing</p>
+                                        <p className="text-xs text-red-600/70">Deletes current data and starts fresh</p>
+                                    </div>
+                                    <Trash2 size={20} className="text-red-400 group-hover:text-red-600" />
+                                </button>
+
+                                <button
+                                    onClick={() => processUpload('append')}
+                                    className="w-full flex items-center justify-between p-4 rounded-xl border border-indigo-100 bg-indigo-50 hover:bg-indigo-100 transition-colors group"
+                                >
+                                    <div className="text-left">
+                                        <p className="font-bold text-indigo-700">Merge with Existing</p>
+                                        <p className="text-xs text-indigo-600/70">Adds new records to current data</p>
+                                    </div>
+                                    <Layers size={20} className="text-indigo-400 group-hover:text-indigo-600" />
+                                </button>
+
+                                <button
+                                    onClick={() => { setShowChoiceModal(false); setPendingFile(null); }}
+                                    className="w-full py-2 text-sm font-medium text-slate-400 hover:text-slate-600 transition-colors"
+                                >
+                                    Cancel
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
     );
 };
@@ -832,10 +889,17 @@ export default function Dashboard() {
     const handleDelete = async (id) => {
         if (!window.confirm("Are you sure you want to delete this assessment?")) return;
         try {
-            await fetch(`${API_BASE_URL}/assessments/${id}`, { method: 'DELETE' });
-            fetchData();
-            if (selectedAssessment?.id === id) setSelectedAssessment(null);
-        } catch (e) { console.error("Delete failed", e); }
+            const res = await fetch(`${API_BASE_URL}/assessments/${id}`, { method: 'DELETE' });
+            if (res.ok) {
+                fetchData();
+                if (selectedAssessment?.id === id) setSelectedAssessment(null);
+            } else {
+                alert("Failed to delete. Try again.");
+            }
+        } catch (e) {
+            console.error("Delete failed", e);
+            alert("Connection error. Is the server running?");
+        }
     };
 
 
@@ -921,10 +985,18 @@ export default function Dashboard() {
                         <button onClick={async () => {
                             if (!window.confirm("Are you sure you want to delete ALL data? This cannot be undone.")) return;
                             try {
-                                await fetch(`${API_BASE_URL}/assessments`, { method: 'DELETE' });
-                                fetchData();
-                                setProcessedData(null);
-                            } catch (e) { console.error("Clear failed", e); }
+                                const res = await fetch(`${API_BASE_URL}/assessments`, { method: 'DELETE' });
+                                if (res.ok) {
+                                    fetchData();
+                                    setProcessedData(null);
+                                    setSelectedAssessment(null);
+                                } else {
+                                    alert("Failed to clear data.");
+                                }
+                            } catch (e) {
+                                console.error("Clear failed", e);
+                                alert("Connection error.");
+                            }
                         }} className="text-sm font-medium text-slate-500 hover:text-red-600 transition-colors">Clear Data</button>
                     </div>
                 </div>
