@@ -496,7 +496,8 @@ const LoginScreen = ({ onLogin }) => {
                 setError(data.error || "Authentication failed");
             }
         } catch (err) {
-            setError("Server connection failed. Is the backend running?");
+            console.error("Login fetch error details:", err);
+            setError(`Server connection failed: ${err.message}. Check console for details.`);
         }
     };
 
