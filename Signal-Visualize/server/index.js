@@ -1,4 +1,5 @@
 require('dotenv').config();
+require('dotenv').config({ path: 'server.env' });
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
@@ -8,7 +9,11 @@ const assessmentRoutes = require('./routes/assessments');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-app.use(cors());
+app.use(cors({
+    origin: process.env.FRONTEND_URL || '*',
+    methods: ['GET', 'POST', 'PATCH', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization']
+}));
 app.use(bodyParser.json({ limit: '50mb' })); // Increase limit for large JSON uploads
 
 // Routes
