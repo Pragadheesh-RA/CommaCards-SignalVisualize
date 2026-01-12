@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const AUTHORIZED_IDS = ['Water2026', 'Earth1919', 'Fire1123'];
+const AUTHORIZED_IDS = process.env.AUTHORIZED_IDS ? process.env.AUTHORIZED_IDS.split(',') : ['Water2026', 'Earth1919', 'Fire1123'];
 
 router.post('/login', (req, res) => {
     const { id } = req.body;
