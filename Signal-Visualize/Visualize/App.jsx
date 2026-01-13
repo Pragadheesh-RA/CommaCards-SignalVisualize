@@ -491,6 +491,10 @@ const LoginScreen = ({ onLogin }) => {
             const data = await res.json();
 
             if (res.ok && data.success) {
+                if (data.token) {
+                    localStorage.setItem('auth_token', data.token);
+                    localStorage.setItem('auth_user', data.user);
+                }
                 onLogin(data.user);
             } else {
                 setError(data.error || "Authentication failed");
@@ -684,6 +688,21 @@ export default function Dashboard() {
     const [selectedAssessment, setSelectedAssessment] = useState(null);
     const [isDirty, setIsDirty] = useState(false);
     const [showImportModal, setShowImportModal] = useState(false);
+
+    // Auto-login on mount
+    useEffect(() => {
+        const savedToken = localStorage.getItem('auth_token');
+        const savedUser = localStorage.getItem('auth_user');
+        if (savedToken && savedUser) {
+            setUser(savedUser);
+        }
+    }, []);
+
+    const handleLogout = () => {
+        localStorage.removeItem('auth_token');
+        localStorage.removeItem('auth_user');
+        setUser(null);
+    };
 
     const fetchData = async () => {
         try {
@@ -932,7 +951,7 @@ export default function Dashboard() {
                     </div>
                     <div className="flex items-center gap-4">
                         <span className="text-sm font-medium text-slate-500">Logged in as: <span className="text-slate-900">{user}</span></span>
-                        <button onClick={() => setUser(null)} className="text-sm text-red-500 hover:text-red-700 font-medium">Logout</button>
+                        <button onClick={handleLogout} className="text-sm text-red-500 hover:text-red-700 font-medium">Logout</button>
                     </div>
                 </div>
 
@@ -963,7 +982,7 @@ export default function Dashboard() {
                     <div className="flex items-center gap-4">
                         <div className="hidden md:flex items-center gap-4 mr-4 text-sm">
                             <span className="text-slate-500">Logged in as: <span className="font-semibold text-slate-900">{user}</span></span>
-                            <button onClick={() => setUser(null)} className="text-red-500 hover:text-red-700 font-medium">Logout</button>
+                            <button onClick={handleLogout} className="text-red-500 hover:text-red-700 font-medium">Logout</button>
                         </div>
                         <div className="h-6 w-px bg-slate-200 hidden md:block"></div>
                         <button
