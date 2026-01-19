@@ -8,7 +8,7 @@ import {
 /**
  * Premium Responsive Sidebar with Collapsible logic and Dark Mode Toggle.
  */
-const Sidebar = ({ user, onLogout, isDarkMode, toggleDarkMode, activeView, onViewChange, onShowDevInfo }) => {
+const Sidebar = ({ user, onLogout, isDarkMode, toggleDarkMode, activeView, onViewChange }) => {
     const [isCollapsed, setIsCollapsed] = useState(false);
     const [mobileOpen, setMobileOpen] = useState(false);
 
@@ -75,16 +75,6 @@ const Sidebar = ({ user, onLogout, isDarkMode, toggleDarkMode, activeView, onVie
                     {!isCollapsed && <span className="text-sm font-black uppercase tracking-widest text-[10px]">{isDarkMode ? 'Light Mode' : 'Dark Mode'}</span>}
                 </button>
 
-                {/* Developer Info Button */}
-                <button
-                    onClick={onShowDevInfo}
-                    className={`w-full flex items-center gap-3 px-3 py-3 rounded-2xl bg-primary-500/5 text-primary-500 hover:bg-primary-500/10 transition-all
-                        ${isCollapsed ? 'justify-center' : ''}
-                    `}
-                >
-                    <Info size={20} />
-                    {!isCollapsed && <span className="text-[10px] font-black uppercase tracking-widest">Developer Info</span>}
-                </button>
 
                 {/* User Info */}
                 <div className={`flex items-center gap-3 px-2 py-4 border-t border-slate-100 dark:border-slate-800 ${isCollapsed ? 'justify-center' : ''}`}>

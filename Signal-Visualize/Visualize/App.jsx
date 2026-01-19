@@ -16,25 +16,25 @@ import { Card, Badge, Modal } from './components/UI';
 // --- Utilities ---
 const GradeStructure = () => (
     <div className="space-y-6 animate-slide-up">
-        <h3 className="text-2xl font-black text-slate-900 dark:text-white tracking-tight">Grade Hierarchy</h3>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <h3 className="text-2xl font-black text-slate-900 dark:text-white tracking-tight">Archetype Profiles</h3>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {[
-                { grade: 'A+', range: '90-100', role: 'Lead Researcher', color: 'indigo', desc: 'Exceptional response accuracy and cognitive efficiency.' },
-                { grade: 'A', range: '80-89', role: 'Senior Analyst', color: 'emerald', desc: 'High performance with consistent decision patterns.' },
-                { grade: 'B+', range: '70-79', role: 'Specialist', color: 'blue', desc: 'Above average integration and stable latency.' },
-                { grade: 'B', range: '60-69', role: 'Analyst', color: 'orange', desc: 'Standard performance with minor latency variances.' },
-                { grade: 'C', range: '50-59', role: 'Junior Analyst', color: 'slate', desc: 'Developing mastery of the evaluation framework.' },
-                { grade: 'D', range: '0-49', role: 'Probationary', color: 'red', desc: 'Requires further calibration and baseline testing.' },
+                { name: 'Steady Operator', variant: 'Consistency', color: 'indigo', desc: 'Maintains elite-level precision with minimal latency variance. Highly reliable under steady cognitive load.' },
+                { name: 'Dynamic Catalyst', variant: 'Adaptability', color: 'emerald', desc: 'Excels at rapid decision-making and high-impact actions. Highly adaptive to fluctuating data stimuli.' },
+                { name: 'Strong Adaptive', variant: 'Resilience', color: 'blue', desc: 'Demonstrates robust performance recovery and sustained focus. Optimal for high-pressure research environments.' },
+                { name: 'Strategic Analyst', variant: 'Depth', color: 'violet', desc: 'Prioritizes thorough data integration and pattern recognition. Maintains high integrity over long durations.' },
+                { name: 'Rapid Responder', variant: 'Speed', color: 'amber', desc: 'Exceptional reaction times and rapid cognitive processing. Balanced for high-velocity decision pipelines.' },
+                { name: 'Precise Specialist', variant: 'Accuracy', color: 'rose', desc: 'Focused on surgical accuracy and detailed analysis. Minimal error rate with focused engagement.' },
             ].map((item, i) => (
-                <div key={i} className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-6 rounded-3xl hover:scale-[1.02] transition-transform shadow-sm">
-                    <div className="flex items-center justify-between mb-4">
-                        <div className={`w-12 h-12 rounded-2xl flex items-center justify-center font-black text-lg bg-${item.color}-500/10 text-${item.color}-500`}>
-                            {item.grade}
+                <div key={i} className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-8 rounded-[2.5rem] hover:scale-[1.02] transition-all shadow-sm group">
+                    <div className="flex items-center justify-between mb-6">
+                        <div className={`w-14 h-14 rounded-2xl flex items-center justify-center bg-${item.color}-500/10 text-${item.color}-500 group-hover:bg-${item.color}-500 group-hover:text-white transition-colors`}>
+                            <Zap size={28} />
                         </div>
-                        <Badge color={item.color}>{item.range}%</Badge>
+                        <Badge color={item.color}>{item.variant}</Badge>
                     </div>
-                    <p className="text-sm font-black text-slate-900 dark:text-white mb-1 uppercase tracking-tight">{item.role}</p>
-                    <p className="text-xs text-slate-500 dark:text-slate-400 font-medium leading-relaxed">{item.desc}</p>
+                    <h4 className="text-xl font-black text-slate-900 dark:text-white mb-2 tracking-tight">{item.name}</h4>
+                    <p className="text-sm text-slate-500 dark:text-slate-400 font-medium leading-relaxed">{item.desc}</p>
                 </div>
             ))}
         </div>
@@ -246,7 +246,6 @@ export default function Dashboard() {
     const [showLogoutConfirm, setShowLogoutConfirm] = useState(false);
     const [skipLogoutConfirm, setSkipLogoutConfirm] = useState(() => localStorage.getItem('skip_logout_confirm') === 'true');
     const [activeView, setActiveView] = useState('dashboard'); // 'dashboard', 'format', 'grades'
-    const [showDevInfo, setShowDevInfo] = useState(false);
 
     const addToast = (message, type = 'info') => {
         const id = Date.now();
@@ -469,7 +468,6 @@ export default function Dashboard() {
                 toggleDarkMode={toggleDarkMode}
                 activeView={activeView}
                 onViewChange={setActiveView}
-                onShowDevInfo={() => setShowDevInfo(true)}
             />
 
             {/* Main Content Area */}
@@ -572,34 +570,6 @@ export default function Dashboard() {
                 </div>
             </main>
 
-            {/* Developer Info Modal */}
-            {showDevInfo && (
-                <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-md z-[120] flex items-center justify-center p-6 animate-fade-in" onClick={() => setShowDevInfo(false)}>
-                    <div className="bg-white dark:bg-slate-900 rounded-[2.5rem] p-10 max-w-sm w-full shadow-2xl border border-slate-200 dark:border-slate-800 animate-scale-in" onClick={e => e.stopPropagation()}>
-                        <div className="w-24 h-24 bg-gradient-to-br from-primary-500 to-indigo-600 rounded-3xl flex items-center justify-center text-white mx-auto mb-8 shadow-2xl shadow-primary-500/40 relative group overflow-hidden">
-                            <Microscope size={48} strokeWidth={2.5} className="group-hover:scale-110 transition-transform duration-500" />
-                            <div className="absolute inset-0 bg-white/20 translate-y-24 group-hover:translate-y-0 transition-transform duration-500" />
-                        </div>
-                        <div className="text-center space-y-2">
-                            <h3 className="text-2xl font-black text-slate-900 dark:text-white">Pragadhesh RA</h3>
-                            <p className="text-sm font-bold text-primary-500 uppercase tracking-widest text-center mt-2">Web Developer</p>
-                            <p className="text-xs font-medium text-slate-500 dark:text-slate-400 bg-slate-50 dark:bg-slate-800/50 py-2 px-4 rounded-full inline-block mt-4 mx-auto block w-fit">
-                                pragadheesharumugam@gmail.com
-                            </p>
-                        </div>
-                        <div className="mt-10 pt-8 border-t border-slate-100 dark:border-slate-800 text-center">
-                            <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-4">Engineering at</p>
-                            <h4 className="text-xl font-black text-slate-900 dark:text-white tracking-tighter">Visualize</h4>
-                        </div>
-                        <button
-                            onClick={() => setShowDevInfo(false)}
-                            className="w-full mt-8 py-4 bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-2xl font-black text-xs uppercase tracking-widest transition-all hover:scale-[1.02] active:scale-95 shadow-xl"
-                        >
-                            Close
-                        </button>
-                    </div>
-                </div>
-            )}
 
             {/* Modals & Overlays */}
             {showImportModal && <FileUpload onUpload={() => { fetchData(); addToast("Import successful", "success"); }} onClose={() => setShowImportModal(false)} />}
