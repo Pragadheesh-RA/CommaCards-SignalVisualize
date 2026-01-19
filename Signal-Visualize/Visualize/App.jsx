@@ -13,6 +13,64 @@ import LoginScreen from './components/LoginScreen';
 import { Card, Badge, Modal } from './components/UI';
 
 // --- Utilities ---
+const GradeStructure = () => (
+    <div className="space-y-6 animate-slide-up">
+        <h3 className="text-2xl font-black text-slate-900 dark:text-white tracking-tight">Grade Hierarchy</h3>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {[
+                { grade: 'A+', range: '90-100', role: 'Lead Researcher', color: 'indigo', desc: 'Exceptional response accuracy and cognitive efficiency.' },
+                { grade: 'A', range: '80-89', role: 'Senior Analyst', color: 'emerald', desc: 'High performance with consistent decision patterns.' },
+                { grade: 'B+', range: '70-79', role: 'Specialist', color: 'blue', desc: 'Above average integration and stable latency.' },
+                { grade: 'B', range: '60-69', role: 'Analyst', color: 'orange', desc: 'Standard performance with minor latency variances.' },
+                { grade: 'C', range: '50-59', role: 'Junior Analyst', color: 'slate', desc: 'Developing mastery of the evaluation framework.' },
+                { grade: 'D', range: '0-49', role: 'Probationary', color: 'red', desc: 'Requires further calibration and baseline testing.' },
+            ].map((item, i) => (
+                <div key={i} className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-6 rounded-3xl hover:scale-[1.02] transition-transform shadow-sm">
+                    <div className="flex items-center justify-between mb-4">
+                        <div className={`w-12 h-12 rounded-2xl flex items-center justify-center font-black text-lg bg-${item.color}-500/10 text-${item.color}-500`}>
+                            {item.grade}
+                        </div>
+                        <Badge color={item.color}>{item.range}%</Badge>
+                    </div>
+                    <p className="text-sm font-black text-slate-900 dark:text-white mb-1 uppercase tracking-tight">{item.role}</p>
+                    <p className="text-xs text-slate-500 dark:text-slate-400 font-medium leading-relaxed">{item.desc}</p>
+                </div>
+            ))}
+        </div>
+    </div>
+);
+
+const AnalysisFormat = () => (
+    <div className="space-y-6 animate-slide-up">
+        <h3 className="text-2xl font-black text-slate-900 dark:text-white tracking-tight">General Format</h3>
+        <Card title="Data Architecture">
+            <div className="space-y-4">
+                <div className="p-4 bg-slate-50 dark:bg-slate-800/50 rounded-2xl border border-slate-100 dark:border-slate-800">
+                    <p className="text-xs font-black text-primary-500 uppercase tracking-[0.2em] mb-2">Core Metrics</p>
+                    <ul className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm font-bold text-slate-700 dark:text-slate-300">
+                        <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-primary-500" /> Cognitive Load Index</li>
+                        <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-primary-500" /> Response Phase Latency</li>
+                        <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-primary-500" /> Decision Consistency</li>
+                        <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-primary-500" /> Archetype Mapping</li>
+                    </ul>
+                </div>
+                <div className="p-4 bg-slate-50 dark:bg-slate-800/50 rounded-2xl border border-slate-100 dark:border-slate-800">
+                    <p className="text-xs font-black text-emerald-500 uppercase tracking-[0.2em] mb-2">Analysis Pipeline</p>
+                    <div className="flex flex-col sm:flex-row items-center gap-4">
+                        <div className="px-4 py-2 bg-white dark:bg-slate-900 rounded-xl border border-slate-100 dark:border-slate-800 text-xs font-black">Raw Data</div>
+                        <ChevronRight className="rotate-90 sm:rotate-0 text-slate-400" size={16} />
+                        <div className="px-4 py-2 bg-white dark:bg-slate-900 rounded-xl border border-slate-100 dark:border-slate-800 text-xs font-black">Normalization</div>
+                        <ChevronRight className="rotate-90 sm:rotate-0 text-slate-400" size={16} />
+                        <div className="px-4 py-2 bg-white dark:bg-slate-900 rounded-xl border border-slate-100 dark:border-slate-800 text-xs font-black">Scoring Engine</div>
+                        <ChevronRight className="rotate-90 sm:rotate-0 text-slate-400" size={16} />
+                        <div className="px-4 py-2 bg-primary-500 text-white rounded-xl text-xs font-black">Insight Dashboard</div>
+                    </div>
+                </div>
+            </div>
+        </Card>
+    </div>
+);
+
 const calculateGrade = (score) => {
     if (score >= 90) return 'A+';
     if (score >= 80) return 'A';
@@ -186,6 +244,8 @@ export default function Dashboard() {
     const [toasts, setToasts] = useState([]);
     const [showLogoutConfirm, setShowLogoutConfirm] = useState(false);
     const [skipLogoutConfirm, setSkipLogoutConfirm] = useState(() => localStorage.getItem('skip_logout_confirm') === 'true');
+    const [activeView, setActiveView] = useState('dashboard'); // 'dashboard', 'format', 'grades'
+    const [showDevInfo, setShowDevInfo] = useState(false);
     const [activeView, setActiveView] = useState('dashboard'); // 'dashboard', 'format', 'grades'
     const [showDevInfo, setShowDevInfo] = useState(false);
 
@@ -414,92 +474,94 @@ export default function Dashboard() {
             <main className="flex-1 p-6 lg:p-10 lg:ml-72 transition-all">
                 <div className="max-w-7xl mx-auto space-y-10 animate-fade-in">
 
-                    {/* Header Section */}
-                    <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
-                        <div>
-                            <h2 className="text-3xl font-black text-slate-900 dark:text-white tracking-tighter">Research Visualize</h2>
-                            <p className="text-slate-500 dark:text-slate-400 font-bold mt-1 uppercase text-xs tracking-widest">
-                                Research Insight &bull; Advanced Analytics
-                            </p>
-                        </div>
-                        <div className="flex flex-wrap items-center gap-3">
-                            <button
-                                onClick={() => setShowImportModal(true)}
-                                className="flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs font-black uppercase tracking-widest bg-primary-500 text-white hover:bg-primary-400 transition-all shadow-lg shadow-primary-500/20"
-                            >
-                                <Upload size={16} strokeWidth={3} />
-                                Import Data
-                            </button>
-                            <button
-                                onClick={handleClear}
-                                className="px-5 py-2.5 rounded-xl text-xs font-black uppercase tracking-widest bg-red-500/10 text-red-500 border border-red-500/20 hover:bg-red-500 hover:text-white transition-all shadow-lg shadow-red-500/10"
-                            >
-                                Clear Dataset
-                            </button>
-                        </div>
-                    </div>
-
-                    {/* Quick Stats Grid */}
-                    {processedData && (
-                        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6">
-                            <StatCard title="Assessments" value={processedData.stats.total} subtext="Total records loaded" icon={Users} colorClass="bg-primary-500" delay="animate-delay-100" />
-                            <StatCard title="Mean Score" value={processedData.stats.avgScore} subtext="Cohort performance" icon={Award} colorClass="bg-emerald-500" delay="animate-delay-200" />
-                            <StatCard title="Mean Time" value={`${processedData.stats.avgTime}s`} subtext="Completion speed" icon={Clock} colorClass="bg-violet-500" delay="animate-delay-300" />
-                            <StatCard title="Integrity" value={`${((1 - (processedData.stats.flaggedCount / (processedData.stats.total || 1))) * 100).toFixed(0)}%`} subtext={`${processedData.stats.flaggedCount} flagged entries`} icon={ShieldAlert} colorClass="bg-amber-500" delay="animate-delay-400" />
-                        </div>
-                    )}
-
-                    {/* Data Explorer */}
-                    <div className="space-y-6">
-                        <div className="flex items-center gap-2 mb-2">
-                            <div className="p-2 bg-primary-100 dark:bg-primary-950 rounded-lg text-primary-500">
-                                <Microscope size={18} />
-                            </div>
-                            <h3 className="text-xl font-black text-slate-900 dark:text-white tracking-tight">Participant Registry</h3>
-                        </div>
-
-                        {rawData && (
-                            <AssessmentTable
-                                data={filteredParticipants}
-                                searchTerm={searchTerm}
-                                onSearchChange={setSearchTerm}
-                                filterArchetype={filterArchetype}
-                                onFilterChange={setFilterArchetype}
-                                availableArchetypes={processedData?.availableArchetypes || ["All"]}
-                                sortConfig={sortConfig}
-                                onSort={handleSort}
-                                onDelete={handleDelete}
-                                onSelect={setSelectedAssessment}
-                            />
-                        )}
-
-                        {(!rawData || rawData.length === 0) && !isLoading && (
-                            <Card className="min-h-[400px] flex flex-col items-center justify-center text-center p-12">
-                                <div className="w-20 h-20 bg-slate-50 dark:bg-slate-800 rounded-3xl flex items-center justify-center text-slate-300 dark:text-slate-600 mb-6">
-                                    <Layers size={40} />
+                    {activeView === 'dashboard' && (
+                        <>
+                            {/* Header Section */}
+                            <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
+                                <div>
+                                    <h2 className="text-3xl font-black text-slate-900 dark:text-white tracking-tighter">Research Visualize</h2>
+                                    <p className="text-slate-500 dark:text-slate-400 font-bold mt-1 uppercase text-xs tracking-widest">
+                                        Research Insight &bull; Advanced Analytics
+                                    </p>
                                 </div>
-                                <h4 className="text-xl font-bold text-slate-900 dark:text-white mb-2">No Research Data Detected</h4>
-                                <p className="text-sm text-slate-500 dark:text-slate-400 max-w-sm mb-8">
-                                    Your research registry is currently empty. Import participant data to begin your analysis.
-                                </p>
-                                <div className="flex gap-4">
+                                <div className="flex flex-wrap items-center gap-3">
                                     <button
                                         onClick={() => setShowImportModal(true)}
-                                        className="px-8 py-3 bg-primary-500 text-white rounded-2xl font-black text-xs uppercase tracking-widest shadow-xl shadow-primary-500/20 hover:scale-105 active:scale-95 transition-all"
+                                        className="flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs font-black uppercase tracking-widest bg-primary-500 text-white hover:bg-primary-400 transition-all shadow-lg shadow-primary-500/20"
                                     >
-                                        Import Now
+                                        <Upload size={16} strokeWidth={3} />
+                                        Import Data
                                     </button>
                                     <button
-                                        onClick={fetchData}
-                                        className="px-8 py-3 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-slate-200 dark:hover:bg-slate-700 transition-all"
+                                        onClick={handleClear}
+                                        className="px-5 py-2.5 rounded-xl text-xs font-black uppercase tracking-widest bg-red-500/10 text-red-500 border border-red-500/20 hover:bg-red-500 hover:text-white transition-all shadow-lg shadow-red-500/10"
                                     >
-                                        Refresh
+                                        Clear Dataset
                                     </button>
                                 </div>
-                            </Card>
-                        )}
-                    </div>
-                </div>
+                            </div>
+
+                            {/* Quick Stats Grid */}
+                            {processedData && (
+                                <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6">
+                                    <StatCard title="Assessments" value={processedData.stats.total} subtext="Total records loaded" icon={Users} colorClass="bg-primary-500" delay="animate-delay-100" />
+                                    <StatCard title="Mean Score" value={processedData.stats.avgScore} subtext="Cohort performance" icon={Award} colorClass="bg-emerald-500" delay="animate-delay-200" />
+                                    <StatCard title="Mean Time" value={`${processedData.stats.avgTime}s`} subtext="Completion speed" icon={Clock} colorClass="bg-violet-500" delay="animate-delay-300" />
+                                    <StatCard title="Integrity" value={`${((1 - (processedData.stats.flaggedCount / (processedData.stats.total || 1))) * 100).toFixed(0)}%`} subtext={`${processedData.stats.flaggedCount} flagged entries`} icon={ShieldAlert} colorClass="bg-amber-500" delay="animate-delay-400" />
+                                </div>
+                            )}
+
+                            {/* Data Explorer */}
+                            <div className="space-y-6">
+                                <div className="flex items-center gap-2 mb-2">
+                                    <div className="p-2 bg-primary-100 dark:bg-primary-950 rounded-lg text-primary-500">
+                                        <Microscope size={18} />
+                                    </div>
+                                    <h3 className="text-xl font-black text-slate-900 dark:text-white tracking-tight">Participant Registry</h3>
+                                </div>
+
+                                {rawData && (
+                                    <AssessmentTable
+                                        data={filteredParticipants}
+                                        searchTerm={searchTerm}
+                                        onSearchChange={setSearchTerm}
+                                        filterArchetype={filterArchetype}
+                                        onFilterChange={setFilterArchetype}
+                                        availableArchetypes={processedData?.availableArchetypes || ["All"]}
+                                        sortConfig={sortConfig}
+                                        onSort={handleSort}
+                                        onDelete={handleDelete}
+                                        onSelect={setSelectedAssessment}
+                                    />
+                                )}
+
+                                {(!rawData || rawData.length === 0) && !isLoading && (
+                                    <Card className="min-h-[400px] flex flex-col items-center justify-center text-center p-12">
+                                        <div className="w-20 h-20 bg-slate-50 dark:bg-slate-800 rounded-3xl flex items-center justify-center text-slate-300 dark:text-slate-600 mb-6">
+                                            <Layers size={40} />
+                                        </div>
+                                        <h4 className="text-xl font-bold text-slate-900 dark:text-white mb-2">No Research Data Detected</h4>
+                                        <p className="text-sm text-slate-500 dark:text-slate-400 max-w-sm mb-8">
+                                            Your research registry is currently empty. Import participant data to begin your analysis.
+                                        </p>
+                                        <div className="flex gap-4">
+                                            <button
+                                                onClick={() => setShowImportModal(true)}
+                                                className="px-8 py-3 bg-primary-500 text-white rounded-2xl font-black text-xs uppercase tracking-widest shadow-xl shadow-primary-500/20 hover:scale-105 active:scale-95 transition-all"
+                                            >
+                                                Import Now
+                                            </button>
+                                            <button
+                                                onClick={fetchData}
+                                                className="px-8 py-3 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-slate-200 dark:hover:bg-slate-700 transition-all"
+                                            >
+                                                Refresh
+                                            </button>
+                                        </div>
+                                    </Card>
+                                )}
+                            </div>
+                        </div>
             </main>
 
             {/* Modals & Overlays */}
