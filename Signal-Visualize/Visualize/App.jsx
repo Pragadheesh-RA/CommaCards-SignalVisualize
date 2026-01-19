@@ -297,7 +297,7 @@ export default function Dashboard() {
         localStorage.removeItem('auth_token');
         localStorage.removeItem('auth_user');
         setUser(null);
-        addToast("Logged out successfully", "success");
+        addToast("Logged in successfully", "success");
         setShowLogoutConfirm(false);
     };
 
