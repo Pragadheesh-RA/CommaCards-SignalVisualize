@@ -415,7 +415,7 @@ export default function Dashboard() {
                     {/* Header Section */}
                     <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
                         <div>
-                            <h2 className="text-3xl font-black text-slate-900 dark:text-white tracking-tighter">Comma Cards Analytics</h2>
+                            <h2 className="text-3xl font-black text-slate-900 dark:text-white tracking-tighter">Research Visualize</h2>
                             <p className="text-slate-500 dark:text-slate-400 font-bold mt-1 uppercase text-xs tracking-widest">
                                 Research Insight &bull; Developer RA
                             </p>
