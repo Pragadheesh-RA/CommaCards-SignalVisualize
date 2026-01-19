@@ -31,9 +31,12 @@ app.get(['/', '/api'], async (req, res) => {
 app.use('/api/auth', authRoutes);
 app.use('/api/assessments', assessmentRoutes);
 
-if (process.env.NODE_ENV !== 'production' && !process.env.VERCEL) {
-    app.listen(PORT, () => {
-        console.log(`Server is running on http://localhost:${PORT}`);
+// Always listen locally unless explicitly on Vercel
+if (!process.env.VERCEL) {
+    app.listen(PORT, '0.0.0.0', () => {
+        console.log(`\n🚀 Visualize Backend Ready`);
+        console.log(`📡 Endpoint: http://localhost:${PORT}/api`);
+        console.log(`🌍 Network: http://0.0.0.0:${PORT}/api`);
     });
 }
 
