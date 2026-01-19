@@ -76,8 +76,8 @@ const AssessmentTable = ({
                                         onClick={() => onSort(key)}
                                     >
                                         <div className="flex items-center gap-2">
-                                            {key.includes('timestamp') ? 'Created Date' :
-                                                key.includes('email') ? 'Participant' :
+                                            {key === 'timestamp' ? 'Created Date' :
+                                                key === 'data.email' ? 'Participant' :
                                                     key === 'score' ? 'Score' : 'Duration'}
                                             {getSortIcon(key)}
                                         </div>
@@ -87,100 +87,126 @@ const AssessmentTable = ({
                             </tr>
                         </thead>
                         <tbody className="divide-y dark:divide-slate-800">
-                            {data.map((item, idx) => (
-                                <tr
-                                    key={item.id || idx}
-                                    className="group hover:bg-slate-50/80 dark:hover:bg-slate-800/40 transition-all cursor-pointer"
-                                    onClick={() => onSelect(item)}
-                                >
-                                    <td className="px-6 py-5">
-                                        <p className="text-sm font-bold text-slate-700 dark:text-slate-300">{formatDate(item.data?.timestamp?._seconds)}</p>
-                                        <p className="text-[10px] font-medium text-slate-400 mt-1 uppercase">IST Time</p>
-                                    </td>
-                                    <td className="px-6 py-5">
-                                        <div className="flex items-center gap-3">
-                                            <div className="w-10 h-10 rounded-xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center group-hover:bg-primary-500 group-hover:text-white transition-all duration-300">
-                                                <User size={18} />
+                            {data.map((item, idx) => {
+                                const score = item.data?.rawScore || 0;
+                                // Utility grading logic (mirrored from App.jsx for consistency)
+                                const getGrade = (s) => (s >= 90 ? 'A+' : s >= 80 ? 'A' : s >= 70 ? 'B+' : s >= 60 ? 'B' : s >= 50 ? 'C' : 'D');
+
+                                return (
+                                    <tr
+                                        key={item.id || idx}
+                                        className="group hover:bg-slate-50/80 dark:hover:bg-slate-800/40 transition-all cursor-pointer"
+                                        onClick={() => onSelect(item)}
+                                    >
+                                        <td className="px-6 py-5">
+                                            <p className="text-sm font-bold text-slate-700 dark:text-slate-300">
+                                                {item.data?.timestamp?._seconds
+                                                    ? new Date(item.data.timestamp._seconds * 1000).toLocaleString('en-IN', { day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit' })
+                                                    : 'N/A'}
+                                            </p>
+                                            <p className="text-[10px] font-medium text-slate-400 mt-1 uppercase">IST Time</p>
+                                        </td>
+                                        <td className="px-6 py-5">
+                                            <div className="flex items-center gap-3">
+                                                <div className="w-10 h-10 rounded-xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center group-hover:bg-primary-500 group-hover:text-white transition-all duration-300">
+                                                    <User size={18} />
+                                                </div>
+                                                <div>
+                                                    <p className="text-sm font-black text-slate-900 dark:text-slate-100">
+                                                        {item.data?.email || "Anonymous"}
+                                                        {item.annotations?.flagged && <Flag size={12} className="inline ml-2 text-red-500 fill-red-500 animate-pulse" />}
+                                                    </p>
+                                                    <p className="text-xs font-bold text-primary-500/80 truncate max-w-[150px] uppercase tracking-tighter mt-0.5">
+                                                        {item.data?.currentArchetype?.title || item.data?.archetype || "N/A"}
+                                                    </p>
+                                                </div>
                                             </div>
-                                            <div>
-                                                <p className="text-sm font-black text-slate-900 dark:text-slate-100">
-                                                    {item.data?.email || "Anonymous"}
-                                                    {item.annotations?.flagged && <Flag size={12} className="inline ml-2 text-red-500 fill-red-500 animate-pulse" />}
-                                                </p>
-                                                <p className="text-xs font-bold text-primary-500/80 truncate max-w-[150px] uppercase tracking-tighter mt-0.5">
-                                                    {item.data?.currentArchetype?.title || item.data?.archetype || "N/A"}
-                                                </p>
+                                        </td>
+                                        <td className="px-6 py-5">
+                                            <div className="flex items-center gap-4">
+                                                <div className="flex flex-col">
+                                                    <span className="text-sm font-black text-slate-900 dark:text-white">{score}</span>
+                                                    <div className="w-16 h-1.5 bg-slate-100 dark:bg-slate-800 rounded-full mt-2 overflow-hidden">
+                                                        <div
+                                                            className="h-full bg-primary-500"
+                                                            style={{ width: `${Math.min(100, (score / 100) * 100)}%` }}
+                                                        />
+                                                    </div>
+                                                </div>
+                                                <div className="w-8 h-8 rounded-lg bg-primary-50 dark:bg-primary-500/10 flex items-center justify-center">
+                                                    <span className="text-[10px] font-black text-primary-600 dark:text-primary-400">{getGrade(score)}</span>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </td>
-                                    <td className="px-6 py-5">
-                                        <div className="flex flex-col">
-                                            <span className="text-sm font-black text-slate-900 dark:text-white">{item.data?.rawScore || 0}</span>
-                                            <div className="w-16 h-1.5 bg-slate-100 dark:bg-slate-800 rounded-full mt-2 overflow-hidden">
-                                                <div
-                                                    className="h-full bg-primary-500"
-                                                    style={{ width: `${Math.min(100, ((item.data?.rawScore || 0) / 100) * 100)}%` }}
-                                                />
+                                        </td>
+                                        <td className="px-6 py-5 text-sm font-mono font-bold text-slate-500 dark:text-slate-400">
+                                            {item.data?.timeTakenTotalSec}s
+                                        </td>
+                                        <td className="px-6 py-5">
+                                            <div className="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                                                <button
+                                                    onClick={(e) => { e.stopPropagation(); onDelete(item.id); }}
+                                                    className="p-2 text-slate-400 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-500/10 rounded-lg transition-all"
+                                                >
+                                                    <Trash2 size={18} />
+                                                </button>
+                                                <div className="p-2 text-primary-500">
+                                                    <ChevronRight size={18} strokeWidth={3} />
+                                                </div>
                                             </div>
-                                        </div>
-                                    </td>
-                                    <td className="px-6 py-5 text-sm font-mono font-bold text-slate-500 dark:text-slate-400">
-                                        {item.data?.timeTakenTotalSec}s
-                                    </td>
-                                    <td className="px-6 py-5">
-                                        <div className="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                                            <button
-                                                onClick={(e) => { e.stopPropagation(); onDelete(item.id); }}
-                                                className="p-2 text-slate-400 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-500/10 rounded-lg transition-all"
-                                            >
-                                                <Trash2 size={18} />
-                                            </button>
-                                            <div className="p-2 text-primary-500">
-                                                <ChevronRight size={18} strokeWidth={3} />
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
-                            ))}
+                                        </td>
+                                    </tr>
+                                );
+                            })}
                         </tbody>
                     </table>
                 </div>
 
                 {/* Mobile Card View */}
                 <div className="md:hidden divide-y dark:divide-slate-800">
-                    {data.map((item, idx) => (
-                        <div
-                            key={item.id || idx}
-                            className="p-4 active:bg-slate-50 dark:active:bg-slate-800 transition-colors"
-                            onClick={() => onSelect(item)}
-                        >
-                            <div className="flex justify-between items-start mb-3">
-                                <div className="flex items-center gap-3">
-                                    <div className="w-10 h-10 rounded-xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center">
-                                        <User size={18} />
+                    {data.map((item, idx) => {
+                        const score = item.data?.rawScore || 0;
+                        const grade = (score >= 90 ? 'A+' : score >= 80 ? 'A' : score >= 70 ? 'B+' : score >= 60 ? 'B' : score >= 50 ? 'C' : 'D');
+                        return (
+                            <div
+                                key={item.id || idx}
+                                className="p-4 active:bg-slate-50 dark:active:bg-slate-800 transition-colors"
+                                onClick={() => onSelect(item)}
+                            >
+                                <div className="flex justify-between items-start mb-3">
+                                    <div className="flex items-center gap-3">
+                                        <div className="w-10 h-10 rounded-xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center">
+                                            <User size={18} />
+                                        </div>
+                                        <div>
+                                            <p className="text-sm font-black text-slate-900 dark:text-white">{item.data?.email || "Anonymous"}</p>
+                                            <div className="flex items-center gap-2">
+                                                <p className="text-[10px] font-bold text-slate-400 uppercase">
+                                                    {item.data?.timestamp?._seconds
+                                                        ? new Date(item.data.timestamp._seconds * 1000).toLocaleDateString('en-IN', { day: '2-digit', month: 'short' })
+                                                        : 'N/A'}
+                                                </p>
+                                                <span className="text-[10px] font-black text-primary-500 bg-primary-500/10 px-1.5 rounded uppercase">{grade}</span>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div>
-                                        <p className="text-sm font-black text-slate-900 dark:text-white">{item.data?.email || "Anonymous"}</p>
-                                        <p className="text-[10px] font-bold text-slate-400 uppercase">{formatDate(item.data?.timestamp?._seconds)}</p>
-                                    </div>
+                                    <Badge color={item.annotations?.flagged ? "red" : "indigo"}>
+                                        {score} pts
+                                    </Badge>
                                 </div>
-                                <Badge color={item.annotations?.flagged ? "red" : "indigo"}>
-                                    {item.data?.rawScore || 0} pts
-                                </Badge>
+                                <div className="flex items-center justify-between">
+                                    <span className="text-xs font-bold text-primary-500 uppercase tracking-tighter">
+                                        {item.data?.currentArchetype?.title || item.data?.archetype || "N/A"}
+                                    </span>
+                                    <button
+                                        onClick={(e) => { e.stopPropagation(); onDelete(item.id); }}
+                                        className="p-2 text-slate-400 hover:text-red-500"
+                                    >
+                                        <Trash2 size={18} />
+                                    </button>
+                                </div>
                             </div>
-                            <div className="flex items-center justify-between">
-                                <span className="text-xs font-bold text-primary-500 uppercase tracking-tighter">
-                                    {item.data?.currentArchetype?.title || item.data?.archetype || "N/A"}
-                                </span>
-                                <button
-                                    onClick={(e) => { e.stopPropagation(); onDelete(item.id); }}
-                                    className="p-2 text-slate-400 hover:text-red-500"
-                                >
-                                    <Trash2 size={18} />
-                                </button>
-                            </div>
-                        </div>
-                    ))}
+                        );
+                    })}
                 </div>
             </div>
 

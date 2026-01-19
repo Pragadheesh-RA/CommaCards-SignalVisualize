@@ -53,7 +53,7 @@ const LoginScreen = ({ onLogin, API_BASE_URL }) => {
                         <div className="absolute inset-0 bg-primary-500/20 blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                         <ShieldCheck className="text-primary-400 relative z-10" size={48} strokeWidth={2} />
                     </div>
-                    <h1 className="text-4xl font-black text-white tracking-tighter mb-2">VISUALIZE</h1>
+                    <h1 className="text-4xl font-black text-white tracking-tighter mb-2 italic">COMMA CARDS</h1>
                     <div className="flex items-center justify-center gap-2">
                         <span className="h-px w-8 bg-white/20" />
                         <span className="text-[10px] font-black text-primary-400 uppercase tracking-[0.3em]">Researcher Portal</span>
@@ -114,7 +114,7 @@ const LoginScreen = ({ onLogin, API_BASE_URL }) => {
 
                 {/* Footer Credits */}
                 <p className="text-center mt-8 text-[10px] font-bold text-white/20 uppercase tracking-[0.2em]">
-                    &copy; 2026 PRAGADHEESH-RA &bull; SECURE ANALYTICS ENGINE
+                    &copy; 2026 COMMA CARDS &bull; DEV RA &bull; SECURE ANALYTICS
                 </p>
             </div>
         </div>

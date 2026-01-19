@@ -11,6 +11,7 @@ const Sidebar = ({ user, onLogout, isDarkMode, toggleDarkMode }) => {
     const [isCollapsed, setIsCollapsed] = useState(false);
     const [mobileOpen, setMobileOpen] = useState(false);
 
+    // Only Dashboard is active in this version
     const menuItems = [
         { icon: LayoutDashboard, label: 'Dashboard', active: true },
     ];
@@ -23,9 +24,9 @@ const Sidebar = ({ user, onLogout, isDarkMode, toggleDarkMode }) => {
                     <ShieldCheck className="text-white" size={24} strokeWidth={2.5} />
                 </div>
                 {!isCollapsed && (
-                    <div className="animate-fade-in">
-                        <h2 className="text-lg font-black text-slate-900 dark:text-white leading-none">VISUALIZE</h2>
-                        <span className="text-[10px] font-bold text-primary-500 uppercase tracking-widest">Analytics PRO</span>
+                    <div className="animate-fade-in text-left">
+                        <h2 className="text-lg font-black text-slate-900 dark:text-white leading-none">COMMA CARDS</h2>
+                        <span className="text-[10px] font-bold text-primary-500 uppercase tracking-widest block mt-1">Dev: RA &bull; Analytics</span>
                     </div>
                 )}
             </div>
@@ -79,6 +80,15 @@ const Sidebar = ({ user, onLogout, isDarkMode, toggleDarkMode }) => {
                         </div>
                     )}
                 </div>
+
+                {/* Copyright info */}
+                {!isCollapsed && (
+                    <div className="px-2 pt-4 pb-2">
+                        <p className="text-[9px] font-bold text-slate-400 uppercase tracking-widest text-center opacity-60">
+                            &copy; 2026 Comma Cards
+                        </p>
+                    </div>
+                )}
 
                 {/* Collapse Toggle (Desktop only) */}
                 <button

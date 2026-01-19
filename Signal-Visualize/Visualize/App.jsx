@@ -10,7 +10,39 @@ import StatCard from './components/StatCard';
 import AssessmentTable from './components/AssessmentTable';
 import AssessmentDetail from './components/AssessmentDetail';
 import LoginScreen from './components/LoginScreen';
-import { Card, Badge } from './components/UI';
+import { Card, Badge, Modal } from './components/UI';
+
+// --- Utilities ---
+const calculateGrade = (score) => {
+    if (score >= 90) return 'A+';
+    if (score >= 80) return 'A';
+    if (score >= 70) return 'B+';
+    if (score >= 60) return 'B';
+    if (score >= 50) return 'C';
+    return 'D';
+};
+
+const Toast = ({ message, type, onClose }) => {
+    useEffect(() => {
+        const timer = setTimeout(onClose, 3000);
+        return () => clearTimeout(timer);
+    }, [onClose]);
+
+    const icons = {
+        success: <CheckCircle className="text-emerald-500" size={18} />,
+        error: <AlertTriangle className="text-red-500" size={18} />,
+        info: <Info className="text-primary-500" size={18} />,
+    };
+
+    return (
+        <div className="fixed bottom-8 left-1/2 -translate-x-1/2 z-[100] animate-bounce-in">
+            <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 px-6 py-3 rounded-2xl shadow-2xl flex items-center gap-3">
+                {icons[type] || icons.info}
+                <span className="text-sm font-bold text-slate-700 dark:text-slate-200">{message}</span>
+            </div>
+        </div>
+    );
+};
 
 // --- Configuration ---
 const ENV_URL = import.meta.env.VITE_API_URL || (import.meta.env.MODE === 'production' ? '/api' : 'http://localhost:3000/api');
@@ -48,7 +80,8 @@ const FileUpload = ({ onUpload, onClose }) => {
                     onUpload();
                     onClose();
                 } else {
-                    alert("Upload failed. Verify file format.");
+                    const errData = await res.json();
+                    alert(errData.error || "Upload failed. Verify file format.");
                 }
             } catch (err) {
                 alert("Invalid JSON data.");
@@ -150,6 +183,18 @@ export default function Dashboard() {
     const [isDarkMode, setIsDarkMode] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
     const [showImportModal, setShowImportModal] = useState(false);
+    const [toasts, setToasts] = useState([]);
+    const [showLogoutConfirm, setShowLogoutConfirm] = useState(false);
+    const [skipLogoutConfirm, setSkipLogoutConfirm] = useState(() => localStorage.getItem('skip_logout_confirm') === 'true');
+
+    const addToast = (message, type = 'info') => {
+        const id = Date.now();
+        setToasts(prev => [...prev, { id, message, type }]);
+    };
+
+    const removeToast = (id) => {
+        setToasts(prev => prev.filter(t => t.id !== id));
+    };
 
     // Initial Theme Sync
     useEffect(() => {
@@ -180,20 +225,32 @@ export default function Dashboard() {
     }, []);
 
     const handleLogout = () => {
+        if (!skipLogoutConfirm) {
+            setShowLogoutConfirm(true);
+            return;
+        }
+        performLogout();
+    };
+
+    const performLogout = () => {
         localStorage.removeItem('auth_token');
         localStorage.removeItem('auth_user');
         setUser(null);
+        addToast("Logged out successfully", "success");
+        setShowLogoutConfirm(false);
     };
 
-    const fetchData = async () => {
+    const fetchData = async (showToast = false) => {
         setIsLoading(true);
         try {
             const res = await fetch(`${API_BASE_URL}/assessments`);
             const data = await res.json();
             setRawData(Array.isArray(data) ? data : []);
             setIsDirty(false);
+            if (showToast) addToast("Data refreshed", "success");
         } catch (e) {
             console.error("Failed to fetch data", e);
+            addToast("Failed to fetch records", "error");
         } finally {
             setIsLoading(false);
         }
@@ -251,10 +308,26 @@ export default function Dashboard() {
 
         // Sort
         result.sort((a, b) => {
-            let aVal = a;
-            let bVal = b;
-            const keys = sortConfig.key.split('.');
-            keys.forEach(k => { aVal = aVal?.[k]; bVal = bVal?.[k]; });
+            let aVal, bVal;
+
+            if (sortConfig.key === 'score') {
+                aVal = a.data?.rawScore || 0;
+                bVal = b.data?.rawScore || 0;
+            } else if (sortConfig.key === 'time') {
+                aVal = a.data?.timeTakenTotalSec || 0;
+                bVal = b.data?.timeTakenTotalSec || 0;
+            } else if (sortConfig.key === 'timestamp') {
+                aVal = a.data?.timestamp?._seconds || 0;
+                bVal = b.data?.timestamp?._seconds || 0;
+            } else {
+                aVal = a;
+                bVal = b;
+                const keys = sortConfig.key.split('.');
+                keys.forEach(k => { aVal = aVal?.[k]; bVal = bVal?.[k]; });
+            }
+
+            if (typeof aVal === 'string') aVal = aVal.toLowerCase();
+            if (typeof bVal === 'string') bVal = bVal.toLowerCase();
 
             if (aVal < bVal) return sortConfig.direction === 'asc' ? -1 : 1;
             if (aVal > bVal) return sortConfig.direction === 'asc' ? 1 : -1;
@@ -270,9 +343,10 @@ export default function Dashboard() {
             const res = await fetch(`${API_BASE_URL}/assessments/${id}`, { method: 'DELETE' });
             if (res.ok) {
                 fetchData();
+                addToast("Record deleted", "success");
                 if (selectedAssessment?.id === id) setSelectedAssessment(null);
             }
-        } catch (e) { alert("Delete failed. Server error."); }
+        } catch (e) { addToast("Delete failed", "error"); }
     };
 
     const handleClear = async () => {
@@ -282,8 +356,9 @@ export default function Dashboard() {
             if (res.ok) {
                 fetchData();
                 setProcessedData(null);
+                addToast("Dataset cleared", "success");
             }
-        } catch (e) { alert("Clear failed."); }
+        } catch (e) { addToast("Operation failed", "error"); }
     };
 
     const handleUpdateAnnotation = async (id, annotations) => {
@@ -302,11 +377,13 @@ export default function Dashboard() {
                 if (selectedAssessment?.id === id) {
                     setSelectedAssessment(prev => ({ ...prev, annotations: data.annotations }));
                 }
+                addToast("Analysis saved", "success");
             } else {
-                alert("Failed to save analysis.");
+                addToast("Save failed", "error");
             }
         } catch (e) {
             console.error("Save annotation error:", e);
+            addToast("Network Error", "error");
         }
     };
 
@@ -338,9 +415,9 @@ export default function Dashboard() {
                     {/* Header Section */}
                     <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
                         <div>
-                            <h2 className="text-3xl font-black text-slate-900 dark:text-white tracking-tighter">Research Dashboard</h2>
+                            <h2 className="text-3xl font-black text-slate-900 dark:text-white tracking-tighter">Comma Cards Analytics</h2>
                             <p className="text-slate-500 dark:text-slate-400 font-bold mt-1 uppercase text-xs tracking-widest">
-                                Comprehensive Analysis &bull; Real-time Data
+                                Research Insight &bull; Developer RA
                             </p>
                         </div>
                         <div className="flex flex-wrap items-center gap-3">
@@ -424,12 +501,51 @@ export default function Dashboard() {
             </main>
 
             {/* Modals & Overlays */}
-            {showImportModal && <FileUpload onUpload={fetchData} onClose={() => setShowImportModal(false)} />}
+            {showImportModal && <FileUpload onUpload={() => { fetchData(); addToast("Import successful", "success"); }} onClose={() => setShowImportModal(false)} />}
             <AssessmentDetail
                 assessment={selectedAssessment}
                 onClose={() => setSelectedAssessment(null)}
                 onUpdateAnnotation={handleUpdateAnnotation}
             />
+
+            {/* Logout Confirmation Modal */}
+            {showLogoutConfirm && (
+                <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-md z-[100] flex items-center justify-center p-6 animate-fade-in">
+                    <div className="bg-white dark:bg-slate-900 rounded-[2rem] p-8 max-w-sm w-full shadow-2xl border border-slate-200 dark:border-slate-800 animate-scale-in">
+                        <div className="w-16 h-16 bg-red-100 dark:bg-red-500/10 rounded-2xl flex items-center justify-center text-red-500 mx-auto mb-6">
+                            <LogOut size={32} />
+                        </div>
+                        <h3 className="text-xl font-black text-slate-900 dark:text-white text-center mb-2">Confirm Logout</h3>
+                        <p className="text-sm text-slate-500 dark:text-slate-400 text-center mb-8 font-medium">Are you sure you want to end your session?</p>
+
+                        <div className="flex items-center gap-2 mb-6 px-4">
+                            <input
+                                type="checkbox"
+                                id="skip"
+                                checked={skipLogoutConfirm}
+                                onChange={(e) => {
+                                    setSkipLogoutConfirm(e.target.checked);
+                                    localStorage.setItem('skip_logout_confirm', e.target.checked);
+                                }}
+                                className="w-4 h-4 rounded border-slate-300 text-primary-500 focus:ring-primary-500"
+                            />
+                            <label htmlFor="skip" className="text-xs font-bold text-slate-500 uppercase tracking-widest cursor-pointer select-none">Don't ask again</label>
+                        </div>
+
+                        <div className="flex gap-3">
+                            <button onClick={() => setShowLogoutConfirm(false)} className="flex-1 py-3 px-4 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 rounded-xl font-black text-xs uppercase tracking-widest transition-all hover:bg-slate-200 dark:hover:bg-slate-700">Cancel</button>
+                            <button onClick={performLogout} className="flex-1 py-3 px-4 bg-red-500 text-white rounded-xl font-black text-xs uppercase tracking-widest transition-all hover:bg-red-600 shadow-lg shadow-red-500/20">Logout</button>
+                        </div>
+                    </div>
+                </div>
+            )}
+
+            {/* Notifications */}
+            <div className="fixed bottom-0 left-0 right-0 z-[110] pointer-events-none">
+                {toasts.map(t => (
+                    <Toast key={t.id} message={t.message} type={t.type} onClose={() => removeToast(t.id)} />
+                ))}
+            </div>
         </div>
     );
 }
