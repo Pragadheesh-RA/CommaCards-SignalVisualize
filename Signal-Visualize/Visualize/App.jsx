@@ -286,6 +286,30 @@ export default function Dashboard() {
         } catch (e) { alert("Clear failed."); }
     };
 
+    const handleUpdateAnnotation = async (id, annotations) => {
+        try {
+            const res = await fetch(`${API_BASE_URL}/assessments/${id}/annotations`, {
+                method: 'PATCH',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(annotations)
+            });
+            if (res.ok) {
+                const data = await res.json();
+                // Update local state to reflect changes immediately
+                setRawData(prev => prev.map(item =>
+                    item.id === id ? { ...item, annotations: data.annotations } : item
+                ));
+                if (selectedAssessment?.id === id) {
+                    setSelectedAssessment(prev => ({ ...prev, annotations: data.annotations }));
+                }
+            } else {
+                alert("Failed to save analysis.");
+            }
+        } catch (e) {
+            console.error("Save annotation error:", e);
+        }
+    };
+
     const handleSort = (key) => {
         setSortConfig(prev => ({
             key,
@@ -404,6 +428,7 @@ export default function Dashboard() {
             <AssessmentDetail
                 assessment={selectedAssessment}
                 onClose={() => setSelectedAssessment(null)}
+                onUpdateAnnotation={handleUpdateAnnotation}
             />
         </div>
     );

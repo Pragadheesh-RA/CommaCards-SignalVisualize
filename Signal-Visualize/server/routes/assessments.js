@@ -14,22 +14,28 @@ router.get('/', async (req, res) => {
 
 // Upload/Overwrite assessments (from JSON export)
 router.post('/upload', async (req, res) => {
-    const data = req.body;
+    let data = req.body;
     const { mode } = req.query; // 'replace' or 'append'
 
-    if (!Array.isArray(data)) {
-        return res.status(400).json({ error: 'Invalid data format. Expected an array.' });
+    // Handle potential wrapper objects (e.g., { assessments: [...] })
+    if (!Array.isArray(data) && data.assessments && Array.isArray(data.assessments)) {
+        data = data.assessments;
     }
 
     try {
         if (mode === 'append') {
             await appendToDb(data);
         } else {
-            await writeDb(data);
+            await writeDb(Array.isArray(data) ? data : [data]);
         }
-        res.json({ success: true, count: data.length, mode: mode || 'replace' });
+        res.json({
+            success: true,
+            count: Array.isArray(data) ? data.length : 1,
+            mode: mode || 'replace'
+        });
     } catch (e) {
-        res.status(500).json({ error: 'Failed to save data' });
+        console.error("Upload error:", e);
+        res.status(500).json({ error: 'Failed to save data. ' + e.message });
     }
 });
 

@@ -103,22 +103,19 @@ const writeDb = async (data) => {
 };
 
 const appendToDb = async (newData) => {
+    const newDataArray = Array.isArray(newData) ? newData : [newData];
+
     if (await connectDb()) {
-        if (Array.isArray(newData)) {
-            const existingIds = (await AssessmentModel.find({}, 'id')).map(d => d.id);
-            const toInsert = newData.filter(item => !existingIds.includes(item.id));
-            if (toInsert.length > 0) {
-                await AssessmentModel.insertMany(toInsert);
-            }
-        } else {
-            await AssessmentModel.findOneAndUpdate({ id: newData.id }, newData, { upsert: true });
+        const existingIds = (await AssessmentModel.find({}, 'id')).map(d => d.id);
+        const toInsert = newDataArray.filter(item => item && item.id && !existingIds.includes(item.id));
+        if (toInsert.length > 0) {
+            await AssessmentModel.insertMany(toInsert);
         }
         return;
     }
     const current = readLocalDb();
-    const newDataArray = Array.isArray(newData) ? newData : [newData];
     const existingIds = current.map(item => item.id);
-    const toAppend = newDataArray.filter(item => !existingIds.includes(item.id));
+    const toAppend = newDataArray.filter(item => item && item.id && !existingIds.includes(item.id));
     writeLocalDb([...current, ...toAppend]);
 };
 

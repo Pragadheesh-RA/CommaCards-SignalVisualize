@@ -13,9 +13,6 @@ const Sidebar = ({ user, onLogout, isDarkMode, toggleDarkMode }) => {
 
     const menuItems = [
         { icon: LayoutDashboard, label: 'Dashboard', active: true },
-        { icon: Database, label: 'Data Management', active: false },
-        { icon: ShieldCheck, label: 'Audit Logs', active: false },
-        { icon: Settings, label: 'Settings', active: false },
     ];
 
     const SidebarContent = () => (
