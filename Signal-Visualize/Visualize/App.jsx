@@ -246,8 +246,6 @@ export default function Dashboard() {
     const [skipLogoutConfirm, setSkipLogoutConfirm] = useState(() => localStorage.getItem('skip_logout_confirm') === 'true');
     const [activeView, setActiveView] = useState('dashboard'); // 'dashboard', 'format', 'grades'
     const [showDevInfo, setShowDevInfo] = useState(false);
-    const [activeView, setActiveView] = useState('dashboard'); // 'dashboard', 'format', 'grades'
-    const [showDevInfo, setShowDevInfo] = useState(false);
 
     const addToast = (message, type = 'info') => {
         const id = Date.now();
@@ -559,8 +557,12 @@ export default function Dashboard() {
                                             </button>
                                         </div>
                                     </Card>
-                                )}
-                            </div>
+                        </>
+                    )}
+
+                            {activeView === 'grades' && <GradeStructure />}
+                            {activeView === 'format' && <AnalysisFormat />}
+
                         </div>
             </main>
 
