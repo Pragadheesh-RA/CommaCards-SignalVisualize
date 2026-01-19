@@ -113,8 +113,8 @@ const LoginScreen = ({ onLogin, API_BASE_URL }) => {
                 </div>
 
                 {/* Footer Credits */}
-                <p className="text-center mt-8 text-[10px] font-bold text-white/20 uppercase tracking-[0.2em]">
-                    &copy; 2026 COMMA CARDS &bull; DEV RA &bull; SECURE ANALYTICS REPORT
+                <p className="text-center mt-8 text-[10px] font-black text-white/20 uppercase tracking-[0.2em]">
+                    &copy; 2026 COMMA CARDS &bull; SECURE ANALYTICS REPORT
                 </p>
             </div>
         </div>

@@ -125,7 +125,10 @@ const AssessmentTable = ({
                                         <td className="px-6 py-5">
                                             <div className="flex items-center gap-4">
                                                 <div className="flex flex-col">
-                                                    <span className="text-sm font-black text-slate-900 dark:text-white">{score}</span>
+                                                    <div className="flex items-baseline gap-2">
+                                                        <span className="text-base font-black text-slate-900 dark:text-white">{score}</span>
+                                                        <span className="text-[10px] font-black text-slate-400 uppercase tracking-tighter">pts</span>
+                                                    </div>
                                                     <div className="w-16 h-1.5 bg-slate-100 dark:bg-slate-800 rounded-full mt-2 overflow-hidden">
                                                         <div
                                                             className="h-full bg-primary-500"
@@ -133,8 +136,28 @@ const AssessmentTable = ({
                                                         />
                                                     </div>
                                                 </div>
-                                                <div className="w-8 h-8 rounded-lg bg-primary-50 dark:bg-primary-500/10 flex items-center justify-center">
+
+                                                {/* Grade Badge */}
+                                                <div className="w-8 h-8 rounded-lg bg-primary-50 dark:bg-primary-500/10 flex items-center justify-center shrink-0">
                                                     <span className="text-[10px] font-black text-primary-600 dark:text-primary-400">{getGrade(score)}</span>
+                                                </div>
+
+                                                {/* Quick Annotations Tags */}
+                                                <div className="flex flex-wrap gap-1 max-w-[120px]">
+                                                    {item.annotations?.tags?.map((tag, idx) => {
+                                                        const tagColors = {
+                                                            REVIEWED: 'bg-indigo-500/10 text-indigo-500 border-indigo-500/20',
+                                                            PRIORITY: 'bg-amber-500/10 text-amber-500 border-amber-500/20',
+                                                            VERIFIED: 'bg-emerald-500/10 text-emerald-500 border-emerald-500/20',
+                                                            ANOMALOUS: 'bg-red-500/10 text-red-500 border-red-500/20'
+                                                        };
+                                                        const colorStyle = tagColors[tag.toUpperCase()] || 'bg-slate-500/10 text-slate-500 border-slate-500/20';
+                                                        return (
+                                                            <span key={idx} className={`text-[8px] font-black px-1.5 py-0.5 rounded-md border ${colorStyle} uppercase tracking-tighter whitespace-nowrap`}>
+                                                                {tag}
+                                                            </span>
+                                                        );
+                                                    })}
                                                 </div>
                                             </div>
                                         </td>
@@ -189,9 +212,16 @@ const AssessmentTable = ({
                                             </div>
                                         </div>
                                     </div>
-                                    <Badge color={item.annotations?.flagged ? "red" : "indigo"}>
-                                        {score} pts
-                                    </Badge>
+                                    <div className="flex flex-col items-end gap-2">
+                                        <Badge color={item.annotations?.flagged ? "red" : "indigo"}>
+                                            {score} pts
+                                        </Badge>
+                                        <div className="flex flex-wrap gap-1 justify-end">
+                                            {item.annotations?.tags?.slice(0, 2).map((tag, idx) => (
+                                                <div key={idx} className="w-1.5 h-1.5 rounded-full bg-primary-500 shadow-sm shadow-primary-500/20" />
+                                            ))}
+                                        </div>
+                                    </div>
                                 </div>
                                 <div className="flex items-center justify-between">
                                     <span className="text-xs font-bold text-primary-500 uppercase tracking-tighter">

@@ -186,6 +186,8 @@ export default function Dashboard() {
     const [toasts, setToasts] = useState([]);
     const [showLogoutConfirm, setShowLogoutConfirm] = useState(false);
     const [skipLogoutConfirm, setSkipLogoutConfirm] = useState(() => localStorage.getItem('skip_logout_confirm') === 'true');
+    const [activeView, setActiveView] = useState('dashboard'); // 'dashboard', 'format', 'grades'
+    const [showDevInfo, setShowDevInfo] = useState(false);
 
     const addToast = (message, type = 'info') => {
         const id = Date.now();
@@ -417,7 +419,7 @@ export default function Dashboard() {
                         <div>
                             <h2 className="text-3xl font-black text-slate-900 dark:text-white tracking-tighter">Research Visualize</h2>
                             <p className="text-slate-500 dark:text-slate-400 font-bold mt-1 uppercase text-xs tracking-widest">
-                                Research Insight &bull; Developer RA
+                                Research Insight &bull; Advanced Analytics
                             </p>
                         </div>
                         <div className="flex flex-wrap items-center gap-3">
