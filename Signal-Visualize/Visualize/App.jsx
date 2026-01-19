@@ -1,7 +1,8 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import {
     Users, Award, Clock, ShieldAlert, Upload, Download, Trash2,
-    RefreshCw, Layers, Microscope, Info, FileText, CheckCircle, X, AlertTriangle, LogOut
+    RefreshCw, Layers, Microscope, Info, FileText, CheckCircle, X, AlertTriangle, LogOut,
+    ChevronRight
 } from 'lucide-react';
 
 // --- Components ---
@@ -296,7 +297,7 @@ export default function Dashboard() {
         localStorage.removeItem('auth_token');
         localStorage.removeItem('auth_user');
         setUser(null);
-        addToast("Logged in successfully", "success");
+        addToast("Logged out successfully", "success");
         setShowLogoutConfirm(false);
     };
 
@@ -466,6 +467,9 @@ export default function Dashboard() {
                 onLogout={handleLogout}
                 isDarkMode={isDarkMode}
                 toggleDarkMode={toggleDarkMode}
+                activeView={activeView}
+                onViewChange={setActiveView}
+                onShowDevInfo={() => setShowDevInfo(true)}
             />
 
             {/* Main Content Area */}
@@ -557,14 +561,45 @@ export default function Dashboard() {
                                             </button>
                                         </div>
                                     </Card>
+                                )}
+                            </div>
                         </>
                     )}
 
-                            {activeView === 'grades' && <GradeStructure />}
-                            {activeView === 'format' && <AnalysisFormat />}
+                    {activeView === 'grades' && <GradeStructure />}
+                    {activeView === 'format' && <AnalysisFormat />}
 
-                        </div>
+                </div>
             </main>
+
+            {/* Developer Info Modal */}
+            {showDevInfo && (
+                <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-md z-[120] flex items-center justify-center p-6 animate-fade-in" onClick={() => setShowDevInfo(false)}>
+                    <div className="bg-white dark:bg-slate-900 rounded-[2.5rem] p-10 max-w-sm w-full shadow-2xl border border-slate-200 dark:border-slate-800 animate-scale-in" onClick={e => e.stopPropagation()}>
+                        <div className="w-24 h-24 bg-gradient-to-br from-primary-500 to-indigo-600 rounded-3xl flex items-center justify-center text-white mx-auto mb-8 shadow-2xl shadow-primary-500/40 relative group overflow-hidden">
+                            <Microscope size={48} strokeWidth={2.5} className="group-hover:scale-110 transition-transform duration-500" />
+                            <div className="absolute inset-0 bg-white/20 translate-y-24 group-hover:translate-y-0 transition-transform duration-500" />
+                        </div>
+                        <div className="text-center space-y-2">
+                            <h3 className="text-2xl font-black text-slate-900 dark:text-white">Pragadhesh RA</h3>
+                            <p className="text-sm font-bold text-primary-500 uppercase tracking-widest text-center mt-2">Web Developer</p>
+                            <p className="text-xs font-medium text-slate-500 dark:text-slate-400 bg-slate-50 dark:bg-slate-800/50 py-2 px-4 rounded-full inline-block mt-4 mx-auto block w-fit">
+                                pragadheesharumugam@gmail.com
+                            </p>
+                        </div>
+                        <div className="mt-10 pt-8 border-t border-slate-100 dark:border-slate-800 text-center">
+                            <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-4">Engineering at</p>
+                            <h4 className="text-xl font-black text-slate-900 dark:text-white tracking-tighter">Comma Cards</h4>
+                        </div>
+                        <button
+                            onClick={() => setShowDevInfo(false)}
+                            className="w-full mt-8 py-4 bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-2xl font-black text-xs uppercase tracking-widest transition-all hover:scale-[1.02] active:scale-95 shadow-xl"
+                        >
+                            Close
+                        </button>
+                    </div>
+                </div>
+            )}
 
             {/* Modals & Overlays */}
             {showImportModal && <FileUpload onUpload={() => { fetchData(); addToast("Import successful", "success"); }} onClose={() => setShowImportModal(false)} />}
