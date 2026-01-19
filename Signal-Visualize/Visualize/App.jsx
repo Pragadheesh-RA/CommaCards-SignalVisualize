@@ -14,63 +14,7 @@ import LoginScreen from './components/LoginScreen';
 import { Card, Badge, Modal } from './components/UI';
 
 // --- Utilities ---
-const GradeStructure = () => (
-    <div className="space-y-6 animate-slide-up">
-        <h3 className="text-2xl font-black text-slate-900 dark:text-white tracking-tight">Archetype Profiles</h3>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {[
-                { name: 'Steady Operator', variant: 'Consistency', color: 'indigo', desc: 'Maintains elite-level precision with minimal latency variance. Highly reliable under steady cognitive load.' },
-                { name: 'Dynamic Catalyst', variant: 'Adaptability', color: 'emerald', desc: 'Excels at rapid decision-making and high-impact actions. Highly adaptive to fluctuating data stimuli.' },
-                { name: 'Strong Adaptive', variant: 'Resilience', color: 'blue', desc: 'Demonstrates robust performance recovery and sustained focus. Optimal for high-pressure research environments.' },
-                { name: 'Strategic Analyst', variant: 'Depth', color: 'violet', desc: 'Prioritizes thorough data integration and pattern recognition. Maintains high integrity over long durations.' },
-                { name: 'Rapid Responder', variant: 'Speed', color: 'amber', desc: 'Exceptional reaction times and rapid cognitive processing. Balanced for high-velocity decision pipelines.' },
-                { name: 'Precise Specialist', variant: 'Accuracy', color: 'rose', desc: 'Focused on surgical accuracy and detailed analysis. Minimal error rate with focused engagement.' },
-            ].map((item, i) => (
-                <div key={i} className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-8 rounded-[2.5rem] hover:scale-[1.02] transition-all shadow-sm group">
-                    <div className="flex items-center justify-between mb-6">
-                        <div className={`w-14 h-14 rounded-2xl flex items-center justify-center bg-${item.color}-500/10 text-${item.color}-500 group-hover:bg-${item.color}-500 group-hover:text-white transition-colors`}>
-                            <Zap size={28} />
-                        </div>
-                        <Badge color={item.color}>{item.variant}</Badge>
-                    </div>
-                    <h4 className="text-xl font-black text-slate-900 dark:text-white mb-2 tracking-tight">{item.name}</h4>
-                    <p className="text-sm text-slate-500 dark:text-slate-400 font-medium leading-relaxed">{item.desc}</p>
-                </div>
-            ))}
-        </div>
-    </div>
-);
 
-const AnalysisFormat = () => (
-    <div className="space-y-6 animate-slide-up">
-        <h3 className="text-2xl font-black text-slate-900 dark:text-white tracking-tight">General Format</h3>
-        <Card title="Data Architecture">
-            <div className="space-y-4">
-                <div className="p-4 bg-slate-50 dark:bg-slate-800/50 rounded-2xl border border-slate-100 dark:border-slate-800">
-                    <p className="text-xs font-black text-primary-500 uppercase tracking-[0.2em] mb-2">Core Metrics</p>
-                    <ul className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm font-bold text-slate-700 dark:text-slate-300">
-                        <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-primary-500" /> Cognitive Load Index</li>
-                        <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-primary-500" /> Response Phase Latency</li>
-                        <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-primary-500" /> Decision Consistency</li>
-                        <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-primary-500" /> Archetype Mapping</li>
-                    </ul>
-                </div>
-                <div className="p-4 bg-slate-50 dark:bg-slate-800/50 rounded-2xl border border-slate-100 dark:border-slate-800">
-                    <p className="text-xs font-black text-emerald-500 uppercase tracking-[0.2em] mb-2">Analysis Pipeline</p>
-                    <div className="flex flex-col sm:flex-row items-center gap-4">
-                        <div className="px-4 py-2 bg-white dark:bg-slate-900 rounded-xl border border-slate-100 dark:border-slate-800 text-xs font-black">Raw Data</div>
-                        <ChevronRight className="rotate-90 sm:rotate-0 text-slate-400" size={16} />
-                        <div className="px-4 py-2 bg-white dark:bg-slate-900 rounded-xl border border-slate-100 dark:border-slate-800 text-xs font-black">Normalization</div>
-                        <ChevronRight className="rotate-90 sm:rotate-0 text-slate-400" size={16} />
-                        <div className="px-4 py-2 bg-white dark:bg-slate-900 rounded-xl border border-slate-100 dark:border-slate-800 text-xs font-black">Scoring Engine</div>
-                        <ChevronRight className="rotate-90 sm:rotate-0 text-slate-400" size={16} />
-                        <div className="px-4 py-2 bg-primary-500 text-white rounded-xl text-xs font-black">Insight Dashboard</div>
-                    </div>
-                </div>
-            </div>
-        </Card>
-    </div>
-);
 
 const calculateGrade = (score) => {
     if (score >= 90) return 'A+';
@@ -245,7 +189,7 @@ export default function Dashboard() {
     const [toasts, setToasts] = useState([]);
     const [showLogoutConfirm, setShowLogoutConfirm] = useState(false);
     const [skipLogoutConfirm, setSkipLogoutConfirm] = useState(() => localStorage.getItem('skip_logout_confirm') === 'true');
-    const [activeView, setActiveView] = useState('dashboard'); // 'dashboard', 'format', 'grades'
+    const [activeView, setActiveView] = useState('dashboard');
 
     const addToast = (message, type = 'info') => {
         const id = Date.now();
@@ -563,9 +507,6 @@ export default function Dashboard() {
                             </div>
                         </>
                     )}
-
-                    {activeView === 'grades' && <GradeStructure />}
-                    {activeView === 'format' && <AnalysisFormat />}
 
                 </div>
             </main>

@@ -14,8 +14,6 @@ const Sidebar = ({ user, onLogout, isDarkMode, toggleDarkMode, activeView, onVie
 
     const menuItems = [
         { id: 'dashboard', icon: LayoutDashboard, label: 'Dashboard' },
-        { id: 'format', icon: FileText, label: 'Analysis Format' },
-        { id: 'grades', icon: Layers, label: 'Grade Structure' },
     ];
 
     const SidebarContent = () => (
@@ -94,7 +92,7 @@ const Sidebar = ({ user, onLogout, isDarkMode, toggleDarkMode, activeView, onVie
                 {!isCollapsed && (
                     <div className="px-2 pt-2 pb-2">
                         <p className="text-[9px] font-black text-slate-400 uppercase tracking-[0.2em] text-center opacity-40">
-                            &copy; 2026 Visualize
+                            &copy; 2026 CommaCards
                         </p>
                     </div>
                 )}
