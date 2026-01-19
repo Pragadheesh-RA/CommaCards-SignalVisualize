@@ -589,7 +589,7 @@ export default function Dashboard() {
                         </div>
                         <div className="mt-10 pt-8 border-t border-slate-100 dark:border-slate-800 text-center">
                             <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-4">Engineering at</p>
-                            <h4 className="text-xl font-black text-slate-900 dark:text-white tracking-tighter">Comma Cards</h4>
+                            <h4 className="text-xl font-black text-slate-900 dark:text-white tracking-tighter">Visualize</h4>
                         </div>
                         <button
                             onClick={() => setShowDevInfo(false)}

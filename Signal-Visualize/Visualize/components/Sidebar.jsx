@@ -28,7 +28,7 @@ const Sidebar = ({ user, onLogout, isDarkMode, toggleDarkMode, activeView, onVie
                 </div>
                 {!isCollapsed && (
                     <div className="animate-fade-in text-left">
-                        <h2 className="text-xl font-black text-slate-900 dark:text-white leading-none tracking-tight">COMMA CARDS</h2>
+                        <h2 className="text-xl font-black text-slate-900 dark:text-white leading-none tracking-tight">VISUALIZE</h2>
                         <span className="text-[10px] font-black text-primary-500 uppercase tracking-widest block mt-1.5 ring-1 ring-primary-500/20 px-2 py-0.5 rounded-full w-fit bg-primary-500/5">Analytics</span>
                     </div>
                 )}
@@ -104,7 +104,7 @@ const Sidebar = ({ user, onLogout, isDarkMode, toggleDarkMode, activeView, onVie
                 {!isCollapsed && (
                     <div className="px-2 pt-2 pb-2">
                         <p className="text-[9px] font-black text-slate-400 uppercase tracking-[0.2em] text-center opacity-40">
-                            &copy; 2026 Comma Cards
+                            &copy; 2026 Visualize
                         </p>
                     </div>
                 )}
