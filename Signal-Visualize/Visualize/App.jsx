@@ -421,24 +421,25 @@ export default function Dashboard() {
                     {activeView === 'dashboard' && (
                         <>
                             {/* Header Section */}
-                            <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
+                            <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 animate-slide-up-fade">
                                 <div>
-                                    <h2 className="text-3xl font-black text-slate-900 dark:text-white tracking-tighter">Research Visualize</h2>
-                                    <p className="text-slate-500 dark:text-slate-400 font-bold mt-1 uppercase text-xs tracking-widest">
-                                        Research Insight &bull; Advanced Analytics
+                                    <h2 className="text-4xl font-black text-slate-900 dark:text-white tracking-tighter mb-1">Research Visualize</h2>
+                                    <p className="text-slate-500 dark:text-slate-400 font-bold uppercase text-xs tracking-widest flex items-center gap-2">
+                                        <span className="w-2 h-2 rounded-full bg-lime-500 animate-pulse" />
+                                        System Operational
                                     </p>
                                 </div>
                                 <div className="flex flex-wrap items-center gap-3">
                                     <button
                                         onClick={() => setShowImportModal(true)}
-                                        className="flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs font-black uppercase tracking-widest bg-primary-500 text-white hover:bg-primary-400 transition-all shadow-lg shadow-primary-500/20"
+                                        className="flex items-center gap-2 px-6 py-3 rounded-2xl text-xs font-black uppercase tracking-widest bg-primary-500 text-white hover:bg-primary-400 hover:-translate-y-1 transition-all shadow-glow-primary"
                                     >
-                                        <Upload size={16} strokeWidth={3} />
+                                        <Upload size={18} strokeWidth={3} />
                                         Import Data
                                     </button>
                                     <button
                                         onClick={handleClear}
-                                        className="px-5 py-2.5 rounded-xl text-xs font-black uppercase tracking-widest bg-red-500/10 text-red-500 border border-red-500/20 hover:bg-red-500 hover:text-white transition-all shadow-lg shadow-red-500/10"
+                                        className="px-6 py-3 rounded-2xl text-xs font-black uppercase tracking-widest bg-rose-500/10 text-rose-500 border border-rose-500/20 hover:bg-rose-500 hover:text-white hover:-translate-y-1 transition-all shadow-lg shadow-rose-500/10"
                                     >
                                         Clear Dataset
                                     </button>
@@ -456,12 +457,12 @@ export default function Dashboard() {
                             )}
 
                             {/* Data Explorer */}
-                            <div className="space-y-6">
-                                <div className="flex items-center gap-2 mb-2">
-                                    <div className="p-2 bg-primary-100 dark:bg-primary-950 rounded-lg text-primary-500">
-                                        <Microscope size={18} />
+                            <div className="space-y-6 animate-delay-500 animate-slide-up-fade">
+                                <div className="flex items-center gap-3 mb-2">
+                                    <div className="p-2.5 bg-white dark:bg-white/5 rounded-xl text-primary-500 shadow-sm border border-slate-100 dark:border-white/5">
+                                        <Microscope size={20} strokeWidth={2.5} />
                                     </div>
-                                    <h3 className="text-xl font-black text-slate-900 dark:text-white tracking-tight">Participant Registry</h3>
+                                    <h3 className="text-2xl font-black text-slate-900 dark:text-white tracking-tight">Participant Registry</h3>
                                 </div>
 
                                 {rawData && (
@@ -480,24 +481,24 @@ export default function Dashboard() {
                                 )}
 
                                 {(!rawData || rawData.length === 0) && !isLoading && (
-                                    <Card className="min-h-[400px] flex flex-col items-center justify-center text-center p-12">
-                                        <div className="w-20 h-20 bg-slate-50 dark:bg-slate-800 rounded-3xl flex items-center justify-center text-slate-300 dark:text-slate-600 mb-6">
-                                            <Layers size={40} />
+                                    <Card className="min-h-[400px] flex flex-col items-center justify-center text-center p-12 bg-white/50 dark:bg-white/5 border-dashed border-2 border-slate-200 dark:border-white/10">
+                                        <div className="w-24 h-24 bg-gradient-to-br from-slate-100 to-slate-200 dark:from-white/5 dark:to-white/10 rounded-[2rem] flex items-center justify-center text-slate-300 dark:text-white/20 mb-8 animate-float-slow">
+                                            <Layers size={48} strokeWidth={1.5} />
                                         </div>
-                                        <h4 className="text-xl font-bold text-slate-900 dark:text-white mb-2">No Research Data Detected</h4>
-                                        <p className="text-sm text-slate-500 dark:text-slate-400 max-w-sm mb-8">
+                                        <h4 className="text-2xl font-black text-slate-900 dark:text-white mb-3">No Research Data Detected</h4>
+                                        <p className="text-base text-slate-500 dark:text-slate-400 max-w-sm mb-10 font-medium">
                                             Your research registry is currently empty. Import participant data to begin your analysis.
                                         </p>
                                         <div className="flex gap-4">
                                             <button
                                                 onClick={() => setShowImportModal(true)}
-                                                className="px-8 py-3 bg-primary-500 text-white rounded-2xl font-black text-xs uppercase tracking-widest shadow-xl shadow-primary-500/20 hover:scale-105 active:scale-95 transition-all"
+                                                className="px-8 py-4 bg-primary-500 text-white rounded-2xl font-black text-xs uppercase tracking-widest shadow-glow-primary hover:scale-105 active:scale-95 transition-all"
                                             >
                                                 Import Now
                                             </button>
                                             <button
                                                 onClick={fetchData}
-                                                className="px-8 py-3 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-slate-200 dark:hover:bg-slate-700 transition-all"
+                                                className="px-8 py-4 bg-white dark:bg-white/5 text-slate-600 dark:text-slate-300 rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-slate-50 dark:hover:bg-white/10 transition-all border border-slate-200 dark:border-white/10"
                                             >
                                                 Refresh
                                             </button>

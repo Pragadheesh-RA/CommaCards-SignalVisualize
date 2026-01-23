@@ -63,7 +63,7 @@ const AssessmentTable = ({
             </div>
 
             {/* Responsive Table/Card Container */}
-            <div className="premium-card overflow-hidden">
+            <div className="kinetic-card overflow-hidden border-none shadow-kinetic dark:shadow-kinetic-dark">
                 {/* Desktop View */}
                 <div className="hidden md:block overflow-x-auto">
                     <table className="w-full text-left">

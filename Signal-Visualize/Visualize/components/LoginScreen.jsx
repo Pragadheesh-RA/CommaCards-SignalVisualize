@@ -41,37 +41,41 @@ const LoginScreen = ({ onLogin, API_BASE_URL }) => {
     };
 
     return (
-        <div className="min-h-screen relative flex items-center justify-center p-6 mesh-gradient overflow-hidden">
-            {/* Animated Background Elements */}
-            <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-primary-500/10 blur-[120px] rounded-full animate-float" />
-            <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-indigo-500/10 blur-[120px] rounded-full animate-float" style={{ animationDelay: '-2s' }} />
+        <div className="min-h-screen relative flex items-center justify-center p-6 overflow-hidden">
+            {/* Kinetic Background Overlays (adds depth to the global aurora) */}
+            <div className="absolute top-0 left-0 w-full h-full bg-matte-950/20 z-0 pointer-events-none" />
 
-            <div className="w-full max-w-[420px] relative z-10 animate-slide-up">
-                {/* Logo Section */}
-                <div className="text-center mb-10">
-                    <div className="inline-flex items-center justify-center p-4 rounded-3xl bg-white/5 border border-white/10 backdrop-blur-xl mb-6 shadow-2xl relative group">
-                        <div className="absolute inset-0 bg-primary-500/20 blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                        <ShieldCheck className="text-primary-400 relative z-10" size={48} strokeWidth={2} />
+            <div className="w-full max-w-[420px] relative z-10 animate-slide-up-fade">
+                {/* Logo Section - Floating */}
+                <div className="text-center mb-12">
+                    <div className="inline-flex items-center justify-center p-6 rounded-[2rem] bg-matte-900 border border-white/5 shadow-kinetic-dark mb-8 relative group animate-float-slow">
+                        <div className="absolute inset-0 bg-primary-500/20 blur-2xl opacity-50 group-hover:opacity-100 transition-opacity duration-700" />
+                        <ShieldCheck className="text-primary-400 relative z-10" size={56} strokeWidth={1.5} />
                     </div>
-                    <h1 className="text-4xl font-black text-white tracking-tighter mb-2 italic">VISUALIZE</h1>
-                    <div className="flex items-center justify-center gap-2">
-                        <span className="h-px w-8 bg-white/20" />
-                        <span className="text-[10px] font-black text-primary-400 uppercase tracking-[0.3em]">Researcher Portal</span>
-                        <span className="h-px w-8 bg-white/20" />
+                    <h1 className="text-5xl font-black text-white tracking-tighter mb-4">VISUALIZE</h1>
+                    <div className="flex items-center justify-center gap-3">
+                        <span className="h-px w-12 bg-gradient-to-r from-transparent to-white/20" />
+                        <span className="text-[10px] font-black text-primary-400 uppercase tracking-[0.4em]">Researcher Access</span>
+                        <span className="h-px w-12 bg-gradient-to-l from-transparent to-white/20" />
                     </div>
                 </div>
 
-                {/* Login Card */}
-                <div className="bg-white/10 dark:bg-slate-900/40 backdrop-blur-2xl border border-white/10 p-8 rounded-[2rem] shadow-2xl overflow-hidden relative">
-                    <form onSubmit={handleSubmit} className="space-y-6 relative z-10">
-                        <div className="space-y-2">
-                            <label className="text-[10px] font-black text-white/50 uppercase tracking-widest ml-1">Access Credentials</label>
+                {/* Login Card - Kinetic Surface */}
+                <div className="bg-matte-900/80 backdrop-blur-xl border border-white/10 p-10 rounded-[2.5rem] shadow-kinetic-dark relative overflow-hidden group">
+                    {/* Magnetic Spotlight */}
+                    <div className="absolute -top-20 -right-20 w-64 h-64 bg-primary-500/10 blur-[80px] rounded-full group-hover:bg-primary-500/20 transition-colors duration-1000" />
+
+                    <form onSubmit={handleSubmit} className="space-y-8 relative z-10">
+                        <div className="space-y-3">
+                            <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Secure ID</label>
                             <div className="relative group">
-                                <LogIn className="absolute left-4 top-1/2 -translate-y-1/2 text-white/30 group-focus-within:text-primary-400 transition-colors" size={20} />
+                                <div className="absolute left-0 top-0 bottom-0 w-12 flex items-center justify-center text-slate-500 group-focus-within:text-primary-400 transition-colors">
+                                    <LogIn size={20} />
+                                </div>
                                 <input
                                     type="text"
-                                    placeholder="Enter Researcher ID"
-                                    className="w-full pl-12 pr-4 py-4 bg-white/5 border border-white/10 rounded-2xl text-white placeholder:text-white/20 outline-none focus:ring-2 focus:ring-primary-500/50 focus:border-transparent transition-all font-bold tracking-tight"
+                                    placeholder="Enter Credential"
+                                    className="w-full pl-12 pr-4 py-4 bg-matte-950/50 border border-white/10 rounded-2xl text-white placeholder:text-slate-600 outline-none focus:ring-2 focus:ring-primary-500/50 focus:border-primary-500 transition-all font-bold tracking-tight shadow-inner"
                                     value={id}
                                     onChange={(e) => setId(e.target.value)}
                                     disabled={isLoading}
@@ -81,7 +85,7 @@ const LoginScreen = ({ onLogin, API_BASE_URL }) => {
                         </div>
 
                         {error && (
-                            <div className="flex items-center gap-2 p-4 bg-red-500/10 border border-red-500/20 rounded-2xl text-red-400 text-xs font-bold animate-shake">
+                            <div className="flex items-center gap-3 p-4 bg-red-500/10 border border-red-500/20 rounded-2xl text-red-400 text-xs font-bold animate-pulse-magnetic">
                                 <AlertTriangle size={16} className="shrink-0" />
                                 {error}
                             </div>
@@ -90,10 +94,10 @@ const LoginScreen = ({ onLogin, API_BASE_URL }) => {
                         <button
                             type="submit"
                             disabled={isLoading}
-                            className={`w-full py-4 rounded-2xl font-black text-sm tracking-widest uppercase transition-all flex items-center justify-center gap-3 relative overflow-hidden group
+                            className={`w-full py-4 rounded-2xl font-black text-xs tracking-[0.2em] uppercase transition-all flex items-center justify-center gap-3 relative overflow-hidden group border border-primary-500/50
                                 ${isLoading
-                                    ? 'bg-white/10 text-white/30 cursor-wait'
-                                    : 'bg-primary-500 text-white hover:bg-primary-400 shadow-lg shadow-primary-500/40 hover:-translate-y-0.5 active:translate-y-0'
+                                    ? 'bg-matte-800 text-white/30 cursor-wait'
+                                    : 'bg-primary-600 hover:bg-primary-500 text-white shadow-glow-primary hover:-translate-y-1 active:translate-y-0'
                                 }
                             `}
                         >
@@ -101,20 +105,17 @@ const LoginScreen = ({ onLogin, API_BASE_URL }) => {
                                 <RefreshCw className="animate-spin" size={20} />
                             ) : (
                                 <>
-                                    <span>Access Dashboard</span>
-                                    <Zap size={18} className="transition-transform group-hover:translate-x-1" />
+                                    <span>Authenticate</span>
+                                    <Zap size={16} className="transition-transform group-hover:translate-x-1" strokeWidth={3} />
                                 </>
                             )}
                         </button>
                     </form>
-
-                    {/* Subtle aesthetic details */}
-                    <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-primary-500/50 to-transparent opacity-30" />
                 </div>
 
                 {/* Footer Credits */}
-                <p className="text-center mt-8 text-[10px] font-black text-white/20 uppercase tracking-[0.2em]">
-                    &copy; 2026 COMMACARDS &bull; SECURE ANALYTICS REPORT
+                <p className="text-center mt-10 text-[9px] font-black text-white/10 uppercase tracking-[0.3em] hover:text-white/30 transition-colors cursor-default">
+                    &copy; 2026 CommaCards &bull; Secured
                 </p>
             </div>
         </div>

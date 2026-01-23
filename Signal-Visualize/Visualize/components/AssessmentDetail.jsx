@@ -68,7 +68,7 @@ const AssessmentDetail = ({ assessment, onClose, onUpdateAnnotation }) => {
             />
 
             {/* Slide-out Panel */}
-            <div className="relative w-full max-w-3xl h-full bg-white dark:bg-[#0f172a] shadow-2xl overflow-y-auto animate-slide-left p-6 lg:p-10">
+            <div className="relative w-full max-w-3xl h-full bg-white dark:bg-matte-900 shadow-2xl overflow-y-auto animate-slide-left p-6 lg:p-10 border-l border-white/10">
                 <div className="flex items-center justify-between mb-10">
                     <div className="flex items-center gap-4">
                         <div className="w-12 h-12 rounded-2xl bg-primary-500 flex items-center justify-center text-white shadow-lg shadow-primary-500/20 rotate-3">

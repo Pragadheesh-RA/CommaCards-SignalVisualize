@@ -4,61 +4,74 @@
 
 @layer base {
   :root {
-    --bg-mesh: radial-gradient(at 0% 0%, hsla(253,16%,7%,1) 0, transparent 50%), 
-               radial-gradient(at 50% 0%, hsla(225,39%,30%,1) 0, transparent 50%), 
-               radial-gradient(at 100% 0%, hsla(339,49%,30%,1) 0, transparent 50%);
+    /* Kinetic Depth Variables - Dynamic Colors */
+    --aurora-1: hsla(253, 50%, 15%, 1);
+    --aurora-2: hsla(225, 50%, 15%, 1);
+    --aurora-3: hsla(339, 50%, 15%, 1);
   }
 
   body {
-    @apply antialiased text-slate-900 bg-slate-50 transition-colors duration-300;
+    @apply antialiased text-slate-900 bg-matte-200 transition-colors duration-500 ease-out;
+    background-size: 200% 200%;
+    /* Subtle breathing background for light mode */
+    background-image: linear-gradient(120deg, #f0f4ff 0%, #f8fafc 100%);
   }
 
+  /* Dark mode gets the Living Aurora */
   .dark body {
-    @apply text-slate-100 bg-[#070b14];
+    @apply text-slate-100 bg-matte-950;
+    background-image:
+      radial-gradient(circle at 15% 50%, var(--aurora-1), transparent 25%),
+      radial-gradient(circle at 85% 30%, var(--aurora-2), transparent 25%),
+      radial-gradient(circle at 50% 80%, var(--aurora-3), transparent 30%);
+    animation: aurora 20s infinite alternate;
   }
 }
 
 @layer components {
-  .premium-card {
-    @apply bg-white dark:bg-slate-900/50 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-premium backdrop-blur-md transition-all duration-300;
+
+  /* Kinetic Card - Physical feel with light interaction */
+  .kinetic-card {
+    @apply bg-white dark:bg-matte-900 border border-slate-200 dark:border-white/5 rounded-[2rem] shadow-kinetic dark:shadow-kinetic-dark transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-glow-sm;
   }
 
-  .mesh-gradient {
-    background-image: var(--bg-mesh);
-    background-color: #070b14;
+  /* Deep Matte Inputs */
+  .input-matte {
+    @apply w-full px-5 py-3 bg-matte-100 dark:bg-matte-900 border border-slate-200 dark:border-white/10 rounded-2xl focus:ring-2 focus:ring-primary-500/50 focus:border-primary-500 placeholder-slate-400 dark:placeholder-slate-500 transition-all duration-300 outline-none;
   }
 
-  .glass-effect {
-    @apply bg-white/70 dark:bg-slate-900/40 backdrop-blur-xl border border-white/20 dark:border-slate-800/50;
+  /* Responsive Typography */
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-sans tracking-tight;
   }
 
-  .input-premium {
-    @apply w-full px-4 py-2 bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none transition-all;
-  }
-
-  /* Low-spec mode optimizations: restrict heavy blurs if needed */
-  @media (prefers-reduced-motion: reduce) {
-    * {
-      animation: none !important;
-      transition: none !important;
-    }
-  }
-
-  /* Scrollbar styling */
+  /* Scrollbar - Minimal */
   ::-webkit-scrollbar {
     width: 6px;
     height: 6px;
   }
+
   ::-webkit-scrollbar-track {
     @apply bg-transparent;
   }
+
   ::-webkit-scrollbar-thumb {
-    @apply bg-slate-300 dark:bg-slate-700 rounded-full hover:bg-slate-400 dark:hover:bg-slate-600 transition-colors;
+    @apply bg-slate-300 dark:bg-white/10 rounded-full hover:bg-slate-400 dark:hover:bg-white/20 transition-colors;
   }
 }
 
 @layer utilities {
   .text-gradient {
-    @apply bg-clip-text text-transparent bg-gradient-to-r from-primary-500 to-indigo-600 dark:from-primary-400 dark:to-indigo-500;
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-primary-500 to-indigo-600 dark:from-primary-400 dark:to-indigo-300;
+  }
+
+  /* Luminous Borders for active elements */
+  .border-luminous {
+    @apply border-primary-500/50 shadow-glow-sm;
   }
 }
