@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Microscope, LogIn, AlertTriangle, RefreshCw, Sparkles, Zap, ShieldCheck, Lock, Settings, Plus, Trash2, X, User } from 'lucide-react';
+import { Microscope, LogIn, AlertTriangle, RefreshCw, Sparkles, Zap, ShieldCheck, Lock, Settings, Plus, Trash2, X, User, Search } from 'lucide-react';
 
 /**
  * Stunning Mesh Gradient Login Screen with Admin Portal.
@@ -119,7 +119,6 @@ const LoginScreen = ({ onLogin, API_BASE_URL }) => {
     };
 
     const handleDeleteId = async (targetId) => {
-        if (!window.confirm(`Delete access for ${targetId}?`)) return;
         try {
             const res = await fetch(`${API_BASE_URL}/auth/admin/ids/${targetId}`, {
                 method: 'DELETE',
@@ -134,53 +133,150 @@ const LoginScreen = ({ onLogin, API_BASE_URL }) => {
         }
     };
 
-    const AdminDashboard = () => (
-        <div className="space-y-6 animate-fade-in">
-            <div className="flex items-center justify-between mb-4">
-                <h3 className="text-xl font-black text-white uppercase tracking-tight">Access Control</h3>
-                <button onClick={() => { setIsAuthenticatedAdmin(false); setIsAdminMode(false); }} className="p-2 text-slate-400 hover:text-white transition-colors">
-                    <X size={20} />
-                </button>
-            </div>
+    const AdminDashboard = () => {
+        const [searchTerm, setSearchTerm] = useState("");
+        const [deleteConfirm, setDeleteConfirm] = useState(null);
 
-            {/* Add New ID */}
-            <div className="flex gap-2">
-                <input
-                    type="text"
-                    placeholder="New Researcher ID"
-                    className="flex-1 px-4 py-3 bg-matte-950/50 border border-white/10 rounded-xl text-white text-sm outline-none focus:border-primary-500 transition-all font-bold"
-                    value={newId}
-                    onChange={(e) => setNewId(e.target.value)}
-                />
-                <button
-                    onClick={handleAddId}
-                    disabled={isLoading || !newId}
-                    className="p-3 bg-primary-600 text-white rounded-xl shadow-lg hover:bg-primary-500 disabled:opacity-50 transition-all"
-                >
-                    <Plus size={20} />
-                </button>
-            </div>
+        const filteredIds = authorizedIds.filter(aid =>
+            aid.toLowerCase().includes(searchTerm.toLowerCase())
+        );
 
-            {successMsg && <p className="text-xs font-bold text-emerald-400 text-center animate-pulse">{successMsg}</p>}
-            {error && <p className="text-xs font-bold text-red-400 text-center animate-shake">{error}</p>}
+        const handleCopy = (text) => {
+            navigator.clipboard.writeText(text);
+            setSuccessMsg("ID Copied to Clipboard");
+            setTimeout(() => setSuccessMsg(null), 2000);
+        };
 
-            {/* List */}
-            <div className="max-h-[200px] overflow-y-auto space-y-2 pr-2 custom-scrollbar">
-                {authorizedIds.map(aid => (
-                    <div key={aid} className="flex items-center justify-between p-3 bg-white/5 border border-white/5 rounded-xl hover:bg-white/10 transition-colors group">
-                        <span className="text-sm font-bold text-slate-300 group-hover:text-white">{aid}</span>
+        const handleKeyDown = (e) => {
+            if (e.key === 'Enter') handleAddId();
+        };
+
+        const confirmDelete = (aid) => {
+            if (deleteConfirm === aid) {
+                handleDeleteId(aid);
+                setDeleteConfirm(null);
+            } else {
+                setDeleteConfirm(aid);
+                setTimeout(() => setDeleteConfirm(null), 3000);
+            }
+        };
+
+        return (
+            <div className="space-y-5 animate-slide-up-fade">
+                {/* Header */}
+                <div className="flex items-center justify-between">
+                    <div>
+                        <h3 className="text-xl font-black text-white uppercase tracking-tight flex items-center gap-2">
+                            Access Control
+                            <span className="px-2 py-0.5 rounded-md bg-rose-500/20 text-rose-400 text-[9px] tracking-wide">ADMIN</span>
+                        </h3>
+                        <p className="text-[10px] text-slate-500 font-bold uppercase tracking-widest">Manage Authorized Researchers</p>
+                    </div>
+                    <button
+                        onClick={() => { setIsAuthenticatedAdmin(false); setIsAdminMode(false); }}
+                        className="p-2 bg-white/5 hover:bg-white/10 text-slate-400 hover:text-white rounded-xl transition-all"
+                        title="Close Portal"
+                    >
+                        <X size={18} />
+                    </button>
+                </div>
+
+                {/* Add New ID */}
+                <div className="relative group z-20">
+                    <div className="flex gap-2">
+                        <div className="relative flex-1">
+                            <input
+                                type="text"
+                                placeholder="Add New Researcher ID..."
+                                className="w-full pl-4 pr-4 py-3 bg-matte-950/50 border border-white/10 rounded-xl text-white text-sm outline-none focus:border-rose-500/50 focus:ring-1 focus:ring-rose-500/50 transition-all font-bold placeholder:text-slate-600"
+                                value={newId}
+                                onChange={(e) => setNewId(e.target.value)}
+                                onKeyDown={handleKeyDown}
+                            />
+                        </div>
                         <button
-                            onClick={() => handleDeleteId(aid)}
-                            className="text-slate-500 hover:text-red-500 transition-colors p-1"
+                            onClick={handleAddId}
+                            disabled={isLoading || !newId}
+                            className="p-3 bg-rose-600 text-white rounded-xl shadow-lg shadow-rose-900/20 hover:bg-rose-500 disabled:opacity-50 hover:scale-105 active:scale-95 transition-all"
+                            title="Add ID"
                         >
-                            <Trash2 size={16} />
+                            <Plus size={20} strokeWidth={3} />
                         </button>
                     </div>
-                ))}
+                </div>
+
+                {/* Search & List */}
+                <div className="space-y-3">
+                    {/* Search Bar */}
+                    <div className="relative">
+                        <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-600" size={14} />
+                        <input
+                            type="text"
+                            placeholder="Search IDs..."
+                            className="w-full pl-9 pr-3 py-2 bg-white/5 border-none rounded-lg text-xs font-bold text-slate-300 focus:text-white outline-none focus:bg-white/10 transition-all placeholder:text-slate-600"
+                            value={searchTerm}
+                            onChange={(e) => setSearchTerm(e.target.value)}
+                        />
+                    </div>
+
+                    {/* Messages */}
+                    <div className="h-6 flex items-center justify-center">
+                        {successMsg && <p className="text-[10px] font-black text-emerald-400 uppercase tracking-wider animate-fade-in flex items-center gap-1"><ShieldCheck size={10} /> {successMsg}</p>}
+                        {error && <p className="text-[10px] font-black text-rose-400 uppercase tracking-wider animate-shake flex items-center gap-1"><AlertTriangle size={10} /> {error}</p>}
+                    </div>
+
+                    {/* Scrollable List */}
+                    <div className="max-h-[180px] overflow-y-auto space-y-2 pr-1 custom-scrollbar">
+                        {filteredIds.length > 0 ? (
+                            filteredIds.map(aid => (
+                                <div key={aid} className="flex items-center justify-between p-3 bg-matte-950/30 border border-white/5 rounded-xl hover:bg-white/5 transition-all group relative overflow-hidden">
+                                    {/* Hover Highlight */}
+                                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 pointer-events-none" />
+
+                                    <div
+                                        onClick={() => handleCopy(aid)}
+                                        className="flex items-center gap-3 cursor-pointer flex-1"
+                                        title="Click to Copy"
+                                    >
+                                        <div className="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center text-slate-500 group-hover:text-primary-400 transition-colors">
+                                            <User size={14} />
+                                        </div>
+                                        <span className="text-sm font-black text-slate-400 group-hover:text-white transition-colors tracking-tight">{aid}</span>
+                                    </div>
+
+                                    <button
+                                        onClick={() => confirmDelete(aid)}
+                                        className={`p-2 rounded-lg transition-all ${deleteConfirm === aid
+                                                ? 'bg-rose-500 text-white animate-pulse'
+                                                : 'text-slate-600 hover:text-rose-400 hover:bg-rose-500/10'
+                                            }`}
+                                        title={deleteConfirm === aid ? "Confirm Delete?" : "Delete Access"}
+                                    >
+                                        {deleteConfirm === aid ? <div className="text-[9px] font-black uppercase px-1">Confirm</div> : <Trash2 size={16} />}
+                                    </button>
+                                </div>
+                            ))
+                        ) : (
+                            <div className="text-center py-8 opacity-30">
+                                <p className="text-[10px] font-black text-white uppercase tracking-widest">No Matches Found</p>
+                            </div>
+                        )}
+                    </div>
+                </div>
+
+                {/* Secure Logout Footer */}
+                <div className="pt-2 border-t border-white/5 flex justify-between items-center">
+                    <p className="text-[9px] text-slate-600 font-bold uppercase tracking-widest">Administrator: Santhosh</p>
+                    <button
+                        onClick={() => { setIsAuthenticatedAdmin(false); setAdminToken(null); }}
+                        className="text-[9px] font-black text-rose-500 hover:text-rose-400 uppercase tracking-widest flex items-center gap-1 hover:underline decoration-rose-500/50 underline-offset-4 transition-all"
+                    >
+                        <Lock size={10} /> Secure Logout
+                    </button>
+                </div>
             </div>
-            <p className="text-[10px] text-center text-slate-500 font-bold uppercase tracking-widest mt-4">System Administrator: Santhosh</p>
-        </div>
-    );
+        );
+    };
 
     return (
         <div className="min-h-screen relative flex items-center justify-center p-6 overflow-hidden">
