@@ -376,7 +376,7 @@ const LoginScreen = ({ onLogin, API_BASE_URL }) => {
                                             className="text-[10px] font-bold text-slate-600 hover:text-white transition-colors uppercase tracking-wider flex items-center gap-1"
                                         >
                                             {isAdminMode ? <ShieldCheck size={10} /> : <Settings size={10} />}
-                                            {isAdminMode ? 'Researcher Login' : 'Admin Demo'}
+                                            {isAdminMode ? 'Researcher Login' : 'Admin'}
                                         </button>
                                     </div>
 
