@@ -23,12 +23,13 @@ const AdminDashboard = ({
     const [newPassword, setNewPassword] = useState("");
     const [showPassword, setShowPassword] = useState(false);
 
-    const filteredUsers = authorizedUsers.filter(u =>
-        u.username.toLowerCase().includes(searchTerm.toLowerCase())
-    );
+    const filteredUsers = authorizedUsers.filter(u => {
+        const name = typeof u === 'string' ? u : (u.username || "");
+        return name.toLowerCase().includes(searchTerm.toLowerCase());
+    });
 
     const handleCopy = (text) => {
-        navigator.clipboard.writeText(text);
+        if (text) navigator.clipboard.writeText(text);
     };
 
     const handleAddSubmit = () => {
@@ -73,7 +74,7 @@ const AdminDashboard = ({
             </div>
 
             {/* Add User Form */}
-            <div className="bg-matte-950/30 p-4 rounded-2xl border border-white/5 space-y-3">
+            <div className="bg-matte-950/30 p-3 sm:p-4 rounded-2xl border border-white/5 space-y-3">
                 <div className="flex gap-2 mb-2">
                     <button
                         onClick={() => setNewRole('researcher')}
@@ -89,11 +90,11 @@ const AdminDashboard = ({
                     </button>
                 </div>
 
-                <div className="flex gap-2">
+                <div className="flex flex-col sm:flex-row gap-2">
                     <input
                         type="text"
                         placeholder={newRole === 'admin' ? "New Admin Username" : "New Researcher ID"}
-                        className="flex-1 px-4 py-3 bg-matte-950/50 border border-white/10 rounded-xl text-white text-sm outline-none focus:border-rose-500/50 transition-all font-bold placeholder:text-slate-600"
+                        className="w-full sm:flex-1 px-4 py-3 bg-matte-950/50 border border-white/10 rounded-xl text-white text-sm outline-none focus:border-rose-500/50 transition-all font-bold placeholder:text-slate-600"
                         value={newUsername}
                         onChange={(e) => setNewUsername(e.target.value)}
                         onKeyDown={handleKeyDown}
@@ -101,7 +102,7 @@ const AdminDashboard = ({
                     />
 
                     {newRole === 'admin' && (
-                        <div className="relative w-1/3">
+                        <div className="relative w-full sm:w-1/3">
                             <input
                                 type={showPassword ? "text" : "password"}
                                 placeholder="Password"
@@ -121,7 +122,7 @@ const AdminDashboard = ({
                     <button
                         onClick={handleAddSubmit}
                         disabled={isLoading || !newUsername}
-                        className="p-3 bg-rose-600 text-white rounded-xl shadow-lg shadow-rose-900/20 hover:bg-rose-500 disabled:opacity-50 hover:scale-105 active:scale-95 transition-all"
+                        className="w-full sm:w-auto p-3 bg-rose-600 text-white rounded-xl shadow-lg shadow-rose-900/20 hover:bg-rose-500 disabled:opacity-50 hover:scale-105 active:scale-95 transition-all flex items-center justify-center"
                         title="Add User"
                     >
                         <Plus size={20} strokeWidth={3} />
@@ -151,32 +152,37 @@ const AdminDashboard = ({
                 {/* Scrollable List */}
                 <div className="max-h-[180px] overflow-y-auto space-y-2 pr-1 custom-scrollbar">
                     {filteredUsers.length > 0 ? (
-                        filteredUsers.map(u => (
-                            <div key={u.username} className="flex items-center justify-between p-3 bg-matte-950/30 border border-white/5 rounded-xl hover:bg-white/5 transition-all group relative overflow-hidden">
-                                <div
-                                    onClick={() => handleCopy(u.username)}
-                                    className="flex items-center gap-3 cursor-pointer flex-1"
-                                >
-                                    <div className={`w-8 h-8 rounded-lg flex items-center justify-center transition-colors ${u.role === 'admin' ? 'bg-rose-500/10 text-rose-400' : 'bg-primary-500/10 text-primary-400'}`}>
-                                        {u.role === 'admin' ? <ShieldCheck size={14} /> : <User size={14} />}
-                                    </div>
-                                    <div className="flex flex-col">
-                                        <span className="text-sm font-black text-slate-300 group-hover:text-white transition-colors tracking-tight">{u.username}</span>
-                                        <span className="text-[9px] uppercase font-bold text-slate-600">{u.role}</span>
-                                    </div>
-                                </div>
+                        filteredUsers.map((u, idx) => {
+                            const username = typeof u === 'string' ? u : (u.username || "Unknown");
+                            const role = typeof u === 'string' ? 'researcher' : (u.role || 'researcher');
 
-                                <button
-                                    onClick={() => confirmDelete(u.username)}
-                                    className={`p-2 rounded-lg transition-all ${deleteConfirm === u.username
-                                        ? 'bg-rose-500 text-white animate-pulse'
-                                        : 'text-slate-600 hover:text-rose-400 hover:bg-rose-500/10'
-                                        }`}
-                                >
-                                    {deleteConfirm === u.username ? <div className="text-[9px] font-black uppercase px-1">Confirm</div> : <Trash2 size={16} />}
-                                </button>
-                            </div>
-                        ))
+                            return (
+                                <div key={username + idx} className="flex items-center justify-between p-3 bg-matte-950/30 border border-white/5 rounded-xl hover:bg-white/5 transition-all group relative overflow-hidden">
+                                    <div
+                                        onClick={() => handleCopy(username)}
+                                        className="flex items-center gap-3 cursor-pointer flex-1"
+                                    >
+                                        <div className={`w-8 h-8 rounded-lg flex items-center justify-center transition-colors ${role === 'admin' ? 'bg-rose-500/10 text-rose-400' : 'bg-primary-500/10 text-primary-400'}`}>
+                                            {role === 'admin' ? <ShieldCheck size={14} /> : <User size={14} />}
+                                        </div>
+                                        <div className="flex flex-col">
+                                            <span className="text-sm font-black text-slate-300 group-hover:text-white transition-colors tracking-tight">{username}</span>
+                                            <span className="text-[9px] uppercase font-bold text-slate-600">{role}</span>
+                                        </div>
+                                    </div>
+
+                                    <button
+                                        onClick={() => confirmDelete(username)}
+                                        className={`p-2 rounded-lg transition-all ${deleteConfirm === username
+                                            ? 'bg-rose-500 text-white animate-pulse'
+                                            : 'text-slate-600 hover:text-rose-400 hover:bg-rose-500/10'
+                                            }`}
+                                    >
+                                        {deleteConfirm === username ? <div className="text-[9px] font-black uppercase px-1">Confirm</div> : <Trash2 size={16} />}
+                                    </button>
+                                </div>
+                            );
+                        })
                     ) : (
                         <div className="text-center py-8 opacity-30">
                             <p className="text-[10px] font-black text-white uppercase tracking-widest">No Matches Found</p>
@@ -215,6 +221,33 @@ const LoginScreen = ({ onLogin, API_BASE_URL }) => {
     const [successMsg, setSuccessMsg] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
 
+    // --- Helper: Safe Fetch ---
+    const safeFetch = async (url, options) => {
+        try {
+            const res = await fetch(url, options);
+            const contentType = res.headers.get("content-type");
+
+            if (!res.ok) {
+                // Try to parse error from JSON if possible, else text
+                if (contentType && contentType.includes("application/json")) {
+                    const errData = await res.json();
+                    throw new Error(errData.error || `Server Error (${res.status})`);
+                }
+                const text = await res.text();
+                console.error("Non-JSON Error Response:", text);
+                throw new Error(`Connection Error (${res.status}). Verify API URL.`);
+            }
+
+            if (contentType && contentType.includes("application/json")) {
+                return await res.json();
+            }
+
+            throw new Error("Invalid Server Response (Not JSON)");
+        } catch (err) {
+            throw err;
+        }
+    };
+
     // --- Researcher Login ---
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -223,24 +256,21 @@ const LoginScreen = ({ onLogin, API_BASE_URL }) => {
         setError(null);
 
         try {
-            const res = await fetch(`${API_BASE_URL}/auth/login`, {
+            const data = await safeFetch(`${API_BASE_URL}/auth/login`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ id: normalizedId })
             });
-            const data = await res.json();
 
-            if (res.ok && data.success) {
+            if (data.success) {
                 if (data.token) {
                     localStorage.setItem('auth_token', data.token);
                     localStorage.setItem('auth_user', data.user);
                 }
                 onLogin(data.user);
-            } else {
-                setError(data.error || "Access Denied");
             }
         } catch (err) {
-            setError("Connection failed. Check your internet.");
+            setError(err.message || "Connection failed.");
         } finally {
             setIsLoading(false);
         }
@@ -252,21 +282,19 @@ const LoginScreen = ({ onLogin, API_BASE_URL }) => {
         setIsLoading(true);
         setError(null);
         try {
-            const res = await fetch(`${API_BASE_URL}/auth/admin/login`, {
+            const data = await safeFetch(`${API_BASE_URL}/auth/admin/login`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ username: adminUser, password: adminPass })
             });
-            const data = await res.json();
-            if (res.ok && data.success) {
+
+            if (data.success) {
                 setAdminToken(data.token);
                 setIsAuthenticatedAdmin(true);
                 fetchUsers(data.token);
-            } else {
-                setError(data.error || "Invalid Credentials");
             }
         } catch (err) {
-            setError("Admin Login Failed");
+            setError(err.message || "Admin Login Failed");
         } finally {
             setIsLoading(false);
         }
