@@ -5,14 +5,14 @@ import { Microscope, LogIn, AlertTriangle, RefreshCw, Zap, ShieldCheck, Lock, Se
  * Admin Dashboard Component
  * Extracted to prevent re-rendering/focus loss issues.
  */
-const AdminDashboard = ({
-    authorizedUsers,
+authorizedUsers,
     onClose,
     onAddUser,
     onDeleteUser,
     isLoading,
     successMsg,
-    error
+    error,
+    currentUserRole // Passed from parent
 }) => {
     const [searchTerm, setSearchTerm] = useState("");
     const [deleteConfirm, setDeleteConfirm] = useState(null);
@@ -82,12 +82,14 @@ const AdminDashboard = ({
                     >
                         Researcher
                     </button>
-                    <button
-                        onClick={() => setNewRole('admin')}
-                        className={`flex-1 py-2 rounded-lg text-xs font-bold uppercase tracking-wider transition-all ${newRole === 'admin' ? 'bg-rose-600/20 text-rose-400 border border-rose-500/50' : 'bg-white/5 text-slate-500 hover:text-white'}`}
-                    >
-                        Co-Admin
-                    </button>
+                    {currentUserRole === 'root' && (
+                        <button
+                            onClick={() => setNewRole('admin')}
+                            className={`flex-1 py-2 rounded-lg text-xs font-bold uppercase tracking-wider transition-all ${newRole === 'admin' ? 'bg-rose-600/20 text-rose-400 border border-rose-500/50' : 'bg-white/5 text-slate-500 hover:text-white'}`}
+                        >
+                            Co-Admin
+                        </button>
+                    )}
                 </div>
 
                 <div className="flex flex-col sm:flex-row gap-2">
@@ -215,6 +217,7 @@ const LoginScreen = ({ onLogin, API_BASE_URL }) => {
     const [showAdminPass, setShowAdminPass] = useState(false);
     const [isAuthenticatedAdmin, setIsAuthenticatedAdmin] = useState(false);
     const [adminToken, setAdminToken] = useState(null);
+    const [adminRole, setAdminRole] = useState(null); // 'root' or 'admin'
     const [authorizedUsers, setAuthorizedUsers] = useState([]);
 
     const [error, setError] = useState(null);
@@ -290,6 +293,7 @@ const LoginScreen = ({ onLogin, API_BASE_URL }) => {
 
             if (data.success) {
                 setAdminToken(data.token);
+                setAdminRole(data.role || 'admin'); // Capture role
                 setIsAuthenticatedAdmin(true);
                 fetchUsers(data.token);
             }
@@ -391,6 +395,7 @@ const LoginScreen = ({ onLogin, API_BASE_URL }) => {
                             isLoading={isLoading}
                             successMsg={successMsg}
                             error={error}
+                            currentUserRole={adminRole}
                         />
                     ) : (
                         <div className="relative z-10">
