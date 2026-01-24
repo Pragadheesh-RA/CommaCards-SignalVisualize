@@ -5,7 +5,8 @@ import { Microscope, LogIn, AlertTriangle, RefreshCw, Zap, ShieldCheck, Lock, Se
  * Admin Dashboard Component
  * Extracted to prevent re-rendering/focus loss issues.
  */
-authorizedUsers,
+const AdminDashboard = ({
+    authorizedUsers,
     onClose,
     onAddUser,
     onDeleteUser,
