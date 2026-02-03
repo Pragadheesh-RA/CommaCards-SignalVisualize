@@ -42,9 +42,6 @@ const AdminDashboard = ({
         setNewPassword("");
     };
 
-    const handleKeyDown = (e) => {
-        if (e.key === 'Enter') handleAddSubmit();
-    };
 
     const confirmDelete = (username) => {
         if (deleteConfirm === username) {
@@ -104,14 +101,16 @@ const AdminDashboard = ({
                     )}
                 </div>
 
-                <div className="flex flex-col sm:flex-row gap-2">
+                <form
+                    onSubmit={(e) => { e.preventDefault(); handleAddSubmit(); }}
+                    className="flex flex-col sm:flex-row gap-2"
+                >
                     <input
                         type="text"
                         placeholder={newRole === 'admin' ? "New Admin Username" : "New Researcher ID"}
                         className="w-full sm:flex-1 px-4 py-3 bg-matte-950/50 border border-white/10 rounded-xl text-white text-sm outline-none focus:border-rose-500/50 transition-all font-bold placeholder:text-slate-600"
                         value={newUsername}
                         onChange={(e) => setNewUsername(e.target.value)}
-                        onKeyDown={handleKeyDown}
                         autoFocus
                     />
 
@@ -123,8 +122,10 @@ const AdminDashboard = ({
                                 className="w-full pl-3 pr-8 py-3 bg-matte-950/50 border border-white/10 rounded-xl text-white text-sm outline-none focus:border-rose-500/50 transition-all font-bold placeholder:text-slate-600"
                                 value={newPassword}
                                 onChange={(e) => setNewPassword(e.target.value)}
+                                required={newRole === 'admin'}
                             />
                             <button
+                                type="button"
                                 onClick={() => setShowPassword(!showPassword)}
                                 className="absolute right-2 top-1/2 -translate-y-1/2 text-slate-500 hover:text-white"
                             >
@@ -134,14 +135,18 @@ const AdminDashboard = ({
                     )}
 
                     <button
-                        onClick={handleAddSubmit}
-                        disabled={isLoading || !newUsername}
-                        className="w-full sm:w-auto p-3 bg-rose-600 text-white rounded-xl shadow-lg shadow-rose-900/20 hover:bg-rose-500 disabled:opacity-50 hover:scale-105 active:scale-95 transition-all flex items-center justify-center"
+                        type="submit"
+                        disabled={isLoading || !newUsername.trim()}
+                        className={`w-full sm:w-auto p-3 rounded-xl shadow-lg transition-all flex items-center justify-center
+                            ${(isLoading || !newUsername.trim())
+                                ? 'bg-slate-800 text-slate-500 cursor-not-allowed opacity-50'
+                                : 'bg-rose-600 text-white hover:bg-rose-500 hover:scale-105 active:scale-95 shadow-rose-900/20'}
+                        `}
                         title="Add User"
                     >
-                        <Plus size={20} strokeWidth={3} />
+                        {isLoading ? <RefreshCw size={20} className="animate-spin" /> : <Plus size={20} strokeWidth={3} />}
                     </button>
-                </div>
+                </form>
             </div>
 
             {/* Search & List */}
