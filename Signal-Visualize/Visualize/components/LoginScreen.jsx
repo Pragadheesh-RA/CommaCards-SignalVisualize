@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Microscope, LogIn, AlertTriangle, RefreshCw, Zap, ShieldCheck, Lock, Settings, Plus, Trash2, X, User, Search, Eye, EyeOff, UserPlus } from 'lucide-react';
+import { Microscope, LogIn, AlertTriangle, RefreshCw, Zap, ShieldCheck, Lock, Settings, Plus, Trash2, X, User, Search, Eye, EyeOff, UserPlus, Edit3, Check } from 'lucide-react';
 
 /**
  * Admin Dashboard Component
@@ -10,6 +10,7 @@ const AdminDashboard = ({
     onClose,
     onAddUser,
     onDeleteUser,
+    onUpdateUser,
     isLoading,
     successMsg,
     error,
@@ -17,6 +18,7 @@ const AdminDashboard = ({
 }) => {
     const [searchTerm, setSearchTerm] = useState("");
     const [deleteConfirm, setDeleteConfirm] = useState(null);
+    const [editingUser, setEditingUser] = useState(null); // { username, role, password }
 
     // Add User Form States
     const [newUsername, setNewUsername] = useState("");
@@ -52,6 +54,15 @@ const AdminDashboard = ({
             setDeleteConfirm(username);
             setTimeout(() => setDeleteConfirm(null), 3000);
         }
+    };
+
+    const handleUpdateSubmit = () => {
+        if (!editingUser) return;
+        onUpdateUser(editingUser.username, {
+            newPassword: editingUser.password,
+            newRole: editingUser.role
+        });
+        setEditingUser(null);
     };
 
     return (
@@ -174,15 +185,69 @@ const AdminDashboard = ({
                                         </div>
                                     </div>
 
-                                    <button
-                                        onClick={() => confirmDelete(username)}
-                                        className={`p-2 rounded-lg transition-all ${deleteConfirm === username
-                                            ? 'bg-rose-500 text-white animate-pulse'
-                                            : 'text-slate-600 hover:text-rose-400 hover:bg-rose-500/10'
-                                            }`}
-                                    >
-                                        {deleteConfirm === username ? <div className="text-[9px] font-black uppercase px-1">Confirm</div> : <Trash2 size={16} />}
-                                    </button>
+                                    <div className="flex items-center gap-1">
+                                        {/* Edit Button (Only root can edit others, or anyone can edit researchers?) */}
+                                        {/* Restriction: Only root can edit admins. Admins can edit researchers. */}
+                                        {((currentUserRole === 'root') || (currentUserRole === 'admin' && role === 'researcher')) && (
+                                            <button
+                                                onClick={() => setEditingUser(editingUser?.username === username ? null : { username, role, password: "" })}
+                                                className={`p-2 rounded-lg transition-all ${editingUser?.username === username ? 'bg-primary-500/20 text-primary-400' : 'text-slate-600 hover:text-primary-400 hover:bg-primary-500/10'}`}
+                                            >
+                                                <Edit3 size={16} />
+                                            </button>
+                                        )}
+
+                                        <button
+                                            onClick={() => confirmDelete(username)}
+                                            className={`p-2 rounded-lg transition-all ${deleteConfirm === username
+                                                ? 'bg-rose-500 text-white animate-pulse'
+                                                : 'text-slate-600 hover:text-rose-400 hover:bg-rose-500/10'
+                                                }`}
+                                        >
+                                            {deleteConfirm === username ? <div className="text-[9px] font-black uppercase px-1">Confirm</div> : <Trash2 size={16} />}
+                                        </button>
+                                    </div>
+
+                                    {/* Inline Edit Form */}
+                                    {editingUser?.username === username && (
+                                        <div className="absolute inset-0 bg-matte-900/95 flex items-center gap-2 px-3 animate-in fade-in slide-in-from-right-4 duration-200 z-10">
+                                            <div className="flex-1 flex gap-2 items-center">
+                                                <input
+                                                    type="password"
+                                                    placeholder="New Password"
+                                                    className="flex-1 bg-white/5 border border-white/10 rounded-lg px-2 py-1.5 text-xs text-white outline-none focus:border-primary-500"
+                                                    value={editingUser.password}
+                                                    onChange={(e) => setEditingUser({ ...editingUser, password: e.target.value })}
+                                                    autoFocus
+                                                />
+                                                {currentUserRole === 'root' && (
+                                                    <select
+                                                        className="bg-white/5 border border-white/10 rounded-lg px-1 py-1.5 text-[10px] text-white outline-none font-bold"
+                                                        value={editingUser.role}
+                                                        onChange={(e) => setEditingUser({ ...editingUser, role: e.target.value })}
+                                                    >
+                                                        <option value="researcher" className="bg-matte-900">Researcher</option>
+                                                        <option value="admin" className="bg-matte-900">Admin</option>
+                                                    </select>
+                                                )}
+                                            </div>
+                                            <div className="flex gap-1">
+                                                <button
+                                                    onClick={handleUpdateSubmit}
+                                                    className="p-1.5 bg-emerald-500/20 text-emerald-400 rounded-lg hover:bg-emerald-500/30 transition-all"
+                                                    title="Save Changes"
+                                                >
+                                                    <Check size={16} />
+                                                </button>
+                                                <button
+                                                    onClick={() => setEditingUser(null)}
+                                                    className="p-1.5 bg-white/5 text-slate-400 rounded-lg hover:bg-white/10 transition-all"
+                                                >
+                                                    <X size={16} />
+                                                </button>
+                                            </div>
+                                        </div>
+                                    )}
                                 </div>
                             );
                         })
@@ -360,6 +425,32 @@ const LoginScreen = ({ onLogin, API_BASE_URL }) => {
         }
     };
 
+    const handleUpdateUser = async (targetUser, updateData) => {
+        setIsLoading(true);
+        try {
+            const res = await fetch(`${API_BASE_URL}/auth/admin/ids/${targetUser}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${adminToken}`
+                },
+                body: JSON.stringify(updateData)
+            });
+            const data = await res.json();
+            if (res.ok) {
+                setAuthorizedUsers(data.ids);
+                setSuccessMsg(`User Updated`);
+                setTimeout(() => setSuccessMsg(null), 2000);
+            } else {
+                setError(data.error || "Update Failed");
+            }
+        } catch (e) {
+            setError("Update Failed");
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
     return (
         <div className="min-h-screen relative flex items-center justify-center p-6 overflow-hidden">
             {/* Kinetic Background Overlays */}
@@ -393,6 +484,7 @@ const LoginScreen = ({ onLogin, API_BASE_URL }) => {
                             onClose={() => { setIsAuthenticatedAdmin(false); setAdminToken(null); }}
                             onAddUser={handleAddUser}
                             onDeleteUser={handleDeleteUser}
+                            onUpdateUser={handleUpdateUser}
                             isLoading={isLoading}
                             successMsg={successMsg}
                             error={error}

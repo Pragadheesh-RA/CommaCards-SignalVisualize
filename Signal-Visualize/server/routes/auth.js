@@ -3,6 +3,8 @@ const router = express.Router();
 const jwt = require('jsonwebtoken');
 const fs = require('fs');
 const path = require('path');
+const User = require('../models/User');
+const { connectDb } = require('../utils/db');
 
 // Constants
 const DATA_FILE = path.join(__dirname, '../data/authorized_ids.json');
@@ -12,65 +14,35 @@ const ROOT_ADMIN = {
     password: 'CommaCardsVisualize'
 };
 
-// Helper: Read & Auto-Migrate
-const getAuthorizedUsers = () => {
+// Helper: Read & Auto-Migrate (Fallback structure)
+const getAuthorizedUsersLocal = () => {
     try {
-        if (!fs.existsSync(DATA_FILE)) {
-            const defaults = [
-                { username: 'Water2026', role: 'researcher' },
-                { username: 'Earth1919', role: 'researcher' },
-                { username: 'Fire1123', role: 'researcher' }
-            ];
-            fs.mkdirSync(path.dirname(DATA_FILE), { recursive: true });
-            fs.writeFileSync(DATA_FILE, JSON.stringify(defaults, null, 2));
-            return defaults;
-        }
-
+        if (!fs.existsSync(DATA_FILE)) return [];
         const rawData = fs.readFileSync(DATA_FILE, 'utf8');
         let data = JSON.parse(rawData);
-
-        // Migration: Convert strings to objects if necessary
-        let hasChanges = false;
-        data = data.map(item => {
-            if (typeof item === 'string') {
-                hasChanges = true;
-                return { username: item, role: 'researcher' }; // Default to researcher
-            }
-            return item;
-        });
-
-        if (hasChanges) {
-            saveAuthorizedUsers(data);
-        }
-        return data;
+        return data.map(item => typeof item === 'string' ? { username: item, role: 'researcher' } : item);
     } catch (err) {
-        console.error("Error reading ID file:", err);
         return [];
     }
 };
 
-// Helper: Write
-const saveAuthorizedUsers = (users) => {
-    try {
-        fs.writeFileSync(DATA_FILE, JSON.stringify(users, null, 2));
-        return true;
-    } catch (err) {
-        console.error("Error writing ID file:", err);
-        return false;
-    }
-};
-
-// --- Login Handler (Unified) ---
-router.post('/login', (req, res) => {
+// --- Login Handler (Unified Researcher) ---
+router.post('/login', async (req, res) => {
     const { id } = req.body;
-    // Treating 'id' as 'username' for researchers
     if (!id) return res.status(400).json({ error: 'ID is required' });
 
     const normalizedId = id.trim();
-    const users = getAuthorizedUsers();
+    let user = null;
 
-    // Find user (Case-insensitive)
-    const user = users.find(u => u.username.toUpperCase() === normalizedId.toUpperCase());
+    if (await connectDb()) {
+        user = await User.findOne({ username: { $regex: new RegExp(`^${normalizedId}$`, 'i') } });
+    }
+
+    // Fallback if not in MongoDB
+    if (!user) {
+        const users = getAuthorizedUsersLocal();
+        user = users.find(u => u.username.toUpperCase() === normalizedId.toUpperCase());
+    }
 
     if (user && user.role === 'researcher') {
         const token = jwt.sign({ userId: user.username, role: 'researcher' }, JWT_SECRET, { expiresIn: '7d' });
@@ -81,100 +53,166 @@ router.post('/login', (req, res) => {
 });
 
 // --- Admin Login ---
-router.post('/admin/login', (req, res) => {
+router.post('/admin/login', async (req, res) => {
     const { username, password } = req.body;
 
     // 1. Check Root Admin
     if (username === ROOT_ADMIN.username && password === ROOT_ADMIN.password) {
-        const token = jwt.sign({ userId: 'root', role: 'admin' }, JWT_SECRET, { expiresIn: '1h' });
-        return res.json({ success: true, token, role: 'admin' });
+        // Important: Return 'root' role
+        const token = jwt.sign({ userId: 'root', role: 'root' }, JWT_SECRET, { expiresIn: '8h' });
+        return res.json({ success: true, token, role: 'root' });
     }
 
-    // 2. Check Co-Admins from File
-    const users = getAuthorizedUsers();
-    const adminUser = users.find(u =>
-        u.role === 'admin' &&
-        u.username === username &&
-        u.password === password
-    );
+    // 2. Check Co-Admins
+    let adminUser = null;
+    if (await connectDb()) {
+        adminUser = await User.findOne({
+            username: { $regex: new RegExp(`^${username}$`, 'i') },
+            role: 'admin',
+            password
+        });
+    }
+
+    if (!adminUser) {
+        const users = getAuthorizedUsersLocal();
+        adminUser = users.find(u =>
+            u.role === 'admin' &&
+            u.username.toUpperCase() === username.toUpperCase() &&
+            u.password === password
+        );
+    }
 
     if (adminUser) {
-        const token = jwt.sign({ userId: adminUser.username, role: 'admin' }, JWT_SECRET, { expiresIn: '1h' });
+        const token = jwt.sign({ userId: adminUser.username, role: 'admin' }, JWT_SECRET, { expiresIn: '8h' });
         res.json({ success: true, token, role: 'admin' });
     } else {
         res.status(401).json({ error: 'Invalid Credentials' });
     }
 });
 
-// --- Admin: Get Users ---
-router.get('/admin/ids', (req, res) => {
+// --- Middleware: Verify Admin ---
+const verifyAdmin = (req, res, next) => {
     const token = req.headers.authorization?.split(' ')[1];
     if (!token) return res.status(401).json({ error: 'No token' });
     try {
-        jwt.verify(token, JWT_SECRET);
-        const users = getAuthorizedUsers();
-        res.json({ ids: users });
+        const decoded = jwt.verify(token, JWT_SECRET);
+        if (decoded.role === 'admin' || decoded.role === 'root') {
+            req.adminToken = decoded;
+            next();
+        } else {
+            res.status(403).json({ error: 'Admin access required' });
+        }
     } catch (e) {
-        res.status(403).json({ error: 'Forbidden' });
+        res.status(401).json({ error: 'Invalid or expired session' });
     }
+};
+
+// --- Admin: Get Users ---
+router.get('/admin/ids', verifyAdmin, async (req, res) => {
+    let users = [];
+    if (await connectDb()) {
+        users = await User.find({}).sort({ createdAt: -1 });
+    } else {
+        users = getAuthorizedUsersLocal();
+    }
+    res.json({ ids: users });
 });
 
 // --- Admin: Add User ---
-router.post('/admin/ids', (req, res) => {
-    const token = req.headers.authorization?.split(' ')[1];
-    if (!token) return res.status(401).json({ error: 'No token' });
-    try {
-        jwt.verify(token, JWT_SECRET);
+router.post('/admin/ids', verifyAdmin, async (req, res) => {
+    const { username, role, password } = req.body;
+    const decoded = req.adminToken;
 
-        // Frontend sends: { username, role, password? }
-        // Previous (Legacy) frontend might send: { newId }
-        const body = req.body;
-        const username = body.username || body.newId;
-        const role = body.role || 'researcher';
-        const password = body.password || null;
+    if (!username || username.length < 3) return res.status(400).json({ error: 'Invalid Username' });
 
-        if (!username || username.length < 3) return res.status(400).json({ error: 'Invalid Username' });
+    // RBAC: Only Root can create Admins
+    if (role === 'admin' && decoded.role !== 'root') {
+        return res.status(403).json({ error: 'Permission Denied: Only Root Admin can create Co-Admins' });
+    }
 
-        const users = getAuthorizedUsers();
+    if (await connectDb()) {
+        const exists = await User.findOne({ username: { $regex: new RegExp(`^${username}$`, 'i') } });
+        if (exists) return res.status(409).json({ error: 'User already exists' });
+
+        const newUser = new User({
+            username: username.trim(),
+            role: role || 'researcher',
+            password: role === 'admin' ? password : null
+        });
+        await newUser.save();
+
+        const allUsers = await User.find({}).sort({ createdAt: -1 });
+        return res.json({ success: true, ids: allUsers });
+    } else {
+        // Fallback to local file if DB down
+        let users = getAuthorizedUsersLocal();
         if (users.some(u => u.username.toUpperCase() === username.toUpperCase())) {
             return res.status(409).json({ error: 'User already exists' });
         }
-
-        const newUser = {
-            username,
-            role,
-            ...(role === 'admin' && { password: password || 'default123' }) // Store password only for admins
-        };
-
-        users.push(newUser);
-        saveAuthorizedUsers(users);
+        users.push({ username, role, password });
+        fs.writeFileSync(DATA_FILE, JSON.stringify(users, null, 2));
         res.json({ success: true, ids: users });
-    } catch (e) {
-        res.status(403).json({ error: 'Forbidden' });
+    }
+});
+
+// --- Admin: Update User ---
+router.put('/admin/ids/:username', verifyAdmin, async (req, res) => {
+    const targetUsername = req.params.username;
+    const { newPassword, newRole } = req.body;
+    const decoded = req.adminToken;
+
+    if (targetUsername.toLowerCase() === ROOT_ADMIN.username.toLowerCase()) {
+        return res.status(403).json({ error: 'Cannot modify Root Admin via API' });
+    }
+
+    if (await connectDb()) {
+        const target = await User.findOne({ username: { $regex: new RegExp(`^${targetUsername}$`, 'i') } });
+        if (!target) return res.status(404).json({ error: 'User not found' });
+
+        // RBAC: Only root can change roles to/from admin
+        if (decoded.role !== 'root' && (newRole === 'admin' || target.role === 'admin')) {
+            return res.status(403).json({ error: 'Permission Denied: Only root can modify Admins' });
+        }
+
+        if (newPassword) target.password = newPassword;
+        if (newRole) target.role = newRole;
+
+        await target.save();
+        const allUsers = await User.find({}).sort({ createdAt: -1 });
+        res.json({ success: true, ids: allUsers });
+    } else {
+        res.status(503).json({ error: 'Database unavailable for updates' });
     }
 });
 
 // --- Admin: Remove User ---
-router.delete('/admin/ids/:username', (req, res) => {
-    const token = req.headers.authorization?.split(' ')[1];
-    if (!token) return res.status(401).json({ error: 'No token' });
-    try {
-        jwt.verify(token, JWT_SECRET);
+router.delete('/admin/ids/:username', verifyAdmin, async (req, res) => {
+    const targetUser = req.params.username;
+    const decoded = req.adminToken;
 
-        const targetUser = req.params.username;
-        if (targetUser === ROOT_ADMIN.username) return res.status(403).json({ error: 'Cannot delete Root Admin' });
+    if (targetUser.toLowerCase() === ROOT_ADMIN.username.toLowerCase()) {
+        return res.status(403).json({ error: 'Cannot delete Root Admin' });
+    }
 
-        let users = getAuthorizedUsers();
-        const initialLen = users.length;
+    if (await connectDb()) {
+        const target = await User.findOne({ username: { $regex: new RegExp(`^${targetUser}$`, 'i') } });
+        if (!target) return res.status(404).json({ error: 'User not found' });
+
+        // RBAC Check
+        if (decoded.role !== 'root' && target.role === 'admin') {
+            return res.status(403).json({ error: 'Permission Denied: Cannot delete Co-Admin' });
+        }
+
+        await User.deleteOne({ _id: target._id });
+        const allUsers = await User.find({}).sort({ createdAt: -1 });
+        res.json({ success: true, ids: allUsers });
+    } else {
+        let users = getAuthorizedUsersLocal();
         users = users.filter(u => u.username !== targetUser);
-
-        if (users.length === initialLen) return res.status(404).json({ error: 'User not found' });
-
-        saveAuthorizedUsers(users);
+        fs.writeFileSync(DATA_FILE, JSON.stringify(users, null, 2));
         res.json({ success: true, ids: users });
-    } catch (e) {
-        res.status(403).json({ error: 'Forbidden' });
     }
 });
 
 module.exports = router;
+
