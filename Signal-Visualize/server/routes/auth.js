@@ -7,7 +7,11 @@ const User = require('../models/User');
 const { connectDb } = require('../utils/db');
 
 // Constants
-const DATA_FILE = path.join(__dirname, '../data/authorized_ids.json');
+const IS_VERCEL = process.env.VERCEL || process.env.NODE_ENV === 'production';
+const DATA_FILE = IS_VERCEL
+    ? path.join('/tmp', 'authorized_ids.json')
+    : path.join(__dirname, '../data/authorized_ids.json');
+
 const JWT_SECRET = process.env.JWT_SECRET || 'visualize_default_secret_123';
 const ROOT_ADMIN = {
     username: 'santhosh',
@@ -17,12 +21,39 @@ const ROOT_ADMIN = {
 // Helper: Read & Auto-Migrate (Fallback structure)
 const getAuthorizedUsersLocal = () => {
     try {
-        if (!fs.existsSync(DATA_FILE)) return [];
+        const BUNDLED_FILE = path.join(__dirname, '../data/authorized_ids.json');
+
+        if (!fs.existsSync(DATA_FILE)) {
+            if (fs.existsSync(BUNDLED_FILE)) {
+                const data = fs.readFileSync(BUNDLED_FILE, 'utf8');
+                if (IS_VERCEL) {
+                    const dir = path.dirname(DATA_FILE);
+                    if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
+                    fs.writeFileSync(DATA_FILE, data);
+                }
+                return JSON.parse(data).map(u => typeof u === 'string' ? { username: u, role: 'researcher' } : u);
+            }
+            return [];
+        }
+
         const rawData = fs.readFileSync(DATA_FILE, 'utf8');
         let data = JSON.parse(rawData);
         return data.map(item => typeof item === 'string' ? { username: item, role: 'researcher' } : item);
     } catch (err) {
+        console.error("Local read error:", err);
         return [];
+    }
+};
+
+const saveAuthorizedUsersLocal = (users) => {
+    try {
+        const dir = path.dirname(DATA_FILE);
+        if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
+        fs.writeFileSync(DATA_FILE, JSON.stringify(users, null, 2));
+        return true;
+    } catch (err) {
+        console.error("Local save error:", err);
+        return false;
     }
 };
 
@@ -150,7 +181,7 @@ router.post('/admin/ids', verifyAdmin, async (req, res) => {
             return res.status(409).json({ error: 'User already exists' });
         }
         users.push({ username, role, password });
-        fs.writeFileSync(DATA_FILE, JSON.stringify(users, null, 2));
+        saveAuthorizedUsersLocal(users);
         res.json({ success: true, ids: users });
     }
 });
@@ -181,7 +212,22 @@ router.put('/admin/ids/:username', verifyAdmin, async (req, res) => {
         const allUsers = await User.find({}).sort({ createdAt: -1 });
         res.json({ success: true, ids: allUsers });
     } else {
-        res.status(503).json({ error: 'Database unavailable for updates' });
+        // Fallback Update
+        let users = getAuthorizedUsersLocal();
+        const index = users.findIndex(u => u.username.toUpperCase() === targetUsername.toUpperCase());
+
+        if (index === -1) return res.status(404).json({ error: 'User not found' });
+
+        // RBAC: Only root can change roles to/from admin
+        if (decoded.role !== 'root' && (newRole === 'admin' || users[index].role === 'admin')) {
+            return res.status(403).json({ error: 'Permission Denied: Only root can modify Admins' });
+        }
+
+        if (newPassword) users[index].password = newPassword;
+        if (newRole) users[index].role = newRole;
+
+        saveAuthorizedUsersLocal(users);
+        res.json({ success: true, ids: users });
     }
 });
 
@@ -208,8 +254,12 @@ router.delete('/admin/ids/:username', verifyAdmin, async (req, res) => {
         res.json({ success: true, ids: allUsers });
     } else {
         let users = getAuthorizedUsersLocal();
-        users = users.filter(u => u.username !== targetUser);
-        fs.writeFileSync(DATA_FILE, JSON.stringify(users, null, 2));
+        const initialLen = users.length;
+        users = users.filter(u => u.username.toLowerCase() !== targetUser.toLowerCase());
+
+        if (users.length === initialLen) return res.status(404).json({ error: 'User not found' });
+
+        saveAuthorizedUsersLocal(users);
         res.json({ success: true, ids: users });
     }
 });
