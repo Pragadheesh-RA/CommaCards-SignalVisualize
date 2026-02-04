@@ -251,8 +251,14 @@ export default function Dashboard() {
                 }
             }
         }
+        // Explicitly set loading false after recovery attempt
         setIsLoading(false);
     }, []);
+
+    const handleLogin = (userData) => {
+        setUser(userData);
+        addToast("Logged in successfully", "success");
+    };
 
     const handleLogout = () => {
         if (!skipLogoutConfirm) {
@@ -454,7 +460,7 @@ export default function Dashboard() {
 
     if (isLoading && !user) return <div className="min-h-screen mesh-gradient flex items-center justify-center"><RefreshCw className="animate-spin text-white" size={48} /></div>;
 
-    if (!user) return <LoginScreen onLogin={setUser} API_BASE_URL={API_BASE_URL} />;
+    if (!user) return <LoginScreen onLogin={handleLogin} API_BASE_URL={API_BASE_URL} />;
 
     return (
         <div className="min-h-screen bg-slate-50 dark:bg-[#070b14] flex flex-col lg:flex-row transition-colors duration-500 overflow-x-hidden">

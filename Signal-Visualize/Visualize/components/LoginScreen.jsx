@@ -269,9 +269,9 @@ const AdminDashboard = ({
                 <p className="text-[9px] text-slate-600 font-bold uppercase tracking-widest">Administrator: Santhosh</p>
                 <button
                     className="text-[9px] font-black text-rose-500 hover:text-rose-400 uppercase tracking-widest flex items-center gap-1 hover:underline decoration-rose-500/50 underline-offset-4 transition-all"
-                    onClick={onClose} // Just close portal, logic is in parent
+                    onClick={onClose}
                 >
-                    <Lock size={10} /> Secure Logout
+                    <Lock size={10} /> Exit Admin Portal
                 </button>
             </div>
         </div>
