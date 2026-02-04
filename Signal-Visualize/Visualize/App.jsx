@@ -183,6 +183,7 @@ export default function Dashboard() {
     const [rawData, setRawData] = useState(null);
     const [processedData, setProcessedData] = useState(null);
     const [selectedAssessment, setSelectedAssessment] = useState(null);
+    const [isSyncing, setIsSyncing] = useState(false);
 
     // Debug tracking
     useEffect(() => {
@@ -198,7 +199,12 @@ export default function Dashboard() {
     const [toasts, setToasts] = useState([]);
     const [showLogoutConfirm, setShowLogoutConfirm] = useState(false);
     const [skipLogoutConfirm, setSkipLogoutConfirm] = useState(() => localStorage.getItem('skip_logout_confirm') === 'true');
-    const [activeView, setActiveView] = useState('dashboard');
+    const [activeView, setActiveView] = useState(() => localStorage.getItem('active_view') || 'dashboard');
+
+    // Persist active view
+    useEffect(() => {
+        localStorage.setItem('active_view', activeView);
+    }, [activeView]);
 
     const addToast = (message, type = 'info') => {
         const id = Date.now();
@@ -229,11 +235,22 @@ export default function Dashboard() {
         }
     };
 
-    // Auto-login on mount
+    // Auto-login & Data Recovery on mount
     useEffect(() => {
         const savedToken = localStorage.getItem('auth_token');
         const savedUser = localStorage.getItem('auth_user');
-        if (savedToken && savedUser) setUser(savedUser);
+        const cachedData = localStorage.getItem('research_cache');
+
+        if (savedToken && savedUser) {
+            setUser(savedUser);
+            if (cachedData) {
+                try {
+                    setRawData(JSON.parse(cachedData));
+                } catch (e) {
+                    console.error("Cache recovery failed", e);
+                }
+            }
+        }
         setIsLoading(false);
     }, []);
 
@@ -248,23 +265,28 @@ export default function Dashboard() {
     const performLogout = () => {
         localStorage.removeItem('auth_token');
         localStorage.removeItem('auth_user');
+        localStorage.removeItem('research_cache');
+        localStorage.removeItem('active_view');
         setUser(null);
-        addToast("Logged in successfully", "success");
+        addToast("Logged out successfully", "info");
         setShowLogoutConfirm(false);
     };
 
     const fetchData = async (showToast = false) => {
-        setIsLoading(true);
+        setIsSyncing(true);
         try {
             const res = await fetch(`${API_BASE_URL}/assessments`);
             const data = await res.json();
-            setRawData(Array.isArray(data) ? data : []);
+            const validData = Array.isArray(data) ? data : [];
+            setRawData(validData);
+            localStorage.setItem('research_cache', JSON.stringify(validData));
             setIsDirty(false);
-            if (showToast) addToast("Data refreshed", "success");
+            if (showToast) addToast("Data synchronized", "success");
         } catch (e) {
             console.error("Failed to fetch data", e);
-            addToast("Failed to fetch records", "error");
+            addToast("Sync failed - Using offline data", "error");
         } finally {
+            setIsSyncing(false);
             setIsLoading(false);
         }
     };
@@ -382,15 +404,19 @@ export default function Dashboard() {
     };
 
     const handleClear = async () => {
-        if (!window.confirm("Clear all data?")) return;
+        if (!window.confirm("Clear all data in the registry? This action cannot be undone.")) return;
         try {
             const res = await fetch(`${API_BASE_URL}/assessments`, { method: 'DELETE' });
             if (res.ok) {
-                fetchData();
+                setRawData([]);
+                localStorage.removeItem('research_cache');
                 setProcessedData(null);
-                addToast("Dataset cleared", "success");
+                addToast("Registry cleared completely", "success");
             }
-        } catch (e) { addToast("Operation failed", "error"); }
+        } catch (e) {
+            console.error("Clear data error:", e);
+            addToast("Operation failed", "error");
+        }
     };
 
     const handleUpdateAnnotation = async (id, annotations) => {
@@ -453,8 +479,8 @@ export default function Dashboard() {
                                 <div>
                                     <h2 className="text-4xl font-black text-slate-900 dark:text-white tracking-tighter mb-1">Research Analytics</h2>
                                     <p className="text-slate-500 dark:text-slate-400 font-bold uppercase text-xs tracking-widest flex items-center gap-2">
-                                        <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                                        Institutional Registry Active
+                                        <span className={`w-2 h-2 rounded-full ${isSyncing ? 'bg-amber-500 animate-ping' : 'bg-emerald-500 animate-pulse'}`} />
+                                        {isSyncing ? 'Synchronizing Intelligence...' : 'Institutional Registry Active'}
                                     </p>
                                 </div>
                                 <div className="flex flex-wrap items-center gap-3">
