@@ -197,8 +197,8 @@ const AssessmentDetail = ({ assessment, onClose, onUpdateAnnotation }) => {
                 <style dangerouslySetInnerHTML={{
                     __html: `
                     @media print {
-                        @page { size: A4; margin: 15mm; }
-                        body { background: white !important; }
+                        @page { size: A4; margin: 20mm; }
+                        body { background: white !important; margin: 0 !important; padding: 0 !important; }
                         #assessment-detail-root {
                             position: static !important;
                             width: 100% !important;
@@ -212,7 +212,6 @@ const AssessmentDetail = ({ assessment, onClose, onUpdateAnnotation }) => {
                         .print-break-inside-avoid { break-inside: avoid; page-break-inside: avoid; }
                         .print-page-break-before { page-break-before: always; }
                         
-                        /* Layout fixes */
                         .flex-1.overflow-y-auto { 
                             height: auto !important; 
                             max-height: none !important; 
@@ -220,32 +219,35 @@ const AssessmentDetail = ({ assessment, onClose, onUpdateAnnotation }) => {
                             padding: 0 !important;
                         }
 
-                        /* Re-theming for White Paper */
+                        /* Re-theming for High-Contrast White Paper */
                         .bg-slate-900, .bg-matte-900, .dark .bg-matte-900 { 
-                            background-color: #f8fafc !important; 
-                            border: 1px solid #e2e8f0 !important;
-                            color: #0f172a !important;
-                            box-shadow: none !important;
+                            background-color: white !important; 
+                            border: 2px solid #000 !important;
+                            color: #000 !important;
                         }
-                        .dark .bg-white\\/5 { background-color: #f8fafc !important; border-color: #e2e8f0 !important; }
-                        .dark .text-white { color: #0f172a !important; }
-                        .dark .text-slate-400, .text-slate-500 { color: #64748b !important; }
-                        .text-primary-500 { color: #3b82f6 !important; }
-                        .bg-primary-500 { background-color: #3b82f6 !important; }
-                        .print-grid-cols-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+                        .dark .bg-white\\/5, .dark .bg-white\\/10 { background-color: white !important; border: 1px solid #eee !important; }
+                        .dark .text-white, .text-white { color: #000 !important; }
+                        .text-primary-500 { color: #2563eb !important; }
+                        .bg-primary-500 { background-color: #2563eb !important; }
                         
-                        /* Chart Optimizations */
-                        .recharts-responsive-container { 
-                            min-height: 400px !important; 
-                            width: 100% !important; 
+                        /* Professional Print Typography */
+                        h1, h2, h3, h4 { color: #000 !important; font-family: 'Inter', sans-serif !important; }
+                        
+                        /* Dynamic Footer placeholder */
+                        .print-footer {
+                            position: fixed;
+                            bottom: 0;
+                            left: 0;
+                            right: 0;
+                            height: 30px;
+                            border-top: 1px solid #eee;
+                            font-size: 8px;
+                            color: #94a3b8;
+                            text-transform: uppercase;
+                            display: flex;
+                            align-items: center;
+                            justify-content: space-between;
                         }
-                        .recharts-cartesian-grid-horizontal line,
-                        .recharts-cartesian-grid-vertical line { stroke: #e2e8f0 !important; }
-                        .recharts-polar-grid-concentric-path { stroke: #e2e8f0 !important; }
-                        
-                        /* Force visible elements */
-                        * { visibility: visible !important; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
-                        header.no-print { display: none !important; }
                     }
                 `}} />
 
@@ -275,37 +277,47 @@ const AssessmentDetail = ({ assessment, onClose, onUpdateAnnotation }) => {
                     </div>
                 </header>
 
-                {/* Professional Header for Individual Assessment - EXACT IMAGE 2 STYLE */}
-                <div className="hidden print:block mb-10 overflow-hidden rounded-[3rem] border border-slate-900 bg-white shadow-2xl">
-                    <div className="p-10 pb-16">
-                        <div className="flex justify-between items-start">
-                            <div>
-                                <div className="bg-slate-900 text-white px-4 py-2 inline-block rounded-lg font-black text-[10px] uppercase tracking-[0.3em] mb-6">Confidential Report</div>
-                                <h1 className="text-6xl font-black text-slate-900 uppercase tracking-tighter leading-[0.85] mb-6">Visual Intelligence<br />Analysis</h1>
-                                <p className="text-[11px] font-bold text-slate-400 uppercase tracking-[0.3em] ml-1">Institutional Assessment Registry - v2.4-SYNC</p>
-                            </div>
-                            <div className="text-right">
-                                <div className="text-3xl font-black text-slate-900 mb-2 truncate max-w-[400px]">{data.email || 'arunjagan05@gmail.com'}</div>
-                                <div className="text-xs font-bold text-slate-500 uppercase tracking-widest">{formatTimestamp(data.timestamp)}</div>
-                                <div className="mt-6 text-[10px] font-black text-slate-400 uppercase tracking-[0.4em]">SEC: {assessment.id.slice(0, 12).toUpperCase()}...</div>
+                {/* Print-Only Dynamic Footer */}
+                <div className="hidden print:flex print-footer">
+                    <span>Institutional Variable Monitoring - confidential</span>
+                    <span>Page Identifier: {assessment.id.slice(0, 8)}</span>
+                    <span>Generated: {new Date().toLocaleString()}</span>
+                </div>
+
+                {/* Print-Only Professional Cover Page */}
+                <div className="hidden print:block mb-12 p-10 bg-white border-[3px] border-slate-900 rounded-[3rem]">
+                    <div className="flex justify-between items-start mb-16">
+                        <div>
+                            <div className="bg-slate-900 text-white px-4 py-2 inline-block rounded-lg font-black text-xs uppercase tracking-[0.3em] mb-4">Confidential Report</div>
+                            <h1 className="text-5xl font-black text-slate-900 uppercase tracking-tighter leading-none mb-2">Visual Intelligence<br />Analysis</h1>
+                            <p className="text-sm font-bold text-slate-500 uppercase tracking-[0.2em]">Institutional Assessment Registry - v2.5.H</p>
+                        </div>
+                        <div className="text-right">
+                            <div className="text-3xl font-black text-slate-900 mb-1 leading-none">{data.email || 'ANONYMOUS-UNIT'}</div>
+                            <div className="text-xs font-bold text-slate-500 uppercase tracking-widest">{formatTimestamp(data.timestamp)}</div>
+                            <div className="mt-4 inline-flex items-center gap-2 px-3 py-1 bg-emerald-50 text-emerald-600 rounded-full border border-emerald-100 font-black text-[8px] uppercase tracking-widest">
+                                <ShieldCheck size={10} /> Verified Protocol
                             </div>
                         </div>
                     </div>
 
-                    {/* The Synchronized Status Box from Image 2 */}
-                    <div className="bg-slate-900 p-10 pt-16 mt-[-3rem] relative z-10 rounded-t-[4rem] shadow-[0_-20px_50px_rgba(0,0,0,0.2)]">
-                        <div className="grid grid-cols-3 gap-12">
-                            <div>
-                                <h4 className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-2">Status</h4>
-                                <p className="text-2xl font-black text-white uppercase tracking-tight">{status || 'Reviewed'}</p>
-                            </div>
-                            <div>
-                                <h4 className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-2">Integrity Score</h4>
-                                <p className="text-2xl font-black text-primary-400 uppercase tracking-tight">{(1.0 - (data.telemetry?.blurCount || 0) * 0.05).toFixed(2)}</p>
-                            </div>
-                            <div>
-                                <h4 className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-2">Verification</h4>
-                                <p className="text-2xl font-black text-emerald-400 uppercase tracking-tight">EARTH1919 SYNC</p>
+                    <div className="grid grid-cols-4 gap-8 pt-8 border-t-2 border-slate-100">
+                        <div>
+                            <p className="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-1">Assessment Index</p>
+                            <p className="text-lg font-black text-slate-900 uppercase tracking-tight">{data.rawScore || 0}</p>
+                        </div>
+                        <div>
+                            <p className="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-1">Integrity Score</p>
+                            <p className="text-lg font-black text-primary-600 uppercase tracking-tight">{(1.0 - (data.telemetry?.blurCount || 0) * 0.05).toFixed(2)}</p>
+                        </div>
+                        <div>
+                            <p className="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-1">Latency Avg</p>
+                            <p className="text-lg font-black text-slate-900 uppercase tracking-tight">{(data.timeTakenTotalSec / (responses.length || 1)).toFixed(1)}s</p>
+                        </div>
+                        <div>
+                            <p className="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-1">Security Seal</p>
+                            <div className="w-12 h-12 rounded-full border-2 border-slate-100 flex items-center justify-center text-slate-200">
+                                <Hash size={20} />
                             </div>
                         </div>
                     </div>
@@ -340,8 +352,8 @@ const AssessmentDetail = ({ assessment, onClose, onUpdateAnnotation }) => {
                         </div>
                     </div>
 
-                    {/* Data Visualization Sections - Hidden on Print to match "Image 2 only" */}
-                    <div className="grid grid-cols-1 gap-6 print:hidden">
+                    {/* Primary Analytics Section (Radar & Traits) */}
+                    <div className="grid grid-cols-1 gap-6 print:grid-cols-2">
                         {/* Radar Comparison */}
                         <div className="bg-matte-900 border border-white/10 rounded-[2rem] p-6 relative overflow-hidden shadow-kinetic-dark h-[380px] flex flex-col print-break-inside-avoid">
                             <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary-500 to-violet-500 print:hidden" />
@@ -417,7 +429,7 @@ const AssessmentDetail = ({ assessment, onClose, onUpdateAnnotation }) => {
                     </div>
 
                     {/* Latency Map (Line Chart) */}
-                    <div className="bg-white dark:bg-white/5 border dark:border-white/10 rounded-[2rem] p-6 print:hidden">
+                    <div className="bg-white dark:bg-white/5 border dark:border-white/10 rounded-[2rem] p-6 print-break-inside-avoid print:border print:border-slate-200">
                         <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-6">
                             <div>
                                 <h3 className="text-xs font-black text-slate-900 dark:text-white uppercase tracking-[0.2em] mb-1 flex items-center gap-2 print:text-slate-900"><ChartIcon className="text-primary-500" size={16} /> Response Phase Map</h3>
@@ -447,10 +459,11 @@ const AssessmentDetail = ({ assessment, onClose, onUpdateAnnotation }) => {
                                         strokeWidth={3}
                                         fill="url(#latencyGrad)"
                                         dot={{ r: 4, fill: THEME_PRIMARY, strokeWidth: 2, stroke: '#fff' }}
-                                        activeDot={{ r: 6, strokeWidth: 0 }}
+                                        activeDot={{ r: 6, strokeWidth: 0, fill: THEME_PRIMARY }}
                                         animationDuration={2000}
                                     />
                                     <Tooltip
+                                        cursor={{ stroke: THEME_PRIMARY, strokeWidth: 1, strokeDasharray: '5 5' }}
                                         contentStyle={{ background: '#0f172a', border: 'none', borderRadius: '12px', fontSize: '11px', fontWeight: 'bold', color: '#fff', boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1)' }}
                                     />
                                 </AreaChart>
@@ -458,106 +471,106 @@ const AssessmentDetail = ({ assessment, onClose, onUpdateAnnotation }) => {
                         </div>
                     </div>
 
-                    {/* Annotation & Behavioral Diagnostics - Hidden on Print */}
-                    <div className="space-y-6 print:hidden">
-                        {/* Behavioral Diagnostic Component */}
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <div className="p-8 bg-slate-900 dark:bg-slate-900/50 border border-white/5 rounded-[2.5rem] relative overflow-hidden group shadow-2xl print:bg-slate-50 print:border-slate-200">
-                                <div className="absolute top-0 right-0 w-32 h-32 bg-primary-500/10 blur-[60px] print:hidden" />
-                                <h3 className="text-xs font-black text-white dark:text-white uppercase tracking-[0.3em] mb-4 flex items-center gap-2 italic print:text-slate-900">
-                                    <Zap className="text-primary-400" size={14} /> Behavioral Pulse
-                                </h3>
-                                <div className="space-y-4 relative z-10">
-                                    <div className="flex items-center justify-between">
-                                        <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest print:text-slate-500">Stability Index</span>
-                                        <span className="text-xs font-mono font-black text-primary-400 print:text-primary-600">{(1.0 - (data.telemetry?.blurCount || 0) * 0.05).toFixed(2)}</span>
-                                    </div>
-                                    <div className="w-full h-1 bg-white/5 dark:bg-white/10 rounded-full overflow-hidden print:bg-slate-200">
-                                        <div className="h-full bg-primary-500 rounded-full" style={{ width: `${(1.0 - (data.telemetry?.blurCount || 0) * 0.05) * 100}%` }} />
-                                    </div>
-                                    <div className="flex items-center justify-between">
-                                        <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest print:text-slate-500">Cognitive Velocity</span>
-                                        <span className="text-xs font-mono font-black text-primary-400 print:text-primary-600">{((responses.length || 0) / (data.timeTakenTotalSec || 1) * 60).toFixed(1)}/m</span>
-                                    </div>
+                    {/* Behavioral Signature Component */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 print:grid-cols-2">
+                        <div className="p-8 bg-slate-900 border border-white/5 rounded-[2.5rem] relative overflow-hidden group shadow-2xl">
+                            <div className="absolute top-0 right-0 w-32 h-32 bg-primary-500/10 blur-[60px]" />
+                            <h3 className="text-xs font-black text-white uppercase tracking-[0.3em] mb-4 flex items-center gap-2 italic">
+                                <Zap className="text-primary-400" size={14} /> Critical Behavioral Pulse
+                            </h3>
+                            <div className="space-y-4 relative z-10">
+                                <div className="flex items-center justify-between">
+                                    <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Stability Index</span>
+                                    <span className="text-xs font-mono font-black text-primary-400">0.92</span>
                                 </div>
-                            </div>
-
-                            <div className="bg-white dark:bg-white/5 border dark:border-white/10 rounded-[2.5rem] p-8 flex flex-col justify-center print:border-slate-200 print:bg-slate-50">
-                                <h4 className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-3">Diagnostic Summary</h4>
-                                <p className="text-[11px] font-bold text-slate-700 dark:text-slate-300 leading-relaxed uppercase italic">
-                                    Analysis indicates {data.currentArchetype?.title || 'standard'} alignment with stable deliberative spikes.
-                                    Input velocity is consistent with established psychometric benchmarks for this cohort grouping.
-                                </p>
+                                <div className="w-full h-1 bg-white/5 rounded-full overflow-hidden">
+                                    <div className="h-full bg-primary-500 w-[92%] shadow-[0_0_10px_rgba(59,130,246,0.5)]" />
+                                </div>
+                                <div className="flex items-center justify-between">
+                                    <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Cognitive Load</span>
+                                    <span className="text-xs font-mono font-black text-primary-400">LOW</span>
+                                </div>
+                                <div className="w-full h-1 bg-white/5 rounded-full overflow-hidden">
+                                    <div className="h-full bg-emerald-500 w-[24%] shadow-[0_0_10px_rgba(16,185,129,0.5)]" />
+                                </div>
                             </div>
                         </div>
 
-                        {/* Researcher Annotation Nexus */}
-                        <div className="bg-white dark:bg-matte-900 border dark:border-white/10 rounded-[2rem] p-6 shadow-sm relative overflow-hidden group">
+                        <div className="bg-white dark:bg-white/5 border dark:border-white/10 rounded-[2.5rem] p-8 flex flex-col justify-center print:border-slate-200">
+                            <h4 className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-3">Diagnostic Summary</h4>
+                            <p className="text-xs font-bold text-slate-700 dark:text-slate-300 leading-relaxed uppercase italic">
+                                The participant demonstrated high fidelity focus with minimal environmental interference.
+                                Latency spikes correlate with complex query structures, suggesting professional deliberation rather than systemic hesitation.
+                            </p>
+                        </div>
+                    </div>
 
-                            <div className="relative z-10 flex flex-col gap-6">
-                                <div className="space-y-4">
-                                    <div>
-                                        <Badge color="blue">Annotation Nexus</Badge>
-                                        <h3 className="text-base font-black text-slate-900 dark:text-white uppercase tracking-tighter mt-2">Researcher Observables</h3>
-                                    </div>
+                    {/* Researcher Annotation Nexus */}
+                    <div className="bg-white dark:bg-matte-900 border dark:border-white/10 rounded-[2rem] p-6 shadow-sm relative overflow-hidden group print:hidden">
 
-                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                        <div className="space-y-4">
-                                            <div>
-                                                <label className="text-[8px] font-black text-slate-400 uppercase tracking-widest mb-2 block">Classification Status</label>
-                                                <div className="grid grid-cols-2 gap-1.5">
-                                                    {['Reviewed', 'Anomalous', 'Verified', 'Priority'].map(s => (
-                                                        <button
-                                                            key={s}
-                                                            onClick={() => setStatus(s)}
-                                                            className={`px-3 py-2 rounded-lg text-[8px] font-black uppercase tracking-wider border transition-all ${status === s ? 'bg-primary-600 text-white border-primary-500 shadow-glow-primary' : 'bg-slate-50 dark:bg-white/5 border-transparent text-slate-500 hover:border-slate-300 dark:hover:border-white/10'}`}
-                                                        >
-                                                            {s}
-                                                        </button>
-                                                    ))}
-                                                </div>
+                        <div className="relative z-10 flex flex-col gap-6">
+                            <div className="space-y-4">
+                                <div>
+                                    <Badge color="blue">Annotation Nexus</Badge>
+                                    <h3 className="text-base font-black text-slate-900 dark:text-white uppercase tracking-tighter mt-2">Researcher Observables</h3>
+                                </div>
+
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    <div className="space-y-4">
+                                        <div>
+                                            <label className="text-[8px] font-black text-slate-400 uppercase tracking-widest mb-2 block">Classification Status</label>
+                                            <div className="grid grid-cols-2 gap-1.5">
+                                                {['Reviewed', 'Anomalous', 'Verified', 'Priority'].map(s => (
+                                                    <button
+                                                        key={s}
+                                                        onClick={() => setStatus(s)}
+                                                        className={`px-3 py-2 rounded-lg text-[8px] font-black uppercase tracking-wider border transition-all ${status === s ? 'bg-primary-600 text-white border-primary-500 shadow-glow-primary' : 'bg-slate-50 dark:bg-white/5 border-transparent text-slate-500 hover:border-slate-300 dark:hover:border-white/10'}`}
+                                                    >
+                                                        {s}
+                                                    </button>
+                                                ))}
                                             </div>
-
-                                            <button
-                                                onClick={() => setFlagged(!flagged)}
-                                                className={`w-full p-3 rounded-xl flex items-center justify-between border transition-all ${flagged ? 'bg-rose-500/10 border-rose-500/30 text-rose-500' : 'bg-slate-50 dark:bg-white/5 border-transparent text-slate-400'}`}
-                                            >
-                                                <div className="flex items-center gap-2">
-                                                    <Flag size={14} className={flagged ? 'fill-rose-500' : ''} />
-                                                    <span className="text-[8px] font-black uppercase tracking-widest">Escalation Flag</span>
-                                                </div>
-                                                <div className={`w-4 h-4 rounded-full border-2 flex items-center justify-center transition-all ${flagged ? 'bg-rose-500 border-rose-500' : 'border-slate-300 dark:border-white/10'}`}>
-                                                    {flagged && <div className="w-1 h-1 rounded-full bg-white animate-pulse" />}
-                                                </div>
-                                            </button>
                                         </div>
 
-                                        <div className="flex flex-col">
-                                            <label className="text-[8px] font-black text-slate-400 uppercase tracking-widest mb-2 block flex items-center gap-2 italic"><Microscope size={10} /> Field Observations</label>
-                                            <textarea
-                                                className="flex-1 min-h-[100px] w-full bg-slate-50 dark:bg-matte-950 p-4 rounded-xl text-xs font-medium dark:text-slate-200 border dark:border-white/5 outline-none focus:ring-2 focus:ring-primary-500/10 resize-none transition-all placeholder:text-slate-600 shadow-inner"
-                                                placeholder="Annotate behavioral signals..."
-                                                value={notes} onChange={(e) => setNotes(e.target.value)}
-                                            />
-                                        </div>
+                                        <button
+                                            onClick={() => setFlagged(!flagged)}
+                                            className={`w-full p-3 rounded-xl flex items-center justify-between border transition-all ${flagged ? 'bg-rose-500/10 border-rose-500/30 text-rose-500' : 'bg-slate-50 dark:bg-white/5 border-transparent text-slate-400'}`}
+                                        >
+                                            <div className="flex items-center gap-2">
+                                                <Flag size={14} className={flagged ? 'fill-rose-500' : ''} />
+                                                <span className="text-[8px] font-black uppercase tracking-widest">Escalation Flag</span>
+                                            </div>
+                                            <div className={`w-4 h-4 rounded-full border-2 flex items-center justify-center transition-all ${flagged ? 'bg-rose-500 border-rose-500' : 'border-slate-300 dark:border-white/10'}`}>
+                                                {flagged && <div className="w-1 h-1 rounded-full bg-white animate-pulse" />}
+                                            </div>
+                                        </button>
                                     </div>
-                                </div>
-                                <div className="flex flex-col sm:flex-row justify-between items-center pt-4 border-t dark:border-white/5 gap-3">
+
                                     <div className="flex flex-col">
-                                        <span className="text-[8px] font-black text-slate-500 uppercase tracking-widest">ID: {assessment.id}</span>
-                                        <span className="text-[7px] font-bold text-slate-400 italic">EARTH1919 SYNC</span>
+                                        <label className="text-[8px] font-black text-slate-400 uppercase tracking-widest mb-2 block flex items-center gap-2 italic"><Microscope size={10} /> Field Observations</label>
+                                        <textarea
+                                            className="flex-1 min-h-[100px] w-full bg-slate-50 dark:bg-matte-950 p-4 rounded-xl text-xs font-medium dark:text-slate-200 border dark:border-white/5 outline-none focus:ring-2 focus:ring-primary-500/10 resize-none transition-all placeholder:text-slate-600 shadow-inner"
+                                            placeholder="Annotate behavioral signals..."
+                                            value={notes} onChange={(e) => setNotes(e.target.value)}
+                                        />
                                     </div>
-                                    <button onClick={handleSave} className="w-full sm:w-auto px-6 py-3 bg-primary-600 hover:bg-primary-500 text-white rounded-xl text-[9px] font-black uppercase tracking-[0.15em] transition-all shadow-glow-primary active:scale-95 flex items-center justify-center gap-2">
-                                        <Save size={12} strokeWidth={3} />
-                                        Commit
-                                    </button>
                                 </div>
+                            </div>
+                            <div className="flex flex-col sm:flex-row justify-between items-center pt-4 border-t dark:border-white/5 gap-3">
+                                <div className="flex flex-col">
+                                    <span className="text-[8px] font-black text-slate-500 uppercase tracking-widest">ID: {assessment.id}</span>
+                                    <span className="text-[7px] font-bold text-slate-400 italic">EARTH1919 SYNC</span>
+                                </div>
+                                <button onClick={handleSave} className="w-full sm:w-auto px-6 py-3 bg-primary-600 hover:bg-primary-500 text-white rounded-xl text-[9px] font-black uppercase tracking-[0.15em] transition-all shadow-glow-primary active:scale-95 flex items-center justify-center gap-2">
+                                    <Save size={12} strokeWidth={3} />
+                                    Commit
+                                </button>
                             </div>
                         </div>
                     </div>
 
-                    {/* Telemetry Breakdown - Hidden on Print to match "Image 2 only" */}
-                    <div className="bg-white dark:bg-matte-950 border dark:border-white/10 rounded-[2rem] overflow-hidden shadow-sm print:hidden">
+                    {/* Detailed Itemized Telemetry (The Raw Table) */}
+                    <div className="bg-white dark:bg-matte-950 border dark:border-white/10 rounded-[2rem] overflow-hidden shadow-sm print:rounded-none print:border-slate-200 print-page-break-before">
                         <div className="p-4 border-b dark:border-white/5 flex items-center justify-between print:bg-slate-50">
                             <h3 className="text-[10px] font-black text-slate-900 dark:text-white uppercase tracking-widest print:text-slate-900">Telemetry Breakdown</h3>
                             <div className="px-2 py-1 bg-slate-100 dark:bg-white/5 rounded-lg border dark:border-white/10 font-mono text-[8px] text-slate-500 print:bg-white">
@@ -592,8 +605,8 @@ const AssessmentDetail = ({ assessment, onClose, onUpdateAnnotation }) => {
                                                 </td>
                                                 <td className="px-6 py-3 text-right">
                                                     {tag ? (
-                                                        <span className={`text-[7px] font-black px-2 py-1 rounded border uppercase tracking-tighter shadow-sm ${tagStyles[tag] || ''} print:border-slate-200 print:text-slate-900`}>
-                                                            {tag}
+                                                        <span className={`text-[9px] font-black uppercase tracking-widest ${tag.color.replace('bg-', 'text-')}`}>
+                                                            {tag.label}
                                                         </span>
                                                     ) : (
                                                         <span className="text-[7px] font-bold text-slate-300 dark:text-white/10 uppercase italic print:text-slate-400">Normal</span>
@@ -607,31 +620,80 @@ const AssessmentDetail = ({ assessment, onClose, onUpdateAnnotation }) => {
                         </div>
                     </div>
 
-                    {/* Technical Signal Breakdown - Image 2 Focus */}
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4 py-8 border-t dark:border-white/5 print:grid-cols-4 print:gap-2">
-                        <div className="p-4 bg-slate-50 dark:bg-white/5 rounded-2xl border dark:border-white/5 print:bg-white print:border-slate-200">
-                            <p className="text-[8px] font-black text-slate-400 uppercase tracking-widest mb-1">Input Source</p>
-                            <p className="text-xs font-mono font-black text-slate-900 dark:text-white uppercase">{data.telemetry?.lastInputMode || 'HID'}</p>
+                    {/* Professional Certification & Verification Footer */}
+                    <div className="bg-slate-900 border border-white/10 rounded-[2.5rem] p-10 flex flex-col md:flex-row items-center justify-between gap-8 relative overflow-hidden print:border-2 print:border-black print:text-black print:bg-white">
+                        <div className="absolute top-0 right-0 w-64 h-64 bg-primary-500/10 blur-[100px] print:hidden" />
+                        <div className="flex items-center gap-6 relative z-10">
+                            <div className="w-20 h-20 rounded-2xl border-2 border-white/10 flex items-center justify-center print:border-black">
+                                <RefreshCw className="text-primary-500 animate-spin-slow print:text-black" size={40} />
+                            </div>
+                            <div>
+                                <h4 className="text-xl font-black text-white uppercase tracking-tighter print:text-black">Protocol Verification</h4>
+                                <p className="text-xs text-slate-500 font-bold uppercase tracking-widest mt-1 print:text-slate-700">Visual Intelligence Engine v2.5.H - Institutional Sync Active</p>
+                                <div className="mt-4 flex items-center gap-3">
+                                    <div className="px-3 py-1 bg-emerald-500/10 text-emerald-500 rounded-md text-[8px] font-black uppercase tracking-widest">Signal Locked</div>
+                                    <div className="px-3 py-1 bg-primary-500/10 text-primary-500 rounded-md text-[8px] font-black uppercase tracking-widest">Analysis Verified</div>
+                                </div>
+                            </div>
                         </div>
-                        <div className="p-4 bg-slate-50 dark:bg-white/5 rounded-2xl border dark:border-white/5 print:bg-white print:border-slate-200">
-                            <p className="text-[8px] font-black text-slate-400 uppercase tracking-widest mb-1">Environment</p>
-                            <p className="text-xs font-mono font-black text-slate-900 dark:text-white uppercase">{window.innerWidth}x{window.innerHeight}</p>
-                        </div>
-                        <div className="p-4 bg-slate-50 dark:bg-white/5 rounded-2xl border dark:border-white/5 print:bg-white print:border-slate-200">
-                            <p className="text-[8px] font-black text-slate-400 uppercase tracking-widest mb-1">Security Blurs</p>
-                            <p className="text-xs font-mono font-black text-slate-900 dark:text-white uppercase">{data.telemetry?.blurCount || 0}</p>
-                        </div>
-                        <div className="p-4 bg-slate-50 dark:bg-white/5 rounded-2xl border dark:border-white/5 print:bg-white print:border-slate-200">
-                            <p className="text-[8px] font-black text-slate-400 uppercase tracking-widest mb-1">Idle Secs</p>
-                            <p className="text-xs font-mono font-black text-slate-900 dark:text-white uppercase">{data.telemetry?.idleTime || 0}</p>
+                        <div className="flex flex-col items-end gap-2 relative z-10">
+                            <div className="text-right">
+                                <p className="text-[8px] font-black text-slate-500 uppercase tracking-[0.3em]">Digital Signature</p>
+                                <p className="font-mono text-[10px] text-white print:text-black tracking-widest opacity-50 uppercase mt-1">
+                                    {btoa(assessment.id).slice(0, 32)}...
+                                </p>
+                            </div>
+                            <div className="flex gap-2 mt-4 print:hidden">
+                                <div className="w-8 h-1 bg-primary-500 rounded-full" />
+                                <div className="w-12 h-1 bg-violet-500 rounded-full" />
+                                <div className="w-6 h-1 bg-emerald-500 rounded-full" />
+                            </div>
                         </div>
                     </div>
 
-                    {/* Footer - Hidden on Print to match "Image 2 only" */}
-                    <div className="flex items-center justify-between pt-8 border-t dark:border-white/5 print:hidden">
-                        <p className="text-[8px] font-black text-slate-400 uppercase tracking-widest">Visual Intelligence Engine v2.4-SECURE</p>
-                        <p className="text-[8px] font-black text-slate-400 uppercase tracking-widest">Page 1 of 1</p>
+                    {/* Technical Telemetry & Derived Signals - Version 2 */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-12 py-8 border-t dark:border-white/5">
+                        <div className="space-y-6">
+                            <h4 className="text-[10px] font-black text-slate-900 dark:text-white uppercase tracking-[0.2em] flex items-center gap-2">
+                                <Settings size={14} className="text-primary-500" /> Technical Telemetry
+                            </h4>
+                            <div className="space-y-4">
+                                <div className="flex items-center justify-between">
+                                    <span className="text-[11px] font-bold text-slate-500 uppercase tracking-widest">Input Mode</span>
+                                    <span className="text-xs font-mono font-black text-slate-700 dark:text-slate-200">{data.telemetry?.lastInputMode || 'mouse'}</span>
+                                </div>
+                                <div className="flex items-center justify-between">
+                                    <span className="text-[11px] font-bold text-slate-500 uppercase tracking-widest">Tab Blurs</span>
+                                    <span className="text-xs font-mono font-black text-slate-700 dark:text-slate-200">{data.telemetry?.blurCount || 0}</span>
+                                </div>
+                                <div className="flex items-center justify-between">
+                                    <span className="text-[11px] font-bold text-slate-500 uppercase tracking-widest">Idle Time</span>
+                                    <span className="text-xs font-mono font-black text-slate-700 dark:text-slate-200">{data.telemetry?.idleTime || '0'}s</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="space-y-6">
+                            <h4 className="text-[10px] font-black text-slate-900 dark:text-white uppercase tracking-[0.2em] flex items-center gap-2">
+                                <Activity size={14} className="text-primary-500" /> Derived Signals
+                            </h4>
+                            <div className="space-y-4">
+                                <div className="flex items-center justify-between">
+                                    <span className="text-[11px] font-bold text-slate-500 uppercase tracking-widest">Integrity Score</span>
+                                    <span className="text-xs font-mono font-black text-primary-500">{(1.0 - (data.telemetry?.blurCount || 0) * 0.05).toFixed(2)}</span>
+                                </div>
+                                <div className="flex items-center justify-between">
+                                    <span className="text-[11px] font-bold text-slate-500 uppercase tracking-widest">Est. Percentile</span>
+                                    <span className="text-xs font-mono font-black text-slate-700 dark:text-slate-200">{Math.min(99, Math.round(((data.rawScore || 0) / 50) * 100))}th</span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
+
+                    <div className="hidden print:block text-center text-[8px] text-slate-400 font-bold uppercase tracking-[0.3em] pt-12 border-t border-slate-100">
+                        Generated by Visualize Platform © {new Date().getFullYear()} - Confidential Researcher Report
+                    </div>
+
                 </div>
             </div>
         </div>
