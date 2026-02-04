@@ -179,6 +179,11 @@ export default function Dashboard() {
     const [rawData, setRawData] = useState(null);
     const [processedData, setProcessedData] = useState(null);
     const [selectedAssessment, setSelectedAssessment] = useState(null);
+
+    // Debug tracking
+    useEffect(() => {
+        if (selectedAssessment) console.log("[Dashboard] Selected assessment change:", selectedAssessment.id);
+    }, [selectedAssessment]);
     const [isDirty, setIsDirty] = useState(false);
     const [searchTerm, setSearchTerm] = useState("");
     const [filterArchetype, setFilterArchetype] = useState("All");
