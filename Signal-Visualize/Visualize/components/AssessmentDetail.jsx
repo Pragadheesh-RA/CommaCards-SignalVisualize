@@ -302,11 +302,11 @@ const AssessmentDetail = ({ assessment, onClose, onUpdateAnnotation }) => {
                             </div>
                         </div>
 
-                        <div className="bg-primary-500/5 border border-primary-500/20 p-6 rounded-[2rem] shadow-sm relative overflow-hidden group">
+                        <div className="bg-primary-50 dark:bg-primary-500/5 border border-primary-100 dark:border-primary-500/20 p-6 rounded-[2rem] shadow-sm relative overflow-hidden group">
                             <div className="absolute top-0 right-0 w-24 h-24 bg-primary-500 opacity-[0.05] blur-3xl" />
-                            <p className="text-[9px] font-black text-primary-500 uppercase tracking-widest mb-2">Archetype Assessment</p>
-                            <h4 className="text-xl font-black text-slate-900 dark:text-white leading-tight mb-1">{data.currentArchetype?.title || data.archetype || "Unknown"}</h4>
-                            <p className="text-[10px] text-primary-600 dark:text-primary-400 font-medium italic">{data.currentArchetype?.description || "Functional analysis pending further telemetry."}</p>
+                            <p className="text-[8px] font-black text-primary-500 uppercase tracking-[0.2em] mb-3">Archetype Assessment</p>
+                            <h4 className="text-2xl font-black text-indigo-900 dark:text-white leading-tight mb-2">{data.currentArchetype?.title || data.archetype || "Steady Operator"}</h4>
+                            <p className="text-[11px] text-primary-600/80 dark:text-primary-400 font-bold leading-snug">{data.currentArchetype?.description || "Functional but needs structure and guidance."}</p>
                         </div>
                     </div>
 
@@ -333,36 +333,40 @@ const AssessmentDetail = ({ assessment, onClose, onUpdateAnnotation }) => {
                             </div>
                         </div>
 
-                        {/* Trait Matrix */}
+                        {/* Psychometric Trait Analysis */}
                         <div className="bg-white dark:bg-matte-950 border dark:border-white/10 rounded-[2rem] overflow-hidden flex flex-col shadow-sm print-break-inside-avoid print:border print:border-slate-200">
                             <div className="p-6 pb-2">
-                                <h3 className="text-xs font-black text-slate-900 dark:text-white uppercase tracking-widest flex items-center gap-2 print:text-slate-900"><Settings className="text-primary-500" size={16} /> Trait Matrix</h3>
-                                <p className="text-[9px] text-slate-400 font-bold uppercase mt-0.5 print:text-slate-500">Calculated Average Performance</p>
+                                <h3 className="text-[13px] font-black text-slate-800 dark:text-white uppercase tracking-tight flex items-center gap-2 print:text-slate-900">Psychometric Trait Analysis</h3>
+                                <p className="text-[9px] text-slate-400 font-bold uppercase mt-0.5 print:text-slate-500">Institutional Variable Breakdown</p>
                             </div>
-                            <div className="flex-1 overflow-x-auto">
+                            <div className="flex-1 overflow-x-auto px-2">
                                 <table className="w-full text-left">
-                                    <thead className="bg-slate-50 dark:bg-white/5 border-b dark:border-white/5 print:bg-slate-50">
+                                    <thead className="bg-slate-50/50 dark:bg-white/5 border-b dark:border-white/5 print:bg-slate-50">
                                         <tr>
-                                            <th className="px-6 py-3 text-[8px] font-black text-slate-400 uppercase tracking-widest print:text-slate-500">Construct</th>
-                                            <th className="px-6 py-3 text-[8px] font-black text-slate-400 uppercase tracking-widest text-center print:text-slate-500">Eff.</th>
-                                            <th className="px-6 py-3 text-[8px] font-black text-slate-400 uppercase tracking-widest text-right print:text-slate-500">Prec.</th>
+                                            <th className="px-4 py-3 text-[9px] font-black text-slate-400 uppercase tracking-widest print:text-slate-500">Trait Group</th>
+                                            <th className="px-4 py-3 text-[9px] font-black text-slate-400 uppercase tracking-widest print:text-slate-500">Avg Score</th>
+                                            <th className="px-4 py-3 text-[9px] font-black text-slate-400 uppercase tracking-widest text-right print:text-slate-500">Avg Time</th>
                                         </tr>
                                     </thead>
                                     <tbody className="divide-y dark:divide-white/5 print:divide-slate-200">
                                         {traitAnalysis.map((tr, i) => (
                                             <tr key={i} className="hover:bg-primary-500/5 transition-colors group">
-                                                <td className="px-6 py-3">
-                                                    <div className="flex flex-col">
-                                                        <span className="text-[10px] font-black text-primary-500">{tr.trait}</span>
+                                                <td className="px-4 py-4">
+                                                    <span className="text-[11px] font-black text-slate-700 dark:text-slate-300">{tr.trait}</span>
+                                                </td>
+                                                <td className="px-4 py-4 min-w-[140px]">
+                                                    <div className="flex items-center gap-3">
+                                                        <span className="text-[11px] font-mono font-black text-slate-900 dark:text-white w-8">{tr.avgScore}</span>
+                                                        <div className="flex-1 h-1.5 bg-slate-100 dark:bg-white/10 rounded-full overflow-hidden">
+                                                            <div
+                                                                className="h-full bg-primary-500 rounded-full"
+                                                                style={{ width: `${(Number(tr.avgScore) / 2) * 100}%` }}
+                                                            />
+                                                        </div>
                                                     </div>
                                                 </td>
-                                                <td className="px-6 py-3">
-                                                    <div className="flex items-center justify-center gap-2">
-                                                        <span className="text-[9px] font-mono font-bold text-slate-400 print:text-slate-600">{tr.avgTime}s</span>
-                                                    </div>
-                                                </td>
-                                                <td className="px-6 py-3 text-right">
-                                                    <span className="text-[10px] font-black text-slate-900 dark:text-white print:text-slate-900">{tr.avgScore}</span>
+                                                <td className="px-4 py-4 text-right">
+                                                    <span className="text-[11px] font-mono font-bold text-slate-500 print:text-slate-600">{tr.avgTime}s</span>
                                                 </td>
                                             </tr>
                                         ))}

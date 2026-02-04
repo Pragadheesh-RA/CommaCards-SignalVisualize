@@ -451,25 +451,40 @@ export default function Dashboard() {
                             {/* Header Section */}
                             <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 animate-slide-up-fade">
                                 <div>
-                                    <h2 className="text-4xl font-black text-slate-900 dark:text-white tracking-tighter mb-1">Research Visualize</h2>
+                                    <h2 className="text-4xl font-black text-slate-900 dark:text-white tracking-tighter mb-1">Research Analytics</h2>
                                     <p className="text-slate-500 dark:text-slate-400 font-bold uppercase text-xs tracking-widest flex items-center gap-2">
-                                        <span className="w-2 h-2 rounded-full bg-lime-500 animate-pulse" />
-                                        System Operational
+                                        <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                                        Institutional Registry Active
                                     </p>
                                 </div>
                                 <div className="flex flex-wrap items-center gap-3">
                                     <button
                                         onClick={() => setShowImportModal(true)}
-                                        className="flex items-center gap-2 px-6 py-3 rounded-2xl text-xs font-black uppercase tracking-widest bg-primary-500 text-white hover:bg-primary-400 hover:-translate-y-1 transition-all shadow-glow-primary"
+                                        className="flex items-center gap-2 px-5 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:bg-slate-50 transition-all shadow-sm"
                                     >
-                                        <Upload size={18} strokeWidth={3} />
+                                        <Upload size={14} />
                                         Import Data
                                     </button>
                                     <button
-                                        onClick={handleClear}
-                                        className="px-6 py-3 rounded-2xl text-xs font-black uppercase tracking-widest bg-rose-500/10 text-rose-500 border border-rose-500/20 hover:bg-rose-500 hover:text-white hover:-translate-y-1 transition-all shadow-lg shadow-rose-500/10"
+                                        onClick={() => {
+                                            const blob = new Blob([JSON.stringify(rawData, null, 2)], { type: 'application/json' });
+                                            const url = URL.createObjectURL(blob);
+                                            const a = document.createElement('a');
+                                            a.href = url;
+                                            a.download = `research_export_${new Date().toISOString().split('T')[0]}.json`;
+                                            a.click();
+                                            addToast("Dataset exported", "success");
+                                        }}
+                                        className="flex items-center gap-2 px-5 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:bg-slate-50 transition-all shadow-sm"
                                     >
-                                        Clear Dataset
+                                        <Download size={14} />
+                                        Export Data
+                                    </button>
+                                    <button
+                                        onClick={handleClear}
+                                        className="px-5 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest text-slate-400 hover:text-rose-500 transition-all"
+                                    >
+                                        Clear Data
                                     </button>
                                 </div>
                             </div>
