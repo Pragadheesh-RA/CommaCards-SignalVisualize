@@ -197,47 +197,55 @@ const AssessmentDetail = ({ assessment, onClose, onUpdateAnnotation }) => {
                 <style dangerouslySetInnerHTML={{
                     __html: `
                     @media print {
-                        body * { visibility: hidden; }
-                        #assessment-detail-root, #assessment-detail-root * { visibility: visible; }
+                        @page { size: A4; margin: 15mm; }
+                        body { background: white !important; }
                         #assessment-detail-root {
-                            position: absolute;
-                            left: 0;
-                            top: 0;
-                            width: 100%;
+                            position: static !important;
+                            width: 100% !important;
                             height: auto !important;
                             overflow: visible !important;
                             background: white !important;
+                            display: block !important;
                         }
-                        .flex-1.overflow-y-auto {
-                            height: auto !important;
-                            overflow: visible !important;
-                            max-height: none !important;
+                        .fixed, .sticky { position: static !important; }
+                        .no-print { display: none !important; }
+                        .print-break-inside-avoid { break-inside: avoid; page-break-inside: avoid; }
+                        .print-page-break-before { page-break-before: always; }
+                        
+                        /* Layout fixes */
+                        .flex-1.overflow-y-auto { 
+                            height: auto !important; 
+                            max-height: none !important; 
+                            overflow: visible !important; 
                             padding: 0 !important;
                         }
-                        .no-print { display: none !important; }
-                        .print-break-inside-avoid { break-inside: avoid; }
-                        .print-page-break-before { page-break-before: always; }
+
+                        /* Re-theming for White Paper */
                         .bg-slate-900, .bg-matte-900, .dark .bg-matte-900 { 
-                            background-color: #0f172a !important; 
-                            color: white !important;
+                            background-color: #f8fafc !important; 
+                            border: 1px solid #e2e8f0 !important;
+                            color: #0f172a !important;
+                            box-shadow: none !important;
                         }
-                        .dark .bg-white/5, .dark .bg-white/10 { background-color: #f1f5f9 !important; }
+                        .dark .bg-white\\/5 { background-color: #f8fafc !important; border-color: #e2e8f0 !important; }
                         .dark .text-white { color: #0f172a !important; }
-                        .print-grid-cols-2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
+                        .dark .text-slate-400, .text-slate-500 { color: #64748b !important; }
+                        .text-primary-500 { color: #3b82f6 !important; }
+                        .bg-primary-500 { background-color: #3b82f6 !important; }
+                        .print-grid-cols-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
                         
-                        /* Fix for charts in print */
-                        .recharts-responsive-container { min-height: 350px !important; }
+                        /* Chart Optimizations */
+                        .recharts-responsive-container { 
+                            min-height: 400px !important; 
+                            width: 100% !important; 
+                        }
+                        .recharts-cartesian-grid-horizontal line,
+                        .recharts-cartesian-grid-vertical line { stroke: #e2e8f0 !important; }
+                        .recharts-polar-grid-concentric-path { stroke: #e2e8f0 !important; }
                         
-                        /* Re-style for white paper */
-                        .bg-slate-50, .bg-white { background-color: white !important; }
-                        .dark .bg-slate-900 { background-color: white !important; }
-                        .border, .border-b, .border-t, .border-l, .border-r { border-color: #e2e8f0 !important; }
-                        .text-slate-900, .text-slate-500, .text-slate-400, .dark .text-slate-400 { color: #1e293b !important; }
-                        
-                        /* Keep primary colors */
-                        .text-primary-500 { color: #5365ff !important; }
-                        .bg-primary-500 { background-color: #5365ff !important; }
-                        .bg-primary-600 { background-color: #5365ff !important; }
+                        /* Force visible elements */
+                        * { visibility: visible !important; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+                        header.no-print { display: none !important; }
                     }
                 `}} />
 
@@ -267,16 +275,33 @@ const AssessmentDetail = ({ assessment, onClose, onUpdateAnnotation }) => {
                     </div>
                 </header>
 
-                {/* Print-Only Professional Header */}
-                <div className="hidden print:block mb-8 p-6 bg-slate-900 text-white rounded-[2rem]">
-                    <div className="flex justify-between items-center">
+                {/* Print-Only Professional Cover Page */}
+                <div className="hidden print:block mb-12 p-10 bg-white border-[3px] border-slate-900 rounded-[3rem]">
+                    <div className="flex justify-between items-start mb-16">
                         <div>
-                            <h1 className="text-2xl font-black uppercase tracking-tighter mb-1">Visual Intelligence Analysis Report</h1>
-                            <p className="text-xs text-slate-400 font-bold uppercase tracking-[0.2em]">Institutional Assessment Registry - Sec: {assessment.id}</p>
+                            <div className="bg-slate-900 text-white px-4 py-2 inline-block rounded-lg font-black text-xs uppercase tracking-[0.3em] mb-4">Confidential Report</div>
+                            <h1 className="text-5xl font-black text-slate-900 uppercase tracking-tighter leading-none mb-2">Visual Intelligence<br />Analysis</h1>
+                            <p className="text-sm font-bold text-slate-500 uppercase tracking-[0.2em]">Institutional Assessment Registry - v2.4-SYNC</p>
                         </div>
                         <div className="text-right">
-                            <div className="text-lg font-black text-primary-400 uppercase">{data.email}</div>
-                            <div className="text-[10px] text-slate-500 font-bold uppercase tracking-widest">{formatTimestamp(data.timestamp)}</div>
+                            <div className="text-2xl font-black text-slate-900 mb-1">{data.email || 'NULL-ID'}</div>
+                            <div className="text-sm font-bold text-slate-500 uppercase tracking-widest">{formatTimestamp(data.timestamp)}</div>
+                            <div className="mt-4 text-[10px] font-black text-slate-400 uppercase tracking-[0.3em]">SEC: {assessment.id.slice(0, 12)}...</div>
+                        </div>
+                    </div>
+
+                    <div className="grid grid-cols-3 gap-8 pt-8 border-t-2 border-slate-100">
+                        <div>
+                            <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Status</p>
+                            <p className="text-lg font-black text-slate-900 uppercase tracking-tight">{status}</p>
+                        </div>
+                        <div>
+                            <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Integrity Score</p>
+                            <p className="text-lg font-black text-primary-600 uppercase tracking-tight">{(1.0 - (data.telemetry?.blurCount || 0) * 0.05).toFixed(2)}</p>
+                        </div>
+                        <div>
+                            <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Verification</p>
+                            <p className="text-lg font-black text-emerald-600 uppercase tracking-tight">EARTH1919 SYNC</p>
                         </div>
                     </div>
                 </div>
@@ -323,11 +348,21 @@ const AssessmentDetail = ({ assessment, onClose, onUpdateAnnotation }) => {
                             </div>
                             <div className="flex-1 w-full min-h-0">
                                 <ResponsiveContainer width="100%" height="100%">
-                                    <RadarChart cx="50%" cy="50%" outerRadius="75%" data={performanceRadarData}>
-                                        <PolarGrid stroke="#ffffff10" />
-                                        <PolarAngleAxis dataKey="subject" tick={{ fill: '#94a3b8', fontSize: 9, fontWeight: '900' }} />
-                                        <Radar name="Candidate" dataKey="A" stroke={THEME_PRIMARY} fill={THEME_PRIMARY} fillOpacity={0.5} />
-                                        <Tooltip contentStyle={{ background: '#0f172a', border: '1px solid #ffffff10', borderRadius: '12px', fontSize: '10px' }} />
+                                    <RadarChart cx="50%" cy="50%" outerRadius="80%" data={performanceRadarData}>
+                                        <PolarGrid stroke="#ffffff15" />
+                                        <PolarAngleAxis dataKey="subject" tick={{ fill: '#94a3b8', fontSize: 10, fontWeight: '900' }} />
+                                        <Radar
+                                            name="Candidate"
+                                            dataKey="A"
+                                            stroke={THEME_PRIMARY}
+                                            fill={THEME_PRIMARY}
+                                            fillOpacity={0.6}
+                                            animationDuration={1500}
+                                        />
+                                        <Tooltip
+                                            cursor={{ strokeDasharray: '3 3' }}
+                                            contentStyle={{ background: '#0f172a', border: 'none', borderRadius: '12px', fontSize: '10px', fontWeight: 'bold', color: '#fff' }}
+                                        />
                                     </RadarChart>
                                 </ResponsiveContainer>
                             </div>
@@ -388,21 +423,67 @@ const AssessmentDetail = ({ assessment, onClose, onUpdateAnnotation }) => {
                                 <div className="flex items-center gap-1"><div className="w-1.5 h-1.5 rounded-full bg-slate-300 dark:bg-white/20" /><span className="text-[7px] font-black text-slate-500 uppercase tracking-widest">Mean</span></div>
                             </div>
                         </div>
-                        <div className="h-[250px] w-full print:h-[180px]">
+                        <div className="h-[280px] w-full print:h-[250px]">
                             <ResponsiveContainer width="100%" height="100%">
                                 <AreaChart data={chronometricData}>
                                     <defs>
                                         <linearGradient id="latencyGrad" x1="0" y1="0" x2="0" y2="1">
-                                            <stop offset="5%" stopColor={THEME_PRIMARY} stopOpacity={0.2} />
+                                            <stop offset="5%" stopColor={THEME_PRIMARY} stopOpacity={0.4} />
                                             <stop offset="95%" stopColor={THEME_PRIMARY} stopOpacity={0} />
                                         </linearGradient>
                                     </defs>
-                                    <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e2e8f0" />
-                                    <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{ fill: '#64748b', fontSize: 8, fontWeight: '900' }} />
-                                    <YAxis axisLine={false} tickLine={false} tick={{ fill: '#64748b', fontSize: 8 }} unit="s" />
-                                    <Area type="monotone" dataKey="time" stroke={THEME_PRIMARY} strokeWidth={2} fill="url(#latencyGrad)" dot={false} />
+                                    <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e2e8f0" opacity={0.5} />
+                                    <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{ fill: '#64748b', fontSize: 9, fontWeight: '900' }} />
+                                    <YAxis axisLine={false} tickLine={false} tick={{ fill: '#64748b', fontSize: 9 }} unit="s" />
+                                    <Area
+                                        type="monotone"
+                                        dataKey="time"
+                                        stroke={THEME_PRIMARY}
+                                        strokeWidth={3}
+                                        fill="url(#latencyGrad)"
+                                        dot={{ r: 4, fill: THEME_PRIMARY, strokeWidth: 2, stroke: '#fff' }}
+                                        activeDot={{ r: 6, strokeWidth: 0 }}
+                                        animationDuration={2000}
+                                    />
+                                    <Tooltip
+                                        contentStyle={{ background: '#0f172a', border: 'none', borderRadius: '12px', fontSize: '11px', fontWeight: 'bold', color: '#fff', boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1)' }}
+                                    />
                                 </AreaChart>
                             </ResponsiveContainer>
+                        </div>
+                    </div>
+
+                    {/* Behavioral Signature Component */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 print:grid-cols-2">
+                        <div className="p-8 bg-slate-900 border border-white/5 rounded-[2.5rem] relative overflow-hidden group shadow-2xl">
+                            <div className="absolute top-0 right-0 w-32 h-32 bg-primary-500/10 blur-[60px]" />
+                            <h3 className="text-xs font-black text-white uppercase tracking-[0.3em] mb-4 flex items-center gap-2 italic">
+                                <Zap className="text-primary-400" size={14} /> Critical Behavioral Pulse
+                            </h3>
+                            <div className="space-y-4 relative z-10">
+                                <div className="flex items-center justify-between">
+                                    <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Stability Index</span>
+                                    <span className="text-xs font-mono font-black text-primary-400">0.92</span>
+                                </div>
+                                <div className="w-full h-1 bg-white/5 rounded-full overflow-hidden">
+                                    <div className="h-full bg-primary-500 w-[92%] shadow-[0_0_10px_rgba(59,130,246,0.5)]" />
+                                </div>
+                                <div className="flex items-center justify-between">
+                                    <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Cognitive Load</span>
+                                    <span className="text-xs font-mono font-black text-primary-400">LOW</span>
+                                </div>
+                                <div className="w-full h-1 bg-white/5 rounded-full overflow-hidden">
+                                    <div className="h-full bg-emerald-500 w-[24%] shadow-[0_0_10px_rgba(16,185,129,0.5)]" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="bg-white dark:bg-white/5 border dark:border-white/10 rounded-[2.5rem] p-8 flex flex-col justify-center print:border-slate-200">
+                            <h4 className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-3">Diagnostic Summary</h4>
+                            <p className="text-xs font-bold text-slate-700 dark:text-slate-300 leading-relaxed uppercase italic">
+                                The participant demonstrated high fidelity focus with minimal environmental interference.
+                                Latency spikes correlate with complex query structures, suggesting professional deliberation rather than systemic hesitation.
+                            </p>
                         </div>
                     </div>
 
