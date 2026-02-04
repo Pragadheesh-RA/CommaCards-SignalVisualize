@@ -284,24 +284,30 @@ const AssessmentDetail = ({ assessment, onClose, onUpdateAnnotation }) => {
                 {/* Content: The High-Fidelity Scientific Report */}
                 <div id="assessment-detail-root" className="flex-1 overflow-y-auto custom-scrollbar p-4 sm:p-6 space-y-6 print:space-y-12">
 
-                    {/* Operational Summary Grid (Master Metrics) */}
-                    <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 print:grid-cols-4">
-                        {[
-                            { label: 'Cumulative Score', value: data.rawScore || 0, sub: 'Points', icon: Target, color: 'bg-primary-500' },
-                            { label: 'Velocity', value: ((responses.length || 0) / (data.timeTakenTotalSec || 1) * 60).toFixed(1), sub: 'Items/m', icon: Zap, color: 'bg-amber-500' },
-                            { label: 'Latency', value: ((data.timeTakenTotalSec || 0) / (responses.length || 1)).toFixed(1), sub: 's/Item', icon: Clock, color: 'bg-emerald-500' },
-                            { label: 'Integrity', value: integrityRating(data).split(' ')[0], sub: 'Rating', icon: ShieldCheck, color: 'bg-violet-500' }
-                        ].map((stat, idx) => (
-                            <div key={idx} className="bg-white dark:bg-white/5 border dark:border-white/10 p-4 rounded-2xl group hover:scale-[1.02] transition-all relative overflow-hidden shadow-sm print-break-inside-avoid">
-                                <div className={`absolute top-0 right-0 w-16 h-16 ${stat.color} opacity-[0.03] group-hover:opacity-[0.08] transition-opacity blur-2xl print:hidden`} />
-                                <p className="text-[8px] font-black text-slate-500 uppercase tracking-[0.15em] mb-2">{stat.label}</p>
-                                <div className="flex items-baseline gap-1">
-                                    <span className="text-xl font-black text-slate-900 dark:text-white leading-none tracking-tighter print:text-slate-900">{stat.value}</span>
-                                    <span className="text-[8px] font-black text-slate-400 uppercase">{stat.sub}</span>
-                                </div>
-                                <stat.icon className="absolute bottom-3 right-3 text-slate-100 dark:text-white/10 group-hover:text-primary-500/20 transition-colors print:text-slate-200" size={24} strokeWidth={1.5} />
+                    {/* Primary Stats Grid - Version 2 */}
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 print:grid-cols-3">
+                        <div className="bg-white dark:bg-white/5 border dark:border-white/10 p-6 rounded-[2rem] shadow-sm relative overflow-hidden group">
+                            <p className="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-2">Total Score</p>
+                            <div className="flex items-baseline gap-2">
+                                <span className="text-4xl font-black text-slate-900 dark:text-white leading-none tracking-tighter">{data.rawScore || 0}</span>
+                                <span className="text-[10px] font-bold text-slate-400 uppercase">points</span>
                             </div>
-                        ))}
+                        </div>
+
+                        <div className="bg-white dark:bg-white/5 border dark:border-white/10 p-6 rounded-[2rem] shadow-sm relative overflow-hidden group">
+                            <p className="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-2">Avg. Response Time</p>
+                            <div className="flex items-baseline gap-2">
+                                <span className="text-4xl font-black text-slate-900 dark:text-white leading-none tracking-tighter">{((data.timeTakenTotalSec || 0) / (responses.length || 1)).toFixed(2)}s</span>
+                                <span className="text-[10px] font-bold text-slate-400 uppercase">per question</span>
+                            </div>
+                        </div>
+
+                        <div className="bg-primary-500/5 border border-primary-500/20 p-6 rounded-[2rem] shadow-sm relative overflow-hidden group">
+                            <div className="absolute top-0 right-0 w-24 h-24 bg-primary-500 opacity-[0.05] blur-3xl" />
+                            <p className="text-[9px] font-black text-primary-500 uppercase tracking-widest mb-2">Archetype Assessment</p>
+                            <h4 className="text-xl font-black text-slate-900 dark:text-white leading-tight mb-1">{data.currentArchetype?.title || data.archetype || "Unknown"}</h4>
+                            <p className="text-[10px] text-primary-600 dark:text-primary-400 font-medium italic">{data.currentArchetype?.description || "Functional analysis pending further telemetry."}</p>
+                        </div>
                     </div>
 
                     {/* Primary Analytics Section (Radar & Traits) */}
@@ -511,26 +517,42 @@ const AssessmentDetail = ({ assessment, onClose, onUpdateAnnotation }) => {
                         </div>
                     </div>
 
-                    {/* Environmental Telemetry Footer */}
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pb-8 print:grid-cols-3 print:gap-2">
-                        <div className="bg-white dark:bg-white/5 border dark:border-white/10 rounded-2xl p-4 space-y-4 print:border-slate-200">
-                            <h4 className="text-[8px] font-black text-slate-500 uppercase tracking-widest flex items-center gap-1.5"><Settings size={10} /> System</h4>
-                            <div className="space-y-2">
-                                <DetailRow label="Input" value={data.telemetry?.lastInputMode || 'HID'} />
-                                <DetailRow label="Ratio" value={`${window.innerWidth}x${window.innerHeight}`} />
+                    {/* Technical Telemetry & Derived Signals - Version 2 */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-12 py-8 border-t dark:border-white/5">
+                        <div className="space-y-6">
+                            <h4 className="text-[10px] font-black text-slate-900 dark:text-white uppercase tracking-[0.2em] flex items-center gap-2">
+                                <Settings size={14} className="text-primary-500" /> Technical Telemetry
+                            </h4>
+                            <div className="space-y-4">
+                                <div className="flex items-center justify-between">
+                                    <span className="text-[11px] font-bold text-slate-500 uppercase tracking-widest">Input Mode</span>
+                                    <span className="text-xs font-mono font-black text-slate-700 dark:text-slate-200">{data.telemetry?.lastInputMode || 'mouse'}</span>
+                                </div>
+                                <div className="flex items-center justify-between">
+                                    <span className="text-[11px] font-bold text-slate-500 uppercase tracking-widest">Tab Blurs</span>
+                                    <span className="text-xs font-mono font-black text-slate-700 dark:text-slate-200">{data.telemetry?.blurCount || 0}</span>
+                                </div>
+                                <div className="flex items-center justify-between">
+                                    <span className="text-[11px] font-bold text-slate-500 uppercase tracking-widest">Idle Time</span>
+                                    <span className="text-xs font-mono font-black text-slate-700 dark:text-slate-200">{data.telemetry?.idleTime || '0'}s</span>
+                                </div>
                             </div>
                         </div>
-                        <div className="bg-white dark:bg-white/5 border dark:border-white/10 rounded-2xl p-4 space-y-4 print:border-slate-200">
-                            <h4 className="text-[8px] font-black text-slate-500 uppercase tracking-widest flex items-center gap-1.5"><ShieldCheck size={10} /> Audit</h4>
-                            <div className="space-y-2">
-                                <DetailRow label="Blurs" value={data.telemetry?.blurCount || 0} />
-                                <DetailRow label="Integrity" value={integrityRating(data).split(' ')[0]} />
+
+                        <div className="space-y-6">
+                            <h4 className="text-[10px] font-black text-slate-900 dark:text-white uppercase tracking-[0.2em] flex items-center gap-2">
+                                <Activity size={14} className="text-primary-500" /> Derived Signals
+                            </h4>
+                            <div className="space-y-4">
+                                <div className="flex items-center justify-between">
+                                    <span className="text-[11px] font-bold text-slate-500 uppercase tracking-widest">Integrity Score</span>
+                                    <span className="text-xs font-mono font-black text-primary-500">{(1.0 - (data.telemetry?.blurCount || 0) * 0.05).toFixed(2)}</span>
+                                </div>
+                                <div className="flex items-center justify-between">
+                                    <span className="text-[11px] font-bold text-slate-500 uppercase tracking-widest">Est. Percentile</span>
+                                    <span className="text-xs font-mono font-black text-slate-700 dark:text-slate-200">{Math.min(99, Math.round(((data.rawScore || 0) / 50) * 100))}th</span>
+                                </div>
                             </div>
-                        </div>
-                        <div className="bg-matte-900 border border-white/10 rounded-2xl p-4 flex flex-col justify-center items-center text-center print:bg-slate-100 print:text-slate-900 print:border-slate-200">
-                            <RefreshCw className="text-primary-500 mb-2 animate-spin-slow print:text-primary-600" size={20} />
-                            <h4 className="text-[8px] font-black text-white uppercase tracking-widest mb-0.5 print:text-slate-900">Verified</h4>
-                            <p className="text-[7px] text-slate-500 font-bold uppercase tracking-wider print:text-slate-600">Visual Intelligence Engine v2.4</p>
                         </div>
                     </div>
 

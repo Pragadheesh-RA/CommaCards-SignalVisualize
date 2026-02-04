@@ -2,8 +2,12 @@ import React, { useState, useMemo, useEffect } from 'react';
 import {
     Users, Award, Clock, ShieldAlert, Upload, Download, Trash2,
     RefreshCw, Layers, Microscope, Info, FileText, CheckCircle, X, AlertTriangle, LogOut,
-    ChevronRight
+    ChevronRight, BarChart as BarChartIcon, PieChart as PieChartIcon
 } from 'lucide-react';
+import {
+    BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
+    PieChart, Pie, Cell, Legend
+} from 'recharts';
 
 // --- Components ---
 import Sidebar from './components/Sidebar';
@@ -286,6 +290,22 @@ export default function Dashboard() {
 
         const flaggedCount = rawData.filter(i => (i.data?.telemetry?.blurCount || 0) > 2 || i.annotations?.flagged).length;
 
+        // Histogram calculations (Scores)
+        const scoreBins = { "0-20": 0, "21-30": 0, "31-40": 0, "41-50": 0, "50+": 0 };
+        rawData.forEach(r => {
+            const s = r.data?.rawScore || 0;
+            if (s <= 20) scoreBins["0-20"]++;
+            else if (s <= 30) scoreBins["21-30"]++;
+            else if (s <= 40) scoreBins["31-40"]++;
+            else if (s <= 50) scoreBins["41-50"]++;
+            else scoreBins["50+"]++;
+        });
+
+        const distributionData = Object.entries(scoreBins).map(([range, count]) => ({ range, count }));
+
+        const archetypeData = Object.entries(archetypeCounts).map(([name, value]) => ({ name, value }));
+        const COLORS = ['#6366f1', '#ec4899', '#f59e0b', '#10b981', '#8b5cf6', '#ef4444'];
+
         setProcessedData({
             stats: {
                 total: totalCount,
@@ -293,7 +313,10 @@ export default function Dashboard() {
                 avgTime: Math.round(avgTime),
                 flaggedCount: flaggedCount
             },
-            availableArchetypes: ["All", ...Object.keys(archetypeCounts)]
+            availableArchetypes: ["All", ...Object.keys(archetypeCounts)],
+            distributionData,
+            archetypeData,
+            colors: COLORS
         });
     }, [rawData]);
 
@@ -453,11 +476,70 @@ export default function Dashboard() {
 
                             {/* Quick Stats Grid */}
                             {processedData && (
-                                <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6">
-                                    <StatCard title="Assessments" value={processedData.stats.total} subtext="Total records loaded" icon={Users} colorClass="bg-primary-500" delay="animate-delay-100" />
-                                    <StatCard title="Mean Score" value={processedData.stats.avgScore} subtext="Cohort performance" icon={Award} colorClass="bg-emerald-500" delay="animate-delay-200" />
-                                    <StatCard title="Mean Time" value={`${processedData.stats.avgTime}s`} subtext="Completion speed" icon={Clock} colorClass="bg-violet-500" delay="animate-delay-300" />
-                                    <StatCard title="Integrity" value={`${((1 - (processedData.stats.flaggedCount / (processedData.stats.total || 1))) * 100).toFixed(0)}%`} subtext={`${processedData.stats.flaggedCount} flagged entries`} icon={ShieldAlert} colorClass="bg-amber-500" delay="animate-delay-400" />
+                                <div className="space-y-8 animate-slide-up-fade">
+                                    <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6">
+                                        <StatCard title="Total Participants" value={processedData.stats.total} subtext="Assessments loaded" icon={Users} colorClass="bg-primary-500" delay="animate-delay-100" />
+                                        <StatCard title="Mean Score" value={processedData.stats.avgScore} subtext="Cohort Average" icon={Award} colorClass="bg-emerald-500" delay="animate-delay-200" />
+                                        <StatCard title="Mean Duration" value={`${Math.floor(processedData.stats.avgTime / 60)}m ${processedData.stats.avgTime % 60}s`} subtext="Completion time" icon={Clock} colorClass="bg-violet-500" delay="animate-delay-300" />
+                                        <StatCard title="Session Integrity" value={`${((1 - (processedData.stats.flaggedCount / (processedData.stats.total || 1))) * 100).toFixed(0)}%`} subtext={`${processedData.stats.flaggedCount} flagged sessions`} icon={ShieldAlert} colorClass="bg-amber-500" delay="animate-delay-400" />
+                                    </div>
+
+                                    {/* Comparative Visualizations */}
+                                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                                        {/* Archetype Distribution */}
+                                        <Card className="p-8 bg-white dark:bg-slate-900 border-none shadow-xl shadow-slate-200/50 dark:shadow-none">
+                                            <div className="flex items-center gap-3 mb-8">
+                                                <div className="p-2.5 bg-primary-50 dark:bg-primary-500/10 rounded-xl text-primary-500"><PieChartIcon size={20} /></div>
+                                                <h4 className="text-xl font-black text-slate-900 dark:text-white tracking-tight">Archetype Distribution</h4>
+                                            </div>
+                                            <div className="h-[300px] w-full">
+                                                <ResponsiveContainer width="100%" height="100%">
+                                                    <PieChart>
+                                                        <Pie
+                                                            data={processedData.archetypeData}
+                                                            cx="50%"
+                                                            cy="50%"
+                                                            innerRadius={60}
+                                                            outerRadius={80}
+                                                            paddingAngle={5}
+                                                            dataKey="value"
+                                                        >
+                                                            {processedData.archetypeData.map((entry, index) => (
+                                                                <Cell key={`cell-${index}`} fill={processedData.colors[index % processedData.colors.length]} stroke="none" />
+                                                            ))}
+                                                        </Pie>
+                                                        <Tooltip
+                                                            contentStyle={{ background: '#0f172a', border: 'none', borderRadius: '12px', color: '#fff', fontSize: '12px', fontWeight: 'bold' }}
+                                                            itemStyle={{ color: '#fff' }}
+                                                        />
+                                                        <Legend verticalAlign="bottom" height={36} iconType="rect" className="text-[10px] font-bold uppercase" />
+                                                    </PieChart>
+                                                </ResponsiveContainer>
+                                            </div>
+                                        </Card>
+
+                                        {/* Score Distribution */}
+                                        <Card className="p-8 bg-white dark:bg-slate-900 border-none shadow-xl shadow-slate-200/50 dark:shadow-none">
+                                            <div className="flex items-center gap-3 mb-8">
+                                                <div className="p-2.5 bg-emerald-50 dark:bg-emerald-500/10 rounded-xl text-emerald-500"><BarChartIcon size={20} /></div>
+                                                <h4 className="text-xl font-black text-slate-900 dark:text-white tracking-tight">Score Distribution Histogram</h4>
+                                            </div>
+                                            <div className="h-[300px] w-full">
+                                                <ResponsiveContainer width="100%" height="100%">
+                                                    <BarChart data={processedData.distributionData}>
+                                                        <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e2e8f0" />
+                                                        <XAxis dataKey="range" axisLine={false} tickLine={false} tick={{ fill: '#94a3b8', fontSize: 12, fontWeight: 'bold' }} />
+                                                        <YAxis axisLine={false} tickLine={false} tick={{ fill: '#94a3b8', fontSize: 12, fontWeight: 'bold' }} />
+                                                        <Tooltip
+                                                            cursor={{ fill: '#f1f5f9' }}
+                                                            contentStyle={{ background: '#0f172a', border: 'none', borderRadius: '12px', color: '#fff', fontSize: '12px', fontWeight: 'bold' }}
+                                                        />
+                                                        <Bar dataKey="count" fill="#3b82f6" radius={[6, 6, 0, 0]} barSize={40} />
+                                                    </BarChart>
+                                                </ResponsiveContainer>
+                                            </div>
+                                        </Card>
+                                    </div>
                                 </div>
                             )}
 
