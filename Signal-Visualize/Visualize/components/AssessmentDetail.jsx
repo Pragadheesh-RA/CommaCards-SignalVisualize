@@ -189,118 +189,174 @@ const AssessmentDetail = ({ assessment, onClose, onUpdateAnnotation }) => {
     }
 
     return (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center animate-fade-in bg-matte-950/95 backdrop-blur-[20px] p-0 sm:p-2 md:p-10">
-            <div className="relative w-full max-w-7xl h-full bg-slate-50 dark:bg-slate-900 md:rounded-[2.5rem] shadow-2xl overflow-hidden flex flex-col border dark:border-white/10 animate-spring-in">
+        <div className="fixed inset-0 z-[100] flex justify-end animate-fade-in bg-matte-950/40 backdrop-blur-md p-0 print:bg-white print:backdrop-blur-none">
+            {/* Backdrop click to close */}
+            <div className="absolute inset-0 z-0 no-print" onClick={onClose} />
+
+            <div className="relative w-full md:w-[80%] lg:w-[65%] xl:w-[50%] h-full bg-slate-50 dark:bg-slate-900 md:rounded-l-[2.5rem] shadow-2xl overflow-hidden flex flex-col border-l dark:border-white/10 animate-slide-in-right z-10 print:w-full print:h-auto print:bg-white print:shadow-none print:border-none print:rounded-none selection:bg-primary-500/20">
+                <style dangerouslySetInnerHTML={{
+                    __html: `
+                    @media print {
+                        body * { visibility: hidden; }
+                        #assessment-detail-root, #assessment-detail-root * { visibility: visible; }
+                        #assessment-detail-root {
+                            position: absolute;
+                            left: 0;
+                            top: 0;
+                            width: 100%;
+                            height: auto !important;
+                            overflow: visible !important;
+                            background: white !important;
+                        }
+                        .flex-1.overflow-y-auto {
+                            height: auto !important;
+                            overflow: visible !important;
+                            max-height: none !important;
+                            padding: 0 !important;
+                        }
+                        .no-print { display: none !important; }
+                        .print-break-inside-avoid { break-inside: avoid; }
+                        .print-page-break-before { page-break-before: always; }
+                        .bg-slate-900, .bg-matte-900, .dark .bg-matte-900 { 
+                            background-color: #0f172a !important; 
+                            color: white !important;
+                        }
+                        .dark .bg-white/5, .dark .bg-white/10 { background-color: #f1f5f9 !important; }
+                        .dark .text-white { color: #0f172a !important; }
+                        .print-grid-cols-2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
+                        
+                        /* Fix for charts in print */
+                        .recharts-responsive-container { min-height: 350px !important; }
+                        
+                        /* Re-style for white paper */
+                        .bg-slate-50, .bg-white { background-color: white !important; }
+                        .dark .bg-slate-900 { background-color: white !important; }
+                        .border, .border-b, .border-t, .border-l, .border-r { border-color: #e2e8f0 !important; }
+                        .text-slate-900, .text-slate-500, .text-slate-400, .dark .text-slate-400 { color: #1e293b !important; }
+                        
+                        /* Keep primary colors */
+                        .text-primary-500 { color: #5365ff !important; }
+                        .bg-primary-500 { background-color: #5365ff !important; }
+                        .bg-primary-600 { background-color: #5365ff !important; }
+                    }
+                `}} />
 
                 {/* Header: Identity & Master Controls */}
-                <header className="px-8 py-6 border-b dark:border-white/5 bg-white dark:bg-matte-900/80 backdrop-blur-xl sticky top-0 z-30 flex items-center justify-between">
-                    <div className="flex items-center gap-6">
-                        <div className="w-14 h-14 rounded-2xl bg-primary-500 shadow-glow-primary flex items-center justify-center text-white text-xl font-black shrink-0 animate-pulse-magnetic">
-                            {data.email ? data.email[0].toUpperCase() : <User size={24} />}
+                <header className="px-6 py-4 border-b dark:border-white/5 bg-white dark:bg-matte-900/80 backdrop-blur-xl sticky top-0 z-30 flex items-center justify-between no-print">
+                    <div className="flex items-center gap-4">
+                        <div className="w-10 h-10 rounded-xl bg-primary-500 shadow-glow-primary flex items-center justify-center text-white text-base font-black shrink-0 animate-pulse-magnetic">
+                            {data.email ? data.email[0].toUpperCase() : <User size={18} />}
                         </div>
                         <div className="min-w-0">
-                            <h2 className="text-2xl font-black text-slate-900 dark:text-white truncate max-w-[300px] sm:max-w-[500px] leading-tight flex items-center gap-3">
+                            <h2 className="text-lg font-black text-slate-900 dark:text-white truncate max-w-[200px] sm:max-w-xs leading-tight flex items-center gap-2">
                                 {data.email || 'Anonymous Participant'}
                                 {flagged && <Badge color="rose">FLAGGED</Badge>}
                             </h2>
-                            <div className="flex flex-wrap items-center gap-x-6 gap-y-1 mt-1">
-                                <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest flex items-center gap-1.5"><Hash size={12} className="text-primary-500" /> <span className="text-slate-600 dark:text-slate-200">{assessment.id}</span></span>
-                                <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest flex items-center gap-1.5"><Calendar size={12} className="text-primary-500" /> {formatTimestamp(data.timestamp)}</span>
-                                <Badge color="violet">{data.currentArchetype?.title || "Unknown Archetype"}</Badge>
+                            <div className="flex flex-wrap items-center gap-x-4 gap-y-0.5 mt-0.5">
+                                <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest flex items-center gap-1.5"><Hash size={10} className="text-primary-500" /> <span className="text-slate-600 dark:text-slate-200">{assessment.id}</span></span>
+                                <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest flex items-center gap-1.5"><Calendar size={10} className="text-primary-500" /> {formatTimestamp(data.timestamp)}</span>
                             </div>
                         </div>
                     </div>
-                    <div className="flex items-center gap-3">
-                        <button onClick={() => window.print()} className="hidden md:flex p-3 bg-slate-100 dark:bg-white/5 rounded-2xl text-slate-400 hover:text-primary-500 transition-all active:scale-90" title="Export Analysis"><LucideBarChart size={24} /></button>
-                        <button onClick={onClose} className="p-3 bg-slate-100 dark:bg-white/5 rounded-2xl text-slate-400 hover:text-rose-500 transition-all active:scale-90" title="Close"><X size={24} /></button>
+                    <div className="flex items-center gap-2">
+                        <button onClick={() => window.print()} className="hidden sm:flex px-4 py-2 bg-primary-600 hover:bg-primary-500 rounded-xl text-white font-black text-[10px] uppercase tracking-widest transition-all active:scale-95 shadow-glow-primary flex items-center gap-2" title="Export Analysis">
+                            <Save size={14} />
+                            Generate Report
+                        </button>
+                        <button onClick={onClose} className="p-2 bg-slate-100 dark:bg-white/5 rounded-xl text-slate-400 hover:text-rose-500 transition-all active:scale-95" title="Close"><X size={18} /></button>
                     </div>
                 </header>
 
+                {/* Print-Only Professional Header */}
+                <div className="hidden print:block mb-8 p-6 bg-slate-900 text-white rounded-[2rem]">
+                    <div className="flex justify-between items-center">
+                        <div>
+                            <h1 className="text-2xl font-black uppercase tracking-tighter mb-1">Visual Intelligence Analysis Report</h1>
+                            <p className="text-xs text-slate-400 font-bold uppercase tracking-[0.2em]">Institutional Assessment Registry - Sec: {assessment.id}</p>
+                        </div>
+                        <div className="text-right">
+                            <div className="text-lg font-black text-primary-400 uppercase">{data.email}</div>
+                            <div className="text-[10px] text-slate-500 font-bold uppercase tracking-widest">{formatTimestamp(data.timestamp)}</div>
+                        </div>
+                    </div>
+                </div>
+
                 {/* Content: The High-Fidelity Scientific Report */}
-                <div className="flex-1 overflow-y-auto custom-scrollbar p-6 sm:p-12 space-y-12">
+                <div id="assessment-detail-root" className="flex-1 overflow-y-auto custom-scrollbar p-4 sm:p-6 space-y-6 print:space-y-12">
 
                     {/* Operational Summary Grid (Master Metrics) */}
-                    <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
+                    <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 print:grid-cols-4">
                         {[
-                            { label: 'Cumulative Score', value: data.rawScore || 0, sub: 'Points Total', icon: Target, color: 'bg-primary-500' },
-                            { label: 'Response Velocity', value: ((responses.length || 0) / (data.timeTakenTotalSec || 1) * 60).toFixed(1), sub: 'Items / min', icon: Zap, color: 'bg-amber-500' },
-                            { label: 'Cognitive Latency', value: ((data.timeTakenTotalSec || 0) / (responses.length || 1)).toFixed(2), sub: 'Seconds / Item', icon: Clock, color: 'bg-emerald-500' },
-                            { label: 'Integrity Rating', value: integrityRating(data), sub: 'Based on tab focus', icon: ShieldCheck, color: 'bg-violet-500' }
+                            { label: 'Cumulative Score', value: data.rawScore || 0, sub: 'Points', icon: Target, color: 'bg-primary-500' },
+                            { label: 'Velocity', value: ((responses.length || 0) / (data.timeTakenTotalSec || 1) * 60).toFixed(1), sub: 'Items/m', icon: Zap, color: 'bg-amber-500' },
+                            { label: 'Latency', value: ((data.timeTakenTotalSec || 0) / (responses.length || 1)).toFixed(1), sub: 's/Item', icon: Clock, color: 'bg-emerald-500' },
+                            { label: 'Integrity', value: integrityRating(data).split(' ')[0], sub: 'Rating', icon: ShieldCheck, color: 'bg-violet-500' }
                         ].map((stat, idx) => (
-                            <div key={idx} className="bg-white dark:bg-white/5 border dark:border-white/10 p-8 rounded-[2rem] group hover:scale-[1.02] transition-all relative overflow-hidden shadow-sm hover:shadow-glow-sm">
-                                <div className={`absolute top-0 right-0 w-24 h-24 ${stat.color} opacity-[0.03] group-hover:opacity-[0.08] transition-opacity blur-3xl`} />
-                                <p className="text-[10px] font-black text-slate-500 uppercase tracking-[0.2em] mb-4">{stat.label}</p>
-                                <div className="flex items-baseline gap-2">
-                                    <span className="text-4xl font-black text-slate-900 dark:text-white leading-none tracking-tighter">{stat.value}</span>
-                                    <span className="text-[10px] font-black text-slate-400 uppercase">{stat.sub}</span>
+                            <div key={idx} className="bg-white dark:bg-white/5 border dark:border-white/10 p-4 rounded-2xl group hover:scale-[1.02] transition-all relative overflow-hidden shadow-sm print-break-inside-avoid">
+                                <div className={`absolute top-0 right-0 w-16 h-16 ${stat.color} opacity-[0.03] group-hover:opacity-[0.08] transition-opacity blur-2xl print:hidden`} />
+                                <p className="text-[8px] font-black text-slate-500 uppercase tracking-[0.15em] mb-2">{stat.label}</p>
+                                <div className="flex items-baseline gap-1">
+                                    <span className="text-xl font-black text-slate-900 dark:text-white leading-none tracking-tighter print:text-slate-900">{stat.value}</span>
+                                    <span className="text-[8px] font-black text-slate-400 uppercase">{stat.sub}</span>
                                 </div>
-                                <stat.icon className="absolute bottom-6 right-6 text-slate-100 dark:text-white/10 group-hover:text-primary-500/20 transition-colors" size={48} strokeWidth={1} />
+                                <stat.icon className="absolute bottom-3 right-3 text-slate-100 dark:text-white/10 group-hover:text-primary-500/20 transition-colors print:text-slate-200" size={24} strokeWidth={1.5} />
                             </div>
                         ))}
                     </div>
 
                     {/* Primary Analytics Section (Radar & Traits) */}
-                    <div className="grid grid-cols-1 xl:grid-cols-2 gap-8">
+                    <div className="grid grid-cols-1 gap-6 print:grid-cols-2">
                         {/* Radar Comparison */}
-                        <div className="bg-matte-900 border border-white/10 rounded-[2.5rem] p-10 relative overflow-hidden shadow-kinetic-dark h-[500px] flex flex-col">
-                            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary-500 to-violet-500" />
-                            <div className="flex justify-between items-start mb-8">
+                        <div className="bg-matte-900 border border-white/10 rounded-[2rem] p-6 relative overflow-hidden shadow-kinetic-dark h-[380px] flex flex-col print-break-inside-avoid">
+                            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary-500 to-violet-500 print:hidden" />
+                            <div className="flex justify-between items-start mb-4">
                                 <div>
-                                    <h3 className="text-lg font-black text-white uppercase tracking-widest flex items-center gap-3"><Brain className="text-primary-500" size={20} /> Cognitive Competency Radar</h3>
-                                    <p className="text-[10px] text-slate-500 font-bold uppercase mt-1 tracking-wider">Candidate Profile vs Institutional Cohort Benchmark</p>
+                                    <h3 className="text-xs font-black text-white dark:text-white uppercase tracking-widest flex items-center gap-2 print:text-white"><Brain className="text-primary-500 print:text-primary-400" size={16} /> Cognitive Radar</h3>
+                                    <p className="text-[9px] text-slate-500 font-bold uppercase mt-0.5 tracking-wider print:text-slate-400">Candidate vs Cohort Benchmark</p>
                                 </div>
                             </div>
                             <div className="flex-1 w-full min-h-0">
                                 <ResponsiveContainer width="100%" height="100%">
-                                    <RadarChart cx="50%" cy="50%" outerRadius="80%" data={performanceRadarData}>
+                                    <RadarChart cx="50%" cy="50%" outerRadius="75%" data={performanceRadarData}>
                                         <PolarGrid stroke="#ffffff10" />
-                                        <PolarAngleAxis dataKey="subject" tick={{ fill: '#94a3b8', fontSize: 10, fontWeight: '900' }} />
+                                        <PolarAngleAxis dataKey="subject" tick={{ fill: '#94a3b8', fontSize: 9, fontWeight: '900' }} />
                                         <Radar name="Candidate" dataKey="A" stroke={THEME_PRIMARY} fill={THEME_PRIMARY} fillOpacity={0.5} />
-                                        <Tooltip contentStyle={{ background: '#0f172a', border: '1px solid #ffffff10', borderRadius: '12px' }} />
+                                        <Tooltip contentStyle={{ background: '#0f172a', border: '1px solid #ffffff10', borderRadius: '12px', fontSize: '10px' }} />
                                     </RadarChart>
                                 </ResponsiveContainer>
                             </div>
                         </div>
 
                         {/* Trait Matrix */}
-                        <div className="bg-white dark:bg-matte-950 border dark:border-white/10 rounded-[2.5rem] overflow-hidden flex flex-col shadow-sm">
-                            <div className="p-8 pb-4">
-                                <h3 className="text-sm font-black text-slate-900 dark:text-white uppercase tracking-widest flex items-center gap-3"><Settings className="text-primary-500" size={20} /> Psychometric Trait Matrix</h3>
-                                <p className="text-[10px] text-slate-400 font-bold uppercase mt-1">Calculated Average Performance by Question Archetype Grouping</p>
+                        <div className="bg-white dark:bg-matte-950 border dark:border-white/10 rounded-[2rem] overflow-hidden flex flex-col shadow-sm print-break-inside-avoid print:border print:border-slate-200">
+                            <div className="p-6 pb-2">
+                                <h3 className="text-xs font-black text-slate-900 dark:text-white uppercase tracking-widest flex items-center gap-2 print:text-slate-900"><Settings className="text-primary-500" size={16} /> Trait Matrix</h3>
+                                <p className="text-[9px] text-slate-400 font-bold uppercase mt-0.5 print:text-slate-500">Calculated Average Performance</p>
                             </div>
                             <div className="flex-1 overflow-x-auto">
                                 <table className="w-full text-left">
-                                    <thead className="bg-slate-50 dark:bg-white/5 border-b dark:border-white/5">
+                                    <thead className="bg-slate-50 dark:bg-white/5 border-b dark:border-white/5 print:bg-slate-50">
                                         <tr>
-                                            <th className="px-8 py-4 text-[9px] font-black text-slate-400 uppercase tracking-widest">Construct</th>
-                                            <th className="px-8 py-4 text-[9px] font-black text-slate-400 uppercase tracking-widest text-center">Efficiency</th>
-                                            <th className="px-8 py-4 text-[9px] font-black text-slate-400 uppercase tracking-widest text-right">Precision</th>
+                                            <th className="px-6 py-3 text-[8px] font-black text-slate-400 uppercase tracking-widest print:text-slate-500">Construct</th>
+                                            <th className="px-6 py-3 text-[8px] font-black text-slate-400 uppercase tracking-widest text-center print:text-slate-500">Eff.</th>
+                                            <th className="px-6 py-3 text-[8px] font-black text-slate-400 uppercase tracking-widest text-right print:text-slate-500">Prec.</th>
                                         </tr>
                                     </thead>
-                                    <tbody className="divide-y dark:divide-white/5">
+                                    <tbody className="divide-y dark:divide-white/5 print:divide-slate-200">
                                         {traitAnalysis.map((tr, i) => (
                                             <tr key={i} className="hover:bg-primary-500/5 transition-colors group">
-                                                <td className="px-8 py-5">
+                                                <td className="px-6 py-3">
                                                     <div className="flex flex-col">
-                                                        <span className="text-xs font-black text-primary-500">{tr.trait}</span>
-                                                        <span className="text-[8px] text-slate-400 uppercase font-black tracking-tighter">Psychometric Index</span>
+                                                        <span className="text-[10px] font-black text-primary-500">{tr.trait}</span>
                                                     </div>
                                                 </td>
-                                                <td className="px-8 py-5">
-                                                    <div className="flex items-center justify-center gap-3">
-                                                        <span className="text-[10px] font-mono font-bold text-slate-400">{tr.avgTime}s</span>
-                                                        <div className="w-20 h-1 bg-slate-100 dark:bg-white/5 rounded-full overflow-hidden">
-                                                            <div className="h-full bg-slate-300 dark:bg-white/20" style={{ width: `${Math.min(100, (parseFloat(tr.avgTime) / 30) * 100)}%` }} />
-                                                        </div>
+                                                <td className="px-6 py-3">
+                                                    <div className="flex items-center justify-center gap-2">
+                                                        <span className="text-[9px] font-mono font-bold text-slate-400 print:text-slate-600">{tr.avgTime}s</span>
                                                     </div>
                                                 </td>
-                                                <td className="px-8 py-5 text-right">
-                                                    <div className="flex items-center justify-end gap-3">
-                                                        <div className="flex-1 h-1.5 bg-slate-100 dark:bg-white/5 rounded-full overflow-hidden min-w-[100px]">
-                                                            <div className="h-full bg-primary-500 shadow-glow-sm" style={{ width: `${(parseFloat(tr.avgScore) / 2) * 100}%` }} />
-                                                        </div>
-                                                        <span className="text-xs font-black text-slate-900 dark:text-white w-8">{tr.avgScore}</span>
-                                                    </div>
+                                                <td className="px-6 py-3 text-right">
+                                                    <span className="text-[10px] font-black text-slate-900 dark:text-white print:text-slate-900">{tr.avgScore}</span>
                                                 </td>
                                             </tr>
                                         ))}
@@ -311,18 +367,18 @@ const AssessmentDetail = ({ assessment, onClose, onUpdateAnnotation }) => {
                     </div>
 
                     {/* Latency Map (Line Chart) */}
-                    <div className="bg-white dark:bg-white/5 border dark:border-white/10 rounded-[2.5rem] p-10">
-                        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+                    <div className="bg-white dark:bg-white/5 border dark:border-white/10 rounded-[2rem] p-6 print-break-inside-avoid print:border print:border-slate-200">
+                        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-6">
                             <div>
-                                <h3 className="text-sm font-black text-slate-900 dark:text-white uppercase tracking-[0.2em] mb-2 flex items-center gap-3"><ChartIcon className="text-primary-500" size={20} /> Chronometric Response Phase Analysis</h3>
-                                <p className="text-[11px] font-medium text-slate-500 max-w-xl leading-relaxed">Latency mapping reveals behavioral patterns. Sharp spikes indicate deliberative thought processes or distractions, while valleys suggest instinctive or intuitive responses.</p>
+                                <h3 className="text-xs font-black text-slate-900 dark:text-white uppercase tracking-[0.2em] mb-1 flex items-center gap-2 print:text-slate-900"><ChartIcon className="text-primary-500" size={16} /> Response Phase Map</h3>
+                                <p className="text-[8px] font-medium text-slate-500 max-w-sm leading-relaxed print:text-slate-600">Behavioral patterns and deliberative spikes mapping.</p>
                             </div>
-                            <div className="flex items-center gap-6 p-4 bg-slate-50 dark:bg-white/5 rounded-2xl border dark:border-white/5">
-                                <div className="flex items-center gap-2"><div className="w-3 h-3 rounded-full bg-primary-500 shadow-glow-sm" /><span className="text-[9px] font-black text-slate-500 uppercase tracking-widest">Latent Time</span></div>
-                                <div className="flex items-center gap-2"><div className="w-3 h-3 rounded-full bg-slate-300 dark:bg-white/20" /><span className="text-[9px] font-black text-slate-500 uppercase tracking-widest">Cohort Mean</span></div>
+                            <div className="flex items-center gap-4 p-2 bg-slate-50 dark:bg-white/5 rounded-xl border dark:border-white/5 print:hidden">
+                                <div className="flex items-center gap-1"><div className="w-1.5 h-1.5 rounded-full bg-primary-500" /><span className="text-[7px] font-black text-slate-500 uppercase tracking-widest">Time</span></div>
+                                <div className="flex items-center gap-1"><div className="w-1.5 h-1.5 rounded-full bg-slate-300 dark:bg-white/20" /><span className="text-[7px] font-black text-slate-500 uppercase tracking-widest">Mean</span></div>
                             </div>
                         </div>
-                        <div className="h-[350px] w-full">
+                        <div className="h-[250px] w-full print:h-[180px]">
                             <ResponsiveContainer width="100%" height="100%">
                                 <AreaChart data={chronometricData}>
                                     <defs>
@@ -331,124 +387,120 @@ const AssessmentDetail = ({ assessment, onClose, onUpdateAnnotation }) => {
                                             <stop offset="95%" stopColor={THEME_PRIMARY} stopOpacity={0} />
                                         </linearGradient>
                                     </defs>
-                                    <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#ffffff10" />
-                                    <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{ fill: '#64748b', fontSize: 10, fontWeight: '900' }} />
-                                    <YAxis axisLine={false} tickLine={false} tick={{ fill: '#64748b', fontSize: 10 }} unit="s" />
-                                    <Tooltip contentStyle={{ background: '#0f172a', border: 'none', borderRadius: '16px', boxShadow: '0 20px 40px rgba(0,0,0,0.5)' }} cursor={{ stroke: THEME_PRIMARY, strokeWidth: 1, strokeDasharray: '4 4' }} />
-                                    <Area type="monotone" dataKey="time" stroke={THEME_PRIMARY} strokeWidth={3} fill="url(#latencyGrad)" dot={{ r: 5, fill: THEME_PRIMARY, strokeWidth: 2, stroke: '#fff' }} activeDot={{ r: 8, fill: THEME_PRIMARY, stroke: '#fff', strokeWidth: 3 }} />
-                                    <Line type="monotone" dataKey="avg" stroke="#64748b" strokeDasharray="5 5" dot={false} strokeOpacity={0.3} />
+                                    <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e2e8f0" />
+                                    <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{ fill: '#64748b', fontSize: 8, fontWeight: '900' }} />
+                                    <YAxis axisLine={false} tickLine={false} tick={{ fill: '#64748b', fontSize: 8 }} unit="s" />
+                                    <Area type="monotone" dataKey="time" stroke={THEME_PRIMARY} strokeWidth={2} fill="url(#latencyGrad)" dot={false} />
                                 </AreaChart>
                             </ResponsiveContainer>
                         </div>
                     </div>
 
                     {/* Researcher Annotation Nexus */}
-                    <div className="bg-white dark:bg-matte-900 border dark:border-white/10 rounded-[2.5rem] p-10 shadow-sm relative overflow-hidden group">
-                        <div className="absolute top-0 right-0 p-8 text-primary-500/10 group-hover:text-primary-500/20 transition-colors pointer-events-none rotate-12"><MessageSquare size={120} /></div>
+                    <div className="bg-white dark:bg-matte-900 border dark:border-white/10 rounded-[2rem] p-6 shadow-sm relative overflow-hidden group print:hidden">
 
-                        <div className="relative z-10 flex flex-col xl:flex-row gap-12">
-                            <div className="xl:w-1/3 space-y-8">
+                        <div className="relative z-10 flex flex-col gap-6">
+                            <div className="space-y-4">
                                 <div>
                                     <Badge color="blue">Annotation Nexus</Badge>
-                                    <h3 className="text-xl font-black text-slate-900 dark:text-white uppercase tracking-tighter mt-3">Researcher Observables</h3>
+                                    <h3 className="text-base font-black text-slate-900 dark:text-white uppercase tracking-tighter mt-2">Researcher Observables</h3>
                                 </div>
 
-                                <div className="space-y-6">
-                                    <div>
-                                        <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-3 block">Classification Status</label>
-                                        <div className="grid grid-cols-2 gap-2">
-                                            {['Reviewed', 'Anomalous', 'Verified', 'Priority'].map(s => (
-                                                <button
-                                                    key={s}
-                                                    onClick={() => setStatus(s)}
-                                                    className={`px-4 py-3 rounded-xl text-[10px] font-black uppercase tracking-wider border transition-all ${status === s ? 'bg-primary-600 text-white border-primary-500 shadow-glow-primary' : 'bg-slate-50 dark:bg-white/5 border-transparent text-slate-500 hover:border-slate-300 dark:hover:border-white/10'}`}
-                                                >
-                                                    {s}
-                                                </button>
-                                            ))}
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    <div className="space-y-4">
+                                        <div>
+                                            <label className="text-[8px] font-black text-slate-400 uppercase tracking-widest mb-2 block">Classification Status</label>
+                                            <div className="grid grid-cols-2 gap-1.5">
+                                                {['Reviewed', 'Anomalous', 'Verified', 'Priority'].map(s => (
+                                                    <button
+                                                        key={s}
+                                                        onClick={() => setStatus(s)}
+                                                        className={`px-3 py-2 rounded-lg text-[8px] font-black uppercase tracking-wider border transition-all ${status === s ? 'bg-primary-600 text-white border-primary-500 shadow-glow-primary' : 'bg-slate-50 dark:bg-white/5 border-transparent text-slate-500 hover:border-slate-300 dark:hover:border-white/10'}`}
+                                                    >
+                                                        {s}
+                                                    </button>
+                                                ))}
+                                            </div>
                                         </div>
+
+                                        <button
+                                            onClick={() => setFlagged(!flagged)}
+                                            className={`w-full p-3 rounded-xl flex items-center justify-between border transition-all ${flagged ? 'bg-rose-500/10 border-rose-500/30 text-rose-500' : 'bg-slate-50 dark:bg-white/5 border-transparent text-slate-400'}`}
+                                        >
+                                            <div className="flex items-center gap-2">
+                                                <Flag size={14} className={flagged ? 'fill-rose-500' : ''} />
+                                                <span className="text-[8px] font-black uppercase tracking-widest">Escalation Flag</span>
+                                            </div>
+                                            <div className={`w-4 h-4 rounded-full border-2 flex items-center justify-center transition-all ${flagged ? 'bg-rose-500 border-rose-500' : 'border-slate-300 dark:border-white/10'}`}>
+                                                {flagged && <div className="w-1 h-1 rounded-full bg-white animate-pulse" />}
+                                            </div>
+                                        </button>
                                     </div>
 
-                                    <button
-                                        onClick={() => setFlagged(!flagged)}
-                                        className={`w-full p-4 rounded-2xl flex items-center justify-between border transition-all ${flagged ? 'bg-rose-500/10 border-rose-500/30 text-rose-500 shadow-glow-rose' : 'bg-slate-50 dark:bg-white/5 border-transparent text-slate-400'}`}
-                                    >
-                                        <div className="flex items-center gap-3">
-                                            <Flag size={18} className={flagged ? 'fill-rose-500' : ''} />
-                                            <span className="text-[10px] font-black uppercase tracking-widest">Mark for Escalation</span>
-                                        </div>
-                                        <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center transition-all ${flagged ? 'bg-rose-500 border-rose-500' : 'border-slate-300 dark:border-white/10'}`}>
-                                            {flagged && <div className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />}
-                                        </div>
-                                    </button>
+                                    <div className="flex flex-col">
+                                        <label className="text-[8px] font-black text-slate-400 uppercase tracking-widest mb-2 block flex items-center gap-2 italic"><Microscope size={10} /> Field Observations</label>
+                                        <textarea
+                                            className="flex-1 min-h-[100px] w-full bg-slate-50 dark:bg-matte-950 p-4 rounded-xl text-xs font-medium dark:text-slate-200 border dark:border-white/5 outline-none focus:ring-2 focus:ring-primary-500/10 resize-none transition-all placeholder:text-slate-600 shadow-inner"
+                                            placeholder="Annotate behavioral signals..."
+                                            value={notes} onChange={(e) => setNotes(e.target.value)}
+                                        />
+                                    </div>
                                 </div>
                             </div>
-
-                            <div className="xl:flex-1 flex flex-col">
-                                <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-4 block flex items-center gap-2 italic"><Microscope size={12} /> Qualitative Field Observations</label>
-                                <textarea
-                                    className="flex-1 min-h-[180px] w-full bg-slate-50 dark:bg-matte-950 p-8 rounded-[2rem] text-sm font-medium dark:text-slate-200 border dark:border-white/5 outline-none focus:ring-4 focus:ring-primary-500/10 resize-none transition-all placeholder:text-slate-600 shadow-inner"
-                                    placeholder="Annotate behavioral signals, environmental factors, or anomalies observed during data ingestion..."
-                                    value={notes} onChange={(e) => setNotes(e.target.value)}
-                                />
-                                <div className="flex flex-col sm:flex-row justify-between items-center mt-6 gap-4">
-                                    <div className="flex flex-col">
-                                        <span className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Registry ID: {assessment.id}</span>
-                                        <span className="text-[9px] font-bold text-slate-400 italic">Synchronized at: {new Date().toLocaleTimeString()} by EARTH1919</span>
-                                    </div>
-                                    <button onClick={handleSave} className="w-full sm:w-auto px-10 py-4 bg-primary-600 hover:bg-primary-500 text-white rounded-2xl text-[11px] font-black uppercase tracking-[0.2em] transition-all shadow-glow-primary active:scale-95 flex items-center justify-center gap-3">
-                                        <Save size={16} strokeWidth={3} />
-                                        Commit Analysis
-                                    </button>
+                            <div className="flex flex-col sm:flex-row justify-between items-center pt-4 border-t dark:border-white/5 gap-3">
+                                <div className="flex flex-col">
+                                    <span className="text-[8px] font-black text-slate-500 uppercase tracking-widest">ID: {assessment.id}</span>
+                                    <span className="text-[7px] font-bold text-slate-400 italic">EARTH1919 SYNC</span>
                                 </div>
+                                <button onClick={handleSave} className="w-full sm:w-auto px-6 py-3 bg-primary-600 hover:bg-primary-500 text-white rounded-xl text-[9px] font-black uppercase tracking-[0.15em] transition-all shadow-glow-primary active:scale-95 flex items-center justify-center gap-2">
+                                    <Save size={12} strokeWidth={3} />
+                                    Commit
+                                </button>
                             </div>
                         </div>
                     </div>
 
                     {/* Detailed Itemized Telemetry (The Raw Table) */}
-                    <div className="bg-white dark:bg-matte-950 border dark:border-white/10 rounded-[2.5rem] overflow-hidden shadow-sm">
-                        <div className="p-8 border-b dark:border-white/5 flex items-center justify-between flex-wrap gap-4">
-                            <div>
-                                <h3 className="text-sm font-black text-slate-900 dark:text-white uppercase tracking-widest">Technical Item Telemetry</h3>
-                                <p className="text-[10px] text-slate-400 font-bold uppercase mt-1">Granular breakdown of every responder interaction</p>
-                            </div>
-                            <div className="px-4 py-2 bg-slate-100 dark:bg-white/5 rounded-xl border dark:border-white/10 font-mono text-[10px] text-slate-500">
-                                RECORD_COUNT: {responses.length} ITEMS
+                    <div className="bg-white dark:bg-matte-950 border dark:border-white/10 rounded-[2rem] overflow-hidden shadow-sm print:rounded-none print:border-slate-200 print-page-break-before">
+                        <div className="p-4 border-b dark:border-white/5 flex items-center justify-between print:bg-slate-50">
+                            <h3 className="text-[10px] font-black text-slate-900 dark:text-white uppercase tracking-widest print:text-slate-900">Telemetry Breakdown</h3>
+                            <div className="px-2 py-1 bg-slate-100 dark:bg-white/5 rounded-lg border dark:border-white/10 font-mono text-[8px] text-slate-500 print:bg-white">
+                                {responses.length} RECORDS
                             </div>
                         </div>
                         <div className="overflow-x-auto">
                             <table className="w-full text-left border-collapse">
-                                <thead className="bg-slate-50 dark:bg-white/5">
+                                <thead className="bg-slate-50 dark:bg-white/5 print:bg-slate-100">
                                     <tr>
-                                        <th className="px-8 py-4 text-[9px] font-black text-slate-400 uppercase tracking-widest">Query ID</th>
-                                        <th className="px-8 py-4 text-[9px] font-black text-slate-400 uppercase tracking-widest text-center">Outcome</th>
-                                        <th className="px-8 py-4 text-[9px] font-black text-slate-400 uppercase tracking-widest text-right">Latency</th>
-                                        <th className="px-8 py-4 text-[9px] font-black text-slate-400 uppercase tracking-widest text-right">Behavioral Signal</th>
+                                        <th className="px-6 py-3 text-[8px] font-black text-slate-400 uppercase tracking-widest print:text-slate-600">Query</th>
+                                        <th className="px-6 py-3 text-[8px] font-black text-slate-400 uppercase tracking-widest text-center print:text-slate-600">Score</th>
+                                        <th className="px-6 py-3 text-[8px] font-black text-slate-400 uppercase tracking-widest text-right print:text-slate-600">Latency</th>
+                                        <th className="px-6 py-3 text-[8px] font-black text-slate-400 uppercase tracking-widest text-right print:text-slate-600">Signal</th>
                                     </tr>
                                 </thead>
                                 <tbody className="divide-y dark:divide-white/5">
                                     {responses.map((r, i) => {
                                         const tag = getBehavioralTag(r);
                                         return (
-                                            <tr key={i} className="hover:bg-primary-500/5 transition-all group">
-                                                <td className="px-8 py-5">
-                                                    <span className="text-[11px] font-mono font-black text-slate-400 group-hover:text-primary-500 transition-colors uppercase">{r.id || 'NULL_ID'}</span>
+                                            <tr key={i} className="hover:bg-primary-500/5 transition-all group print:bg-white">
+                                                <td className="px-6 py-3">
+                                                    <span className="text-[9px] font-mono font-black text-slate-400 group-hover:text-primary-500 uppercase print:text-slate-600">{r.id || 'NULL'}</span>
                                                 </td>
-                                                <td className="px-8 py-5 text-center">
-                                                    <div className="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-slate-100 dark:bg-white/10 font-black text-xs text-slate-900 dark:text-white">
+                                                <td className="px-6 py-3 text-center">
+                                                    <div className="inline-flex items-center justify-center w-6 h-6 rounded bg-slate-100 dark:bg-white/10 font-black text-[10px] text-slate-900 dark:text-white print:bg-slate-50 print:text-slate-900">
                                                         {r.score}
                                                     </div>
                                                 </td>
-                                                <td className="px-8 py-5 text-right">
-                                                    <span className="text-xs font-mono font-bold text-slate-500">{parseFloat(r.time || 0).toFixed(3)}s</span>
+                                                <td className="px-6 py-3 text-right">
+                                                    <span className="text-[9px] font-mono font-bold text-slate-500 print:text-slate-700">{parseFloat(r.time || 0).toFixed(2)}s</span>
                                                 </td>
-                                                <td className="px-8 py-5 text-right">
+                                                <td className="px-6 py-3 text-right">
                                                     {tag ? (
-                                                        <span className={`text-[9px] font-black px-3 py-1.5 rounded-lg border uppercase tracking-tighter shadow-sm ${tagStyles[tag] || ''}`}>
+                                                        <span className={`text-[7px] font-black px-2 py-1 rounded border uppercase tracking-tighter shadow-sm ${tagStyles[tag] || ''} print:border-slate-200 print:text-slate-900`}>
                                                             {tag}
                                                         </span>
                                                     ) : (
-                                                        <span className="text-[9px] font-bold text-slate-300 dark:text-white/10 uppercase italic">Nominal</span>
+                                                        <span className="text-[7px] font-bold text-slate-300 dark:text-white/10 uppercase italic print:text-slate-400">Normal</span>
                                                     )}
                                                 </td>
                                             </tr>
@@ -460,27 +512,30 @@ const AssessmentDetail = ({ assessment, onClose, onUpdateAnnotation }) => {
                     </div>
 
                     {/* Environmental Telemetry Footer */}
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 pb-12">
-                        <div className="bg-white dark:bg-white/5 border dark:border-white/10 rounded-[2rem] p-8 space-y-6">
-                            <h4 className="text-[10px] font-black text-slate-500 uppercase tracking-widest flex items-center gap-2"><Settings size={14} /> System Telemetry</h4>
-                            <div className="space-y-4">
-                                <DetailRow label="Input Protocol" value={data.telemetry?.inputMode || 'HID/Mouse'} />
-                                <DetailRow label="Display Ratio" value={`${window.innerWidth}x${window.innerHeight}`} />
-                                <DetailRow label="Session Duration" value={`${data.timeTakenTotalSec || 0}s`} />
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pb-8 print:grid-cols-3 print:gap-2">
+                        <div className="bg-white dark:bg-white/5 border dark:border-white/10 rounded-2xl p-4 space-y-4 print:border-slate-200">
+                            <h4 className="text-[8px] font-black text-slate-500 uppercase tracking-widest flex items-center gap-1.5"><Settings size={10} /> System</h4>
+                            <div className="space-y-2">
+                                <DetailRow label="Input" value={data.telemetry?.lastInputMode || 'HID'} />
+                                <DetailRow label="Ratio" value={`${window.innerWidth}x${window.innerHeight}`} />
                             </div>
                         </div>
-                        <div className="bg-white dark:bg-white/5 border dark:border-white/10 rounded-[2rem] p-8 space-y-6">
-                            <h4 className="text-[10px] font-black text-slate-500 uppercase tracking-widest flex items-center gap-2"><ShieldCheck size={14} /> Security Audit</h4>
-                            <div className="space-y-4">
-                                <DetailRow label="Tab Blurs" value={data.telemetry?.blurCount || 0} subValue={(data.telemetry?.blurCount || 0) > 0 ? "Potential multi-tasking detected" : "Constant focus maintained"} />
-                                <DetailRow label="Integrity Score" value={integrityRating(data)} subValue="Calculated coefficient" />
+                        <div className="bg-white dark:bg-white/5 border dark:border-white/10 rounded-2xl p-4 space-y-4 print:border-slate-200">
+                            <h4 className="text-[8px] font-black text-slate-500 uppercase tracking-widest flex items-center gap-1.5"><ShieldCheck size={10} /> Audit</h4>
+                            <div className="space-y-2">
+                                <DetailRow label="Blurs" value={data.telemetry?.blurCount || 0} />
+                                <DetailRow label="Integrity" value={integrityRating(data).split(' ')[0]} />
                             </div>
                         </div>
-                        <div className="bg-matte-900 border border-white/10 rounded-[2rem] p-8 flex flex-col justify-center items-center text-center">
-                            <RefreshCw className="text-primary-500 mb-4 animate-spin-slow" size={32} />
-                            <h4 className="text-[10px] font-black text-white uppercase tracking-widest mb-1">Analysis Complete</h4>
-                            <p className="text-[9px] text-slate-500 font-bold uppercase tracking-wider">Report generated by Visual Intelligence Engine v2.4</p>
+                        <div className="bg-matte-900 border border-white/10 rounded-2xl p-4 flex flex-col justify-center items-center text-center print:bg-slate-100 print:text-slate-900 print:border-slate-200">
+                            <RefreshCw className="text-primary-500 mb-2 animate-spin-slow print:text-primary-600" size={20} />
+                            <h4 className="text-[8px] font-black text-white uppercase tracking-widest mb-0.5 print:text-slate-900">Verified</h4>
+                            <p className="text-[7px] text-slate-500 font-bold uppercase tracking-wider print:text-slate-600">Visual Intelligence Engine v2.4</p>
                         </div>
+                    </div>
+
+                    <div className="hidden print:block text-center text-[8px] text-slate-400 font-bold uppercase tracking-[0.3em] pt-12 border-t border-slate-100">
+                        Generated by Visualize Platform © {new Date().getFullYear()} - Confidential Researcher Report
                     </div>
 
                 </div>
