@@ -149,11 +149,16 @@ const AssessmentDetail = ({ assessment, onClose, onUpdateAnnotation }) => {
         if (!r) return null;
         const t = parseFloat(r.time || 0);
         const s = Number(r.score || 0);
-        if (t > 25) return 'DELIBERATE';
-        if (t < 8 && s === 2) return 'CONFIDENT';
-        if (t < 5 && s < 2) return 'RAPID';
-        if (t > 12 && t < 22) return 'FOCUSED';
-        return null;
+
+        let label = null;
+        let color = '';
+
+        if (t > 25) { label = 'DELIBERATE'; color = 'bg-indigo-500'; }
+        else if (t < 8 && s === 2) { label = 'CONFIDENT'; color = 'bg-emerald-500'; }
+        else if (t < 5 && s < 2) { label = 'RAPID'; color = 'bg-rose-500'; }
+        else if (t > 12 && t < 22) { label = 'FOCUSED'; color = 'bg-primary-500'; }
+
+        return label ? { label, color } : null;
     };
 
     const tagStyles = {
