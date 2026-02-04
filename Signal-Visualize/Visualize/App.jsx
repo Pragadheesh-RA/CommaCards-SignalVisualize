@@ -249,7 +249,7 @@ export default function Dashboard() {
         localStorage.removeItem('auth_token');
         localStorage.removeItem('auth_user');
         setUser(null);
-        addToast("Logged in successfully", "success");
+        addToast("Session ended safely", "info");
         setShowLogoutConfirm(false);
     };
 
@@ -276,7 +276,13 @@ export default function Dashboard() {
         if (!rawData || !Array.isArray(rawData)) return;
         const totalCount = rawData.length;
         if (totalCount === 0) {
-            setProcessedData({ stats: { total: 0, avgScore: 0, avgTime: 0, flaggedCount: 0 }, availableArchetypes: ["All"] });
+            setProcessedData({
+                stats: { total: 0, avgScore: 0, avgTime: 0, flaggedCount: 0 },
+                availableArchetypes: ["All"],
+                distributionData: [],
+                archetypeData: [],
+                colors: ['#6366f1', '#ec4899', '#f59e0b', '#10b981', '#8b5cf6', '#ef4444']
+            });
             return;
         }
 

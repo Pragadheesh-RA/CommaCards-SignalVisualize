@@ -634,7 +634,7 @@ const AssessmentDetail = ({ assessment, onClose, onUpdateAnnotation }) => {
                     </div>
                 </div>
             </div>
-        </div >
+        </div>
     );
 };
 
