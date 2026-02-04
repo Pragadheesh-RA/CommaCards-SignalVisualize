@@ -431,7 +431,26 @@ export default function Dashboard() {
     if (!user) return <LoginScreen onLogin={setUser} API_BASE_URL={API_BASE_URL} />;
 
     return (
-        <div className="min-h-screen bg-slate-50 dark:bg-[#070b14] flex flex-col lg:flex-row transition-colors duration-500 overflow-x-hidden">
+        <div className="min-h-screen bg-slate-50 dark:bg-[#070b14] flex flex-col lg:flex-row transition-colors duration-500 overflow-x-hidden print:bg-white">
+            <style dangerouslySetInnerHTML={{
+                __html: `
+                @media print {
+                    @page { size: A4; margin: 10mm; }
+                    body { background: white !important; }
+                    .no-print { display: none !important; }
+                    .print-break-inside-avoid { break-inside: avoid; }
+                    main { margin-left: 0 !important; padding: 0 !important; width: 100% !important; }
+                    .max-w-7xl { max-width: 100% !important; }
+                    .lg\\:ml-72 { margin-left: 0 !important; }
+                    
+                    /* Force dark charts to be visible on white */
+                    .recharts-responsive-container { width: 100% !important; min-height: 350px !important; }
+                    
+                    /* Grid adjustments for print */
+                    .xl\\:grid-cols-4 { grid-template-columns: repeat(2, 1fr) !important; }
+                    .lg\\:grid-cols-2 { grid-template-columns: 1fr !important; }
+                }
+            `}} />
             {/* Navigation Component */}
             <Sidebar
                 user={user}
@@ -443,8 +462,8 @@ export default function Dashboard() {
             />
 
             {/* Main Content Area */}
-            <main className="flex-1 p-6 lg:p-10 lg:ml-72 transition-all">
-                <div className="max-w-7xl mx-auto space-y-10 animate-fade-in">
+            <main className="flex-1 p-6 lg:p-10 lg:ml-72 transition-all print:ml-0 print:p-0">
+                <div id="dashboard-report-root" className="max-w-7xl mx-auto space-y-10 animate-fade-in print:space-y-6">
 
                     {activeView === 'dashboard' && (
                         <>
@@ -481,11 +500,32 @@ export default function Dashboard() {
                                         Export Data
                                     </button>
                                     <button
+                                        onClick={() => window.print()}
+                                        className="flex items-center gap-2 px-5 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest bg-primary-500 text-white hover:bg-primary-600 transition-all shadow-glow-primary no-print"
+                                    >
+                                        <FileText size={14} />
+                                        Generate Report
+                                    </button>
+                                    <button
                                         onClick={handleClear}
-                                        className="px-5 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest text-slate-400 hover:text-rose-500 transition-all"
+                                        className="px-5 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest text-slate-400 hover:text-rose-500 transition-all no-print"
                                     >
                                         Clear Data
                                     </button>
+                                </div>
+                            </div>
+
+                            {/* Print-Only Dashboard Header */}
+                            <div className="hidden print:block mb-8 border-b-2 border-slate-900 pb-8">
+                                <div className="flex justify-between items-start">
+                                    <div>
+                                        <div className="bg-slate-900 text-white px-3 py-1 rounded text-[8px] font-black uppercase tracking-widest mb-3">Institutional Analytic Report</div>
+                                        <h1 className="text-4xl font-black text-slate-900 uppercase tracking-tighter">Research Analytics<br />Dashboard Profile</h1>
+                                    </div>
+                                    <div className="text-right">
+                                        <p className="text-sm font-black text-slate-900">{new Date().toLocaleDateString('en-US', { day: '2-digit', month: 'short', year: 'numeric' })}</p>
+                                        <p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Cohort Reference: {rawData.length} Results</p>
+                                    </div>
                                 </div>
                             </div>
 
