@@ -49,7 +49,18 @@ const AssessmentDetail = ({ assessment, onClose, onUpdateAnnotation }) => {
     }
 
     const data = assessment.data || {};
-    const responses = Array.isArray(data.responses) ? data.responses : [];
+    // Handle both 'answers' (institutional schema) and 'responses' (legacy schema)
+    const rawResponses = Array.isArray(data.answers) ? data.answers : (Array.isArray(data.responses) ? data.responses : []);
+
+    // Enrich responses with telemetry latency if available
+    const responses = useMemo(() => {
+        const perQ = data.telemetry?.perQ || {};
+        return rawResponses.map(r => {
+            const qId = r.qId || r.id;
+            const t = perQ[qId]?.totalTimeOnQuestionMs ? (perQ[qId].totalTimeOnQuestionMs / 1000) : r.time;
+            return { ...r, id: qId, time: t };
+        });
+    }, [rawResponses, data.telemetry]);
 
     const handleSave = () => {
         try {

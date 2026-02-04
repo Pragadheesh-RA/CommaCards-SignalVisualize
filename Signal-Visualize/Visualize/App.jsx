@@ -520,11 +520,13 @@ export default function Dashboard() {
 
             {/* Modals & Overlays */}
             {showImportModal && <FileUpload onUpload={() => { fetchData(); addToast("Import successful", "success"); }} onClose={() => setShowImportModal(false)} />}
-            <AssessmentDetail
-                assessment={selectedAssessment}
-                onClose={() => setSelectedAssessment(null)}
-                onUpdateAnnotation={handleUpdateAnnotation}
-            />
+            {selectedAssessment && (
+                <AssessmentDetail
+                    assessment={selectedAssessment}
+                    onClose={() => setSelectedAssessment(null)}
+                    onUpdateAnnotation={handleUpdateAnnotation}
+                />
+            )}
 
             {/* Logout Confirmation Modal */}
             {showLogoutConfirm && (
