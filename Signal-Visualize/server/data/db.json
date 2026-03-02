@@ -7,5 +7,16 @@
     "annotations": {
       "flagged": false
     }
+  },
+  [
+  {
+    "id": "TEST_002",
+    "data": {
+      "score": 100
+    },
+    "annotations": {
+      "flagged": false
+    }
   }
+]
 ]
